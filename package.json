@@ -1,0 +1,24 @@
+{
+  "name": "moae-blog",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:client": "lerna run dev --scope=client",
+    "start:server": "lerna run start --scope=server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:client": "lerna run build --scope=client",
+    "serve:client": "lerna run serve --scope=client",
+    "add:client": "lerna add --scope=client",
+    "add:server": "lerna add --scope=server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
