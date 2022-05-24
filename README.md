@@ -3,7 +3,7 @@
 > ## 시작
 > ```bash
 > # 1. lerna 설치
-> npm install lerna -g
+> yarn add lerna
 > 
 > # 2. 패키지 설치
 > lerna bootstrap
