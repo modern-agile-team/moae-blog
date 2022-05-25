@@ -55,7 +55,6 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <TopBar type="scrollHeader" categories={categories} />
       <TopBar categories={categories} />
       <HotPosts />
       <CardSection>

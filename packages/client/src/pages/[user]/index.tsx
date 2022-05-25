@@ -31,7 +31,6 @@ const User = () => {
   };
   return (
     <div>
-      <TopBar type="scrollHeader" user="soonki" categories={categories} />
       <TopBar user="soonki" categories={categories} />
       <CardSection>
         <Card {...cardProps} />

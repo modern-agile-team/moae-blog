@@ -164,7 +164,6 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <TopBar type="scrollHeader" categories={categories} />
       <TopBar categories={categories} />
       <CardSection>
         {posts.map((post, index) => {

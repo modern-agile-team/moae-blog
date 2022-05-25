@@ -66,7 +66,6 @@ const a = "string";
 
   return (
     <div>
-      <TopBar type="scrollHeader" location="post" user="soonki" categories={categories} />
       <TopBar location="post" user="soonki" categories={categories} />
       <PostContainer>
         <PostHeader {...postExample} />
