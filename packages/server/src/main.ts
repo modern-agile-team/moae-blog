@@ -19,7 +19,7 @@ async function bootstrap() {
   );
 
   app.use(compression);
-  app.setGlobalPrefix('api', {
+  app.setGlobalPrefix('moae/api', {
     exclude: [{ path: 'health', method: RequestMethod.GET }],
   });
   app.use(bodyParser.json());
