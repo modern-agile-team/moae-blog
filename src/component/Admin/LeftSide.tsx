@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { AdminButton, AdminInput } from ".";
+import { AdminInput } from ".";
 
 const LeftSide = () => {
   return (
     <Wrapper>
       <AdminInput />
-      <AdminButton />
     </Wrapper>
   );
 };

@@ -1,16 +1,18 @@
 import styled from "styled-components";
+import { AdminButton, EmailList } from ".";
 
 const RightSide = () => {
-  return <Wrapper></Wrapper>;
+  return (
+    <Wrapper>
+      <EmailList />
+      <AdminButton />
+    </Wrapper>
+  );
 };
 
 export default RightSide;
 
 const Wrapper = styled.div`
-  border-radius: 3px;
   padding: 1rem;
-  border: 1px solid;
   width: 50%;
-  max-height: 500px;
-  overflow: auto;
 `;

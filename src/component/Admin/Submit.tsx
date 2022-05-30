@@ -8,10 +8,13 @@ const Submit = () => {
 export default Submit;
 
 const StyledButton = styled.button`
+  margin-top: 1rem;
+  width: 100%;
   padding: 0.5rem;
+  border-radius: 6px;
   background-color: ${theme.COLORS.MAIN};
   color: #fff;
-  border-radius: 6px;
+  border: none;
   &:hover {
     opacity: 0.9;
   }
