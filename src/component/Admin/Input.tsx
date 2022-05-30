@@ -12,5 +12,5 @@ const StyledInput = styled.input`
   border-radius: 6px;
   border: 1px solid ${theme.COLORS.MAIN};
   margin: 2rem 0;
-  width: 500px;
+  width: 300px;
 `;
