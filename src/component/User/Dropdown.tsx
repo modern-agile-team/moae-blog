@@ -1,24 +1,31 @@
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import styled from "styled-components";
 import theme from "../../styles/theme";
 
 const Dropdown = () => {
+  const session = useSession();
+
   const clickToLogout = () => {
     signOut();
   };
   return (
     <Wrapper>
       <ul>
-        <a href="/soonki">
+        <Link href="/soonki">
           <li>내 글</li>
-        </a>
-        <a href="/write">
+        </Link>
+        <Link href="/write">
           <li>글 작성</li>
-        </a>
+        </Link>
         <Link href="/.">
           <li onClick={clickToLogout}>로그아웃</li>
         </Link>
+        {session.status === "authenticated" && (
+          <Link href="/admin">
+            <li>admin</li>
+          </Link>
+        )}
       </ul>
     </Wrapper>
   );
