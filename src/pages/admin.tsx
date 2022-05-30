@@ -1,3 +1,4 @@
+import { AdminInput, AdminWrapper } from "../component/Admin";
 import TopBar from "../component/TopBar/TopBar";
 
 const Admin = () => {
@@ -36,6 +37,9 @@ const Admin = () => {
   return (
     <div>
       <TopBar categories={categories} />
+      <AdminWrapper>
+        <AdminInput />
+      </AdminWrapper>
     </div>
   );
 };
