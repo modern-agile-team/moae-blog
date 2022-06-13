@@ -1,10 +1,19 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { AdminButton, EmailList } from ".";
+import userEmailSelector from "../../recoil/userEmailSelector";
 
-const RightSide = () => {
+interface IRightSide {
+  userEmail?: string;
+}
+
+const RightSide = ({ userEmail }: IRightSide) => {
+  const userEmailList = useRecoilValue(userEmailSelector);
+  const filteredUserEmailList = userEmail ? userEmailList.filter((el) => el.includes(userEmail)) : userEmailList;
+
   return (
     <Wrapper>
-      <EmailList />
+      <EmailList userEmailList={filteredUserEmailList} />
       <AdminButton />
     </Wrapper>
   );

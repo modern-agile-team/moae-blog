@@ -1,10 +1,15 @@
+import React from "react";
 import styled from "styled-components";
 import { AdminInput } from ".";
 
-const LeftSide = () => {
+interface ILeftSide {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const LeftSide = ({ onChange }: ILeftSide) => {
   return (
     <Wrapper>
-      <AdminInput />
+      <AdminInput onChange={onChange} />
     </Wrapper>
   );
 };

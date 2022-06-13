@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import theme from "../../styles/theme";
 
-const Input = () => {
-  return <StyledInput type="email" placeholder="이메일" />;
+interface IInput {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Input = ({ onChange }: IInput) => {
+  return <StyledInput type="email" placeholder="이메일" onChange={onChange} />;
 };
 
 export default Input;

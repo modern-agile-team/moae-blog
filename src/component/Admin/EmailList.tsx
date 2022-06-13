@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import EmailItem from "./EmailItem";
 
-const EmailList = () => {
+interface IEmailList {
+  userEmailList: string[];
+}
+
+const EmailList = ({ userEmailList }: IEmailList) => {
   return (
     <Wrapper>
-      <EmailItem email="alstnsrl98@gmail.com" />
-      <EmailItem email="alstnsrl97@gmail.com" />
-      <EmailItem email="alstnsrl96@gmail.com" />
-      <EmailItem email="alstnsrl95@gmail.com" />
-      <EmailItem email="alstnsrl94@gmail.com" />
-      <EmailItem email="alstnsrl93@gmail.com" />
-      <EmailItem email="alstnsrl92@gmail.com" />
-      <EmailItem email="alstnsrl91@gmail.com" />
-      <EmailItem email="alstnsrl90@gmail.com" />
+      {userEmailList.map((email) => {
+        return <EmailItem email={email} key={email} />;
+      })}
     </Wrapper>
   );
 };

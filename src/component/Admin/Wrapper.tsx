@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { LeftSide, RightSide } from ".";
 
 const AdminWrapper = () => {
+  const [userEmail, setUserEmail] = useState<string | undefined>(undefined);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserEmail(e.target.value);
+  };
+
   return (
     <Wrapper>
-      <LeftSide />
-      <RightSide />
+      <LeftSide onChange={onChange} />
+      <RightSide userEmail={userEmail} />
     </Wrapper>
   );
 };
