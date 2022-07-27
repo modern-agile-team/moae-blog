@@ -1,24 +1,28 @@
 import styled from "styled-components";
 import { GoSearch } from "react-icons/go";
 import theme from "../../styles/theme";
-import React from "react";
-import { useSession } from "next-auth/react";
-import UserSection from "./UserSection";
+import React, { useEffect, useState } from "react";
 import LoginSection from "./LoginSection";
 import TitleSection from "./TitleSection";
 import { useRouter } from "next/router";
-
+import UserSection from "./UserSection";
 interface Props {
   user?: string;
 }
 
 const Header = ({ user }: Props) => {
+  const [token, setToken] = useState<string>("");
   const router = useRouter();
-  const session = useSession();
 
   const toggleIsSearchBarOpen = () => {
     router.push("/searching");
   };
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      setToken(localStorage.getItem("token") || "");
+    }
+  }, []);
 
   return (
     <Wrapper>
@@ -27,13 +31,13 @@ const Header = ({ user }: Props) => {
         <button id="search-btn" onClick={toggleIsSearchBarOpen}>
           <GoSearch size={20} />
         </button>
-        {session.data ? <UserSection img={session.data.user?.image} /> : <LoginSection />}
+        {token ? <UserSection /> : <LoginSection />}
       </section>
     </Wrapper>
   );
 };
 
-export default React.memo(Header);
+export default Header;
 
 const Wrapper = styled.header`
   display: flex;
