@@ -8,12 +8,12 @@ interface IRightSide {
 }
 
 const RightSide = ({ userEmail }: IRightSide) => {
-  const userEmailList = useRecoilValue(userEmailSelector);
-  const filteredUserEmailList = userEmail ? userEmailList.filter((el) => el.includes(userEmail)) : userEmailList;
+  // const userEmailList = useRecoilValue(userEmailSelector);
+  // const filteredUserEmailList = userEmail ? userEmailList.filter((el) => el.includes(userEmail)) : userEmailList;
 
   return (
     <Wrapper>
-      <EmailList userEmailList={filteredUserEmailList} />
+      <EmailList userEmailList={[""]} />
       <AdminButton />
     </Wrapper>
   );
