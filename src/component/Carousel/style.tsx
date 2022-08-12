@@ -22,6 +22,8 @@ export const Wrapper = styled.div<{
   width: ${(props) => props.width || "100%"};
   position: relative;
   margin: 0 auto;
+  background: rgb(60, 47, 37);
+  padding: 30px 0;
   ${({ arrowLocation }) => {
     const location: ArrowLocationType = {
       top: undefined,
