@@ -13,7 +13,6 @@ export default CardSection;
 
 const Wrapper = styled.section`
   padding: 0 6rem;
-  margin: -1rem;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
