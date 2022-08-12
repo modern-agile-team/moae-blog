@@ -1,10 +1,8 @@
 import React, { cloneElement, ReactElement, useMemo } from "react";
 import { useCarousel } from "./hooks";
-import { TbPlayerPlay, TbPlayerPause } from "react-icons/tb";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { ChildrenWrapper, Container, Player, Wrapper } from "./style";
+import { ChildrenWrapper, Container, Wrapper } from "./style";
 interface Props {
-  id?: string;
   children: React.ReactNode;
   width?: string;
   transition?: number;
@@ -12,17 +10,12 @@ interface Props {
   slideToShow?: number;
   isArrowShow?: boolean;
   isAutoplay?: boolean;
-  isAutoplayControl?: boolean;
   arrowLocation?: "bottom" | "mid-side" | "top" | "bottom-side" | "top-side";
-  playerLocation?: "bottom-mid" | "bottom-left" | "bottom-right" | "top-mid" | "top-left" | "top-right";
   prevArrowIcon?: ReactElement;
   nextArrowIcon?: ReactElement;
-  startAutoplayIcon?: ReactElement;
-  pauseAutoplayIcon?: ReactElement;
 }
 
 const Carousel = ({
-  id,
   children,
   width,
   transition = 1000,
@@ -30,13 +23,9 @@ const Carousel = ({
   slideToShow = 1,
   isArrowShow = true,
   isAutoplay = false,
-  isAutoplayControl = true,
   arrowLocation = "mid-side",
-  playerLocation = "bottom-mid",
   prevArrowIcon = <FiChevronLeft />,
   nextArrowIcon = <FiChevronRight />,
-  startAutoplayIcon = <TbPlayerPlay />,
-  pauseAutoplayIcon = <TbPlayerPause />,
 }: Props) => {
   const { itemList, showIndex, transitionTime, listeners, itemLength } = useCarousel({
     children,
@@ -48,8 +37,6 @@ const Carousel = ({
   const { showPrev, showNext, stopPlayCarousel, playCarousel } = listeners;
   const sizedPrevArrowIcon = useMemo(() => cloneElement(prevArrowIcon), [prevArrowIcon]);
   const sizedNextArrowIcon = useMemo(() => cloneElement(nextArrowIcon), [nextArrowIcon]);
-  const sizedStartAutoplayIcon = useMemo(() => cloneElement(startAutoplayIcon), [startAutoplayIcon]);
-  const sizedPauseAutoplayIcon = useMemo(() => cloneElement(pauseAutoplayIcon), [pauseAutoplayIcon]);
 
   return (
     <Wrapper arrowLocation={arrowLocation} width={width} {...listeners}>
@@ -77,16 +64,6 @@ const Carousel = ({
           {sizedNextArrowIcon}
         </div>
       )}
-      {isAutoplayControl && (
-        <Player playerLocation={playerLocation}>
-          <div className="icon-wrapper" id="start-button" onClick={playCarousel}>
-            {sizedStartAutoplayIcon}
-          </div>
-          <div className="icon-wrapper" id="pause-button" onClick={stopPlayCarousel}>
-            {sizedPauseAutoplayIcon}
-          </div>
-        </Player>
-      )}
     </Wrapper>
   );
 };
@@ -103,6 +80,4 @@ Carousel.defaultProps = {
   arrowLocation: "mid-side",
   prevArrowIcon: <FiChevronLeft />,
   nextArrowIcon: <FiChevronRight />,
-  startAutoplayIcon: <TbPlayerPlay />,
-  pauseAutoplayIcon: <TbPlayerPause />,
 };
