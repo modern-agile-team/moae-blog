@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { TextInput } from "../../component/Input";
 
 type SignUpType = {
   username: string;
@@ -43,10 +44,10 @@ const SignUp = () => {
   return (
     <div>
       <InputWrap>
-        <input id="username" type="text" placeholder="username" onChange={onChange} />
-        <input id="password" type="password" placeholder="password" onChange={onChange} />
-        <input id="password2" type="password" placeholder="password-check" onChange={onChange} />
-        <input id="email" type="email" placeholder="email" onChange={onChange} />
+        <TextInput id="username" type="text" placeholder="ID" onChange={onChange} />
+        <TextInput id="password" type="password" placeholder="Password" onChange={onChange} />
+        <TextInput id="password2" type="password" placeholder="Confirm Password" onChange={onChange} />
+        <TextInput id="email" type="email" placeholder="Email" onChange={onChange} />
         <button type="button" onClick={onSubmit}>
           회원가입
         </button>
@@ -62,11 +63,4 @@ const InputWrap = styled.div`
   flex-direction: column;
   margin: 0 auto;
   max-width: 700px;
-
-  input {
-    width: 100%;
-    margin: 15px 0;
-    border-radius: 6px;
-    padding: 6px 10px;
-  }
 `;
