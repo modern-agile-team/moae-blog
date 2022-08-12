@@ -1,6 +1,12 @@
 import { atom } from "recoil";
 
-const postWriting = atom({
+interface IPostWritingType {
+  title: string;
+  tags: string[];
+  description: string;
+}
+
+const postWriting = atom<IPostWritingType>({
   key: "postWriting",
   default: {
     title: "",
