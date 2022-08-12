@@ -1,10 +1,10 @@
-import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
-import React, { cloneElement, ReactElement, useMemo, useState } from "react";
-import styled, { css } from "styled-components";
-import { useInterval } from "./hooks";
-import theme from "../../styles/theme";
-
+import React, { cloneElement, ReactElement, useMemo } from "react";
+import { useCarousel } from "./hooks";
+import { TbPlayerPlay, TbPlayerPause } from "react-icons/tb";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { ChildrenWrapper, Container, Player, Wrapper } from "./style";
 interface Props {
+  id?: string;
   children: React.ReactNode;
   width?: string;
   transition?: number;
@@ -12,19 +12,17 @@ interface Props {
   slideToShow?: number;
   isArrowShow?: boolean;
   isAutoplay?: boolean;
+  isAutoplayControl?: boolean;
   arrowLocation?: "bottom" | "mid-side" | "top" | "bottom-side" | "top-side";
-  prevArrowIcon?: ReactElement<{ size: number }>;
-  nextArrowIcon?: ReactElement<{ size: number }>;
+  playerLocation?: "bottom-mid" | "bottom-left" | "bottom-right" | "top-mid" | "top-left" | "top-right";
+  prevArrowIcon?: ReactElement;
+  nextArrowIcon?: ReactElement;
+  startAutoplayIcon?: ReactElement;
+  pauseAutoplayIcon?: ReactElement;
 }
 
-type ArrowLocationType = {
-  top?: string;
-  bottom?: string;
-  side?: string;
-  translateY?: string;
-};
-
 const Carousel = ({
+  id,
   children,
   width,
   transition = 1000,
@@ -32,88 +30,41 @@ const Carousel = ({
   slideToShow = 1,
   isArrowShow = true,
   isAutoplay = false,
+  isAutoplayControl = true,
   arrowLocation = "mid-side",
-  prevArrowIcon = <FaArrowCircleLeft />,
-  nextArrowIcon = <FaArrowCircleRight />,
+  playerLocation = "bottom-mid",
+  prevArrowIcon = <FiChevronLeft />,
+  nextArrowIcon = <FiChevronRight />,
+  startAutoplayIcon = <TbPlayerPlay />,
+  pauseAutoplayIcon = <TbPlayerPause />,
 }: Props) => {
-  const [showIndex, setShowIndex] = useState<number>(0);
-  const [coordinateX, setCoordinateX] = useState(0);
-
-  const childrenLen = useMemo(() => React.Children.toArray(children).length, [children]);
-  const lastChildIndex = useMemo(
-    () => Math.floor((childrenLen - 1) / slideToShow),
-    [childrenLen, slideToShow]
-  );
-
-  const showPrev = () => {
-    if (showIndex === 0) return setShowIndex(() => lastChildIndex);
-    setShowIndex((prev) => prev - 1);
-  };
-
-  const showNext = () => {
-    if (showIndex === lastChildIndex) return setShowIndex(() => 0);
-    setShowIndex((prev) => prev + 1);
-  };
-
-  /* These const variables are ArrowIcons received to props */
+  const { itemList, showIndex, transitionTime, listeners, itemLength } = useCarousel({
+    children,
+    slideToShow,
+    transition,
+    autoplaySpeed,
+    isAutoplay,
+  });
+  const { showPrev, showNext, stopPlayCarousel, playCarousel } = listeners;
   const sizedPrevArrowIcon = useMemo(() => cloneElement(prevArrowIcon), [prevArrowIcon]);
   const sizedNextArrowIcon = useMemo(() => cloneElement(nextArrowIcon), [nextArrowIcon]);
-
-  /* useInterval is setTimeout custom hook */
-  useInterval(
-    () => {
-      if (isAutoplay) showNext();
-      else return;
-    },
-    autoplaySpeed,
-    [showIndex]
-  );
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setCoordinateX(e.touches[0].clientX);
-  };
-
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (coordinateX - e.changedTouches[0].clientX > 100) showNext();
-    if (e.changedTouches[0].clientX - coordinateX > 100) showPrev();
-    setCoordinateX(0);
-  };
-
-  const onMouseDown = (e: React.MouseEvent) => {
-    setCoordinateX(e.clientX);
-  };
-
-  const onMouseUp = (e: React.MouseEvent) => {
-    if (coordinateX - e.clientX > 100) showNext();
-    if (e.clientX - coordinateX > 100) showPrev();
-    setCoordinateX(0);
-  };
+  const sizedStartAutoplayIcon = useMemo(() => cloneElement(startAutoplayIcon), [startAutoplayIcon]);
+  const sizedPauseAutoplayIcon = useMemo(() => cloneElement(pauseAutoplayIcon), [pauseAutoplayIcon]);
 
   return (
-    <Wrapper
-      arrowLocation={arrowLocation}
-      width={width}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-    >
+    <Wrapper arrowLocation={arrowLocation} width={width} {...listeners}>
       <h3>이주의 게시글</h3>
       {isArrowShow && (
         <div className="icon-wrapper" id="prev-button" onClick={showPrev}>
           {sizedPrevArrowIcon}
         </div>
       )}
-      <Container len={childrenLen} transition={transition} showIndex={showIndex}>
+      <Container len={itemLength} transition={transitionTime} showIndex={showIndex}>
         <div className="carousel-wrapper">
           <div className="carousel-container">
-            {React.Children.map(children, (child) => {
+            {itemList.map((child, index) => {
               return (
-                <ChildrenWrapper
-                  len={childrenLen}
-                  slideToShow={slideToShow}
-                  key={child?.toString()}
-                >
+                <ChildrenWrapper len={itemLength} slideToShow={slideToShow} key={index}>
                   {child}
                 </ChildrenWrapper>
               );
@@ -122,9 +73,19 @@ const Carousel = ({
         </div>
       </Container>
       {isArrowShow && (
-        <div className="icon-wrapper" id="next-button" onClick={showNext}>
+        <div className="arrow-icon-wrapper" id="next-button" onClick={showNext}>
           {sizedNextArrowIcon}
         </div>
+      )}
+      {isAutoplayControl && (
+        <Player playerLocation={playerLocation}>
+          <div className="icon-wrapper" id="start-button" onClick={playCarousel}>
+            {sizedStartAutoplayIcon}
+          </div>
+          <div className="icon-wrapper" id="pause-button" onClick={stopPlayCarousel}>
+            {sizedPauseAutoplayIcon}
+          </div>
+        </Player>
       )}
     </Wrapper>
   );
@@ -138,114 +99,10 @@ Carousel.defaultProps = {
   slideToShow: 1,
   isArrowShow: true,
   isAutoplay: false,
+  isAutoplayControl: true,
   arrowLocation: "mid-side",
-  prevArrowIcon: <FaArrowCircleLeft />,
-  nextArrowIcon: <FaArrowCircleRight />,
+  prevArrowIcon: <FiChevronLeft />,
+  nextArrowIcon: <FiChevronRight />,
+  startAutoplayIcon: <TbPlayerPlay />,
+  pauseAutoplayIcon: <TbPlayerPause />,
 };
-
-const Wrapper = styled.div<{
-  arrowLocation: "bottom" | "mid-side" | "top" | "bottom-side" | "top-side";
-  width?: string;
-}>`
-  background: ${theme.COLORS.MAIN};
-  padding: 2rem 0;
-  width: ${(props) => props.width || "100%"};
-  position: relative;
-  margin: 0 auto;
-  ${({ arrowLocation }) => {
-    const location: ArrowLocationType = {
-      top: undefined,
-      bottom: undefined,
-      side: undefined,
-      translateY: undefined,
-    };
-
-    const [heigthLocation, sideLocation] = arrowLocation.split("-");
-
-    if (sideLocation === "side") location.side = "5%";
-    else location.side = "50%";
-
-    switch (heigthLocation) {
-      case "top":
-        location.bottom = "100%";
-        break;
-      case "bottom":
-        location.top = "90%";
-        break;
-      case "mid":
-        location.top = "50%";
-        location.translateY = "-50%";
-        break;
-    }
-
-    const { top, bottom, side, translateY } = location;
-
-    return css`
-      .icon-wrapper {
-        position: absolute;
-        top: ${top};
-        bottom: ${bottom};
-        transform: translateY(${translateY});
-        z-index: 3;
-        cursor: pointer;
-      }
-      #next-button {
-        ${sideLocation === "side" ? "right" : "left"}: ${side};
-      }
-      #prev-button {
-        ${sideLocation === "side" ? "left" : "right"}: ${side};
-      }
-    `;
-  }}
-  .icon-wrapper {
-    font-size: 25px;
-    svg {
-      color: #ececec;
-    }
-  }
-  @media (max-width: 568px) {
-    padding: 1rem 0;
-  }
-`;
-
-const Container = styled.div<{
-  len: number;
-  transition: number;
-  showIndex: number;
-}>`
-  overflow: hidden;
-  .carousel-wrapper {
-    width: 100%;
-  }
-  .carousel-container {
-    display: flex;
-    position: relative;
-    transition: ${(props) => props.transition / 1000}s;
-    width: ${(props) => `calc(${props.len} * 100%)`};
-    transform: ${(props) => `translateX(${(-props.showIndex * 100) / props.len}%)`};
-  }
-`;
-
-const ChildrenWrapper = styled.div<{
-  slideToShow: number;
-  len: number;
-}>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  ${({ len, slideToShow }) => {
-    if (slideToShow === 1) {
-      return css`
-        width: 100%;
-      `;
-    } else {
-      return css`
-        width: calc(100% / ${len * slideToShow});
-      `;
-    }
-  }}
-  @media (max-width: 568px) {
-    padding: 0;
-  }
-`;
