@@ -20,28 +20,6 @@ const GlobalRecoilStateWrapper = ({ children }: { children: React.ReactNode }) =
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const categories = [
-    {
-      id: "1283078as",
-      name: "Front-End",
-      link: "/categori/frontend",
-    },
-    {
-      id: "1237uyxzc",
-      name: "Back-End",
-      link: "/categori/backend",
-    },
-    {
-      id: "123213uyxzc",
-      name: "Design",
-      link: "/categori/design",
-    },
-    {
-      id: "1237asdyxzc",
-      name: "Computer Science",
-      link: "/categori/computerscience",
-    },
-  ];
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -49,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <SessionProvider session={pageProps.session}>
           <RecoilRoot>
             <GlobalRecoilStateWrapper>
-              <TopBar categories={categories} />
+              <TopBar />
               <Component {...pageProps} />
             </GlobalRecoilStateWrapper>
           </RecoilRoot>

@@ -1,15 +1,10 @@
 import { throttle } from "lodash";
+import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled, { css } from "styled-components";
 import theme from "../../styles/theme";
-import { CategoriesType } from "../../types/categories";
 import { Categori } from "../Categori";
 import { Header } from "../Header";
-
-interface Props extends CategoriesType {
-  location?: "post";
-  user?: string;
-}
 
 interface ScrollType {
   value: number;
@@ -17,8 +12,34 @@ interface ScrollType {
   scrollUpTimes: number;
 }
 
-const TopBar = ({ location, user, categories }: Props) => {
+const TopBar = () => {
   const [pageY, setPageY] = useState<ScrollType>({ value: 0, direction: "down", scrollUpTimes: 0 });
+  const user = "";
+  const router = useRouter();
+
+  const location = router.pathname;
+  const categories = [
+    {
+      id: "1283078as",
+      name: "Front-End",
+      link: "/categori/frontend",
+    },
+    {
+      id: "1237uyxzc",
+      name: "Back-End",
+      link: "/categori/backend",
+    },
+    {
+      id: "123213uyxzc",
+      name: "Design",
+      link: "/categori/design",
+    },
+    {
+      id: "1237asdyxzc",
+      name: "Computer Science",
+      link: "/categori/computerscience",
+    },
+  ];
 
   const detectScroll = useCallback(() => {
     setPageY(({ value, scrollUpTimes }) => {
@@ -37,7 +58,7 @@ const TopBar = ({ location, user, categories }: Props) => {
   return (
     <Container pageY={pageY}>
       <Header user={user} />
-      {location !== "post" && location !== "write" && <Categori categories={categories} />}
+      {location !== "/post" && location !== "/write" && <Categori categories={categories} />}
     </Container>
   );
 };
