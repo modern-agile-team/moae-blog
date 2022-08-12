@@ -131,7 +131,9 @@ const useCarousel = ({
   }, []);
 
   useEffect(() => {
-    setTransitionTime(transition);
+    setTimeout(() => {
+      setTransitionTime(transition);
+    }, transition);
   }, []);
 
   return {
