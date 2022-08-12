@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import React, { useEffect } from "react";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 import deviceAtom from "../recoil/deviceAtom";
+import TopBar from "../component/TopBar/TopBar";
 
 const GlobalRecoilStateWrapper = ({ children }: { children: React.ReactNode }) => {
   const setDevice = useSetRecoilState(deviceAtom);
@@ -19,6 +20,28 @@ const GlobalRecoilStateWrapper = ({ children }: { children: React.ReactNode }) =
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const categories = [
+    {
+      id: "1283078as",
+      name: "Front-End",
+      link: "/categori/frontend",
+    },
+    {
+      id: "1237uyxzc",
+      name: "Back-End",
+      link: "/categori/backend",
+    },
+    {
+      id: "123213uyxzc",
+      name: "Design",
+      link: "/categori/design",
+    },
+    {
+      id: "1237asdyxzc",
+      name: "Computer Science",
+      link: "/categori/computerscience",
+    },
+  ];
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -26,6 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <SessionProvider session={pageProps.session}>
           <RecoilRoot>
             <GlobalRecoilStateWrapper>
+              <TopBar categories={categories} />
               <Component {...pageProps} />
             </GlobalRecoilStateWrapper>
           </RecoilRoot>

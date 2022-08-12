@@ -1,5 +1,4 @@
 import { CommentSection, PostArticle, PostContainer, PostHeader } from "../../component/Posts";
-import TopBar from "../../component/TopBar/TopBar";
 import { CommentType } from "../../types/comment";
 
 const Post = () => {
@@ -21,39 +20,6 @@ const a = "string";
   `,
   };
 
-  const categories = [
-    {
-      id: "1283078as",
-      name: "Front-End",
-      link: "frontend",
-    },
-    {
-      id: "1237uyxzc",
-      name: "Back-End",
-      link: "backend",
-    },
-    {
-      id: "123213uyxzc",
-      name: "Design",
-      link: "design",
-    },
-    {
-      id: "1237asdyxzc",
-      name: "Computer Science",
-      link: "computerscience",
-    },
-    {
-      id: "1237asdyxzc",
-      name: "Computer Science",
-      link: "computerscience",
-    },
-    {
-      id: "1237asdyxzc",
-      name: "Computer Science",
-      link: "computerscience",
-    },
-  ];
-
   const commentList: CommentType[] = [
     {
       id: "",
@@ -66,7 +32,6 @@ const a = "string";
 
   return (
     <div>
-      <TopBar location="post" user="soonki" categories={categories} />
       <PostContainer>
         <PostHeader {...postExample} />
         <PostArticle {...postExample} />

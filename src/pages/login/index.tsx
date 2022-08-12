@@ -2,7 +2,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styled from "styled-components";
-import TopBar from "../../component/TopBar/TopBar";
 
 type LoginType = {
   username: string;
@@ -10,29 +9,6 @@ type LoginType = {
 };
 
 const Login = () => {
-  const categories = [
-    {
-      id: "1283078as",
-      name: "Front-End",
-      link: "/categori/frontend",
-    },
-    {
-      id: "1237uyxzc",
-      name: "Back-End",
-      link: "/categori/backend",
-    },
-    {
-      id: "123213uyxzc",
-      name: "Design",
-      link: "/categori/design",
-    },
-    {
-      id: "1237asdyxzc",
-      name: "Computer Science",
-      link: "/categori/computerscience",
-    },
-  ];
-
   const [inputStatus, setInputStatus] = useState<LoginType>({
     username: "",
     password: "",
@@ -64,7 +40,6 @@ const Login = () => {
 
   return (
     <div>
-      <TopBar categories={categories} />
       <InputWrap>
         <input id="username" type="text" placeholder="username" onChange={onChange} />
         <input id="password" type="password" placeholder="password" onChange={onChange} />
