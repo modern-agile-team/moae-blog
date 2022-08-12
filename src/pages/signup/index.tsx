@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Button } from "../../component/Button";
 import { TextInput } from "../../component/Input";
 
 type SignUpType = {
@@ -25,7 +26,7 @@ const SignUp = () => {
     setInputStatus({ ...inputStatus, [id]: value });
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const data = { ...inputStatus };
       await axios({
@@ -42,25 +43,44 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <InputWrap>
-        <TextInput id="username" type="text" placeholder="ID" onChange={onChange} />
-        <TextInput id="password" type="password" placeholder="Password" onChange={onChange} />
-        <TextInput id="password2" type="password" placeholder="Confirm Password" onChange={onChange} />
-        <TextInput id="email" type="email" placeholder="Email" onChange={onChange} />
-        <button type="button" onClick={onSubmit}>
-          회원가입
-        </button>
-      </InputWrap>
-    </div>
+    <InputWrap>
+      <TextInput id="username" type="text" placeholder="ID" onChange={onChange} />
+      <TextInput id="password" type="password" placeholder="Password" onChange={onChange} />
+      <TextInput id="password2" type="password" placeholder="Confirm Password" onChange={onChange} />
+      <TextInput id="email" type="email" placeholder="Email" onChange={onChange} />
+      <SignUpButton type="button" onClick={onSubmit} placeholder="회원가입" />
+    </InputWrap>
   );
 };
 
 export default SignUp;
 
 const InputWrap = styled.div`
+  position: relative;
+  top: 50px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   max-width: 700px;
+`;
+
+const SignUpButton = styled(Button)`
+  position: absolute;
+  width: 30%;
+  top: 100%;
+  right: 0;
+  &:hover {
+    animation: hover 2s infinite;
+  }
+  @keyframes hover {
+    0% {
+      background-color: rgb(60, 47, 37);
+    }
+    50% {
+      background-color: rgb(92, 72, 56);
+    }
+    100% {
+      background-color: rgb(60, 47, 37);
+    }
+  }
 `;
