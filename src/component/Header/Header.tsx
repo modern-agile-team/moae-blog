@@ -6,12 +6,14 @@ import LoginSection from "./LoginSection";
 import TitleSection from "./TitleSection";
 import { useRouter } from "next/router";
 import UserSection from "./UserSection";
+import getToken from "../../utils/getToken";
 interface Props {
   user?: string;
 }
 
 const Header = ({ user }: Props) => {
-  const [token, setToken] = useState<string>("");
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const token = getToken();
   const router = useRouter();
 
   const toggleIsSearchBarOpen = () => {
@@ -19,10 +21,8 @@ const Header = ({ user }: Props) => {
   };
 
   useEffect(() => {
-    if (typeof window !== undefined) {
-      setToken(localStorage.getItem("token") || "");
-    }
-  }, []);
+    token ? setIsLogin(true) : setIsLogin(false);
+  }, [token]);
 
   return (
     <Wrapper>
@@ -31,7 +31,7 @@ const Header = ({ user }: Props) => {
         <button id="search-btn" onClick={toggleIsSearchBarOpen}>
           <GoSearch size={20} />
         </button>
-        {token ? <UserSection /> : <LoginSection />}
+        {isLogin ? <UserSection /> : <LoginSection />}
       </section>
     </Wrapper>
   );

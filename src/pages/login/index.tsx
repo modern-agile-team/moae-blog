@@ -20,8 +20,9 @@ const Login = () => {
     setInputStatus({ ...inputStatus, [id]: value });
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
+      e.preventDefault();
       const data = { ...inputStatus };
       const result = await axios({
         url: "https://myboard-backend.herokuapp.com/users/login/",
@@ -41,11 +42,11 @@ const Login = () => {
   return (
     <div>
       <InputWrap>
-        <input id="username" type="text" placeholder="username" onChange={onChange} />
-        <input id="password" type="password" placeholder="password" onChange={onChange} />
-        <button type="button" onClick={onSubmit}>
-          로그인
-        </button>
+        <form onSubmit={onSubmit}>
+          <input id="username" type="text" placeholder="username" onChange={onChange} />
+          <input id="password" type="password" placeholder="password" onChange={onChange} />
+          <button type="submit">로그인</button>
+        </form>
       </InputWrap>
     </div>
   );

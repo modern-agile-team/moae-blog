@@ -7,7 +7,9 @@ const Dropdown = () => {
   const session = useSession();
 
   const clickToLogout = () => {
+    if (typeof window === undefined) return;
     signOut();
+    window.localStorage.removeItem("token");
   };
   return (
     <Wrapper>
