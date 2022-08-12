@@ -56,12 +56,15 @@ const SignUp = () => {
 export default SignUp;
 
 const InputWrap = styled.div`
-  position: relative;
-  top: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  max-width: 700px;
+  width: 50vw;
+  max-width: 600px;
 `;
 
 const SignUpButton = styled(Button)`

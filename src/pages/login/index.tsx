@@ -2,6 +2,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Button } from "../../component/Button";
+import { TextInput } from "../../component/Input";
 
 type LoginType = {
   username: string;
@@ -43,9 +45,9 @@ const Login = () => {
     <div>
       <InputWrap>
         <form onSubmit={onSubmit}>
-          <input id="username" type="text" placeholder="username" onChange={onChange} />
-          <input id="password" type="password" placeholder="password" onChange={onChange} />
-          <button type="submit">로그인</button>
+          <TextInput id="username" type="text" placeholder="ID" onChange={onChange} />
+          <TextInput id="password" type="password" placeholder="Password" onChange={onChange} />
+          <LoginButton type="submit" placeholder="로그인" />
         </form>
       </InputWrap>
     </div>
@@ -55,15 +57,34 @@ const Login = () => {
 export default Login;
 
 const InputWrap = styled.div`
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  max-width: 700px;
+  width: 50vw;
+  max-width: 600px;
+`;
 
-  input {
-    width: 100%;
-    margin: 15px 0;
-    border-radius: 6px;
-    padding: 6px 10px;
+const LoginButton = styled(Button)`
+  position: absolute;
+  width: 30%;
+  top: 100%;
+  right: 0;
+  &:hover {
+    animation: hover 2s infinite;
+  }
+  @keyframes hover {
+    0% {
+      background-color: rgb(60, 47, 37);
+    }
+    50% {
+      background-color: rgb(92, 72, 56);
+    }
+    100% {
+      background-color: rgb(60, 47, 37);
+    }
   }
 `;
