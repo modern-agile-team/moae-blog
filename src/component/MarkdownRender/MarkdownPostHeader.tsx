@@ -1,16 +1,25 @@
-import { useRecoilValue } from "recoil";
+import React from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import deviceAtom from "../../recoil/deviceAtom";
+import withPostWriting from "../../recoil/postWriting/withPostWriting";
 import theme from "../../styles/theme";
 import SubmitContainer from "./SubmitContainer";
 
 const PostHeader = () => {
   const device = useRecoilValue(deviceAtom);
+  const [post, setPost] = useRecoilState(withPostWriting);
+
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPost({ ...post, title: e.target.value });
+  };
+
+  const handleChangeTags = (e: React.ChangeEvent<HTMLInputElement>) => {};
 
   return (
     <Wrapper>
       <InputContainer>
-        <input id="title" placeholder="제목을 입력하세요" />
+        <input id="title" placeholder="제목을 입력하세요" onChange={handleChangeTitle} />
         <hr />
         <input id="tags" placeholder="태그를 작성하세요" />
       </InputContainer>

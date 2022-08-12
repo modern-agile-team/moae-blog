@@ -5,19 +5,21 @@ import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 import Prism from "prismjs";
 import "prismjs/themes/prism.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
+import withPostWriting from "../../recoil/postWriting/withPostWriting";
 
 interface Props {
   theme?: "dark" | "light";
 }
 
 const MarkDownRender = ({ theme = "light" }: Props) => {
-  const [markdownValue, setMarkdownValue] = useState<string | undefined>(``);
+  const [post, setPost] = useRecoilState(withPostWriting);
 
   const ref = useRef<Editor>(null);
 
   const onChange = () => {
-    setMarkdownValue(ref.current?.getInstance().getMarkdown());
+    setPost({ ...post, description: ref.current?.getInstance().getMarkdown() || "" });
   };
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
         initialEditType="markdown"
         useCommandShortcut={true}
         usageStatistics={false}
-        initialValue={` `}
+        initialValue={post.description}
         placeholder={`글을 작성해 보세요`}
         onChange={onChange}
         theme={theme}

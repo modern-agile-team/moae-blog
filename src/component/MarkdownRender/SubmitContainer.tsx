@@ -1,9 +1,15 @@
 import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import withPostWriting from "../../recoil/postWriting/withPostWriting";
 import theme from "../../styles/theme";
 
 const SubmitContainer = () => {
+  const post = useRecoilValue(withPostWriting);
   const router = useRouter();
+  const handleSubmit = () => {
+    console.log(post);
+  };
 
   const moveToBack = () => {
     router.back();
@@ -11,7 +17,7 @@ const SubmitContainer = () => {
 
   return (
     <Wrapper>
-      <button id="submit" type="button">
+      <button id="submit" type="button" onClick={handleSubmit}>
         제출하기
       </button>
       <button onClick={moveToBack} id="goback" type="button">
