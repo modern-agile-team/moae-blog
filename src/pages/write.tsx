@@ -22,7 +22,10 @@ const Write = () => {
 const PostWrapper = styled.div`
   padding: 0 6rem;
   min-height: 90vh;
-
+  pre {
+    padding: 0;
+    margin: 20px 0 28px;
+  }
   .MoaeBlogEditor {
     min-height: 90vh;
   }
