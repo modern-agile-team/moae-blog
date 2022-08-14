@@ -1,4 +1,4 @@
-import SearchSection from "@component/Header/SearchSection";
+import { SearchSection } from "@component/Common";
 
 const Searching = () => {
   return <SearchSection />;

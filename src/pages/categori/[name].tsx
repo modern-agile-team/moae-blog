@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
-import { CardSection } from "@component/Card";
-import Card from "@component/Card/Card";
+import { CardSection, Card } from "@component/Common";
 
 const Home: NextPage = () => {
   const userInfo = {

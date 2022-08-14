@@ -1,5 +1,5 @@
-import { Avatar } from "../User";
-import Profile from "../User/Profile";
+import { Avatar } from "@component/User";
+import Profile from "@component/User/Profile";
 import SectionWrapper from "./SectionWrapper";
 interface Props {
   img?: string | null;

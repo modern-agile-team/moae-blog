@@ -2,8 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "@component/Button";
-import { TextInput } from "@component/Input";
+import { Button, TextInput } from "@component/Common";
 
 type SignUpType = {
   username: string;

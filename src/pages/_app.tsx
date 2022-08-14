@@ -6,7 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import React, { useEffect } from "react";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 import deviceAtom from "@recoil/deviceAtom";
-import TopBar from "@component/TopBar/TopBar";
+import { TopBar } from "@component/Common";
 
 const GlobalRecoilStateWrapper = ({ children }: { children: React.ReactNode }) => {
   const setDevice = useSetRecoilState(deviceAtom);
