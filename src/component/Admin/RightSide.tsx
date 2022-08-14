@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { AdminButton, EmailList } from ".";
-import userEmailSelector from "../../recoil/userEmailSelector";
+import userEmailSelector from "@recoil/userEmailSelector";
 
 interface IRightSide {
   userEmail?: string;

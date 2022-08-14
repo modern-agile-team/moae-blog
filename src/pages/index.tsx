@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
-import { CardSection } from "../component/Card";
-import Card from "../component/Card/Card";
-import HotPosts from "../component/HotPosts/HotPosts";
+import { CardSection } from "@component/Card";
+import Card from "@component/Card/Card";
+import HotPosts from "@component/HotPosts/HotPosts";
 
 const Home: NextPage = () => {
   const userInfo = {

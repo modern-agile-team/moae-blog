@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { GoSearch } from "react-icons/go";
-import theme from "../../styles/theme";
+import theme from "@styles/theme";
 import React, { useEffect, useState } from "react";
 import LoginSection from "./LoginSection";
 import TitleSection from "./TitleSection";
 import { useRouter } from "next/router";
 import UserSection from "./UserSection";
-import getToken from "../../utils/getToken";
+import getToken from "@utils/getToken";
 interface Props {
   user?: string;
 }

@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import deviceAtom from "../../recoil/deviceAtom";
-import theme from "../../styles/theme";
+import deviceAtom from "@recoil/deviceAtom";
+import theme from "@styles/theme";
 import { Card } from "../Card";
 import Carousel from "../Carousel/Carousel";
 

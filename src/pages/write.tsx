@@ -1,9 +1,9 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { PostEditor, MarkdownPostHeader } from "../component/MarkdownRender";
-import SubmitContainer from "../component/MarkdownRender/SubmitContainer";
-import deviceAtom from "../recoil/deviceAtom";
-import theme from "../styles/theme";
+import { PostEditor, MarkdownPostHeader } from "@component/MarkdownRender";
+import SubmitContainer from "@component/MarkdownRender/SubmitContainer";
+import deviceAtom from "@recoil/deviceAtom";
+import theme from "@styles/theme";
 
 const Write = () => {
   const device = useRecoilValue(deviceAtom);

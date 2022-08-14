@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import deviceAtom from "../../recoil/deviceAtom";
-import { IPostWritingType } from "../../recoil/postWriting/type";
-import withPostWriting from "../../recoil/postWriting/withPostWriting";
-import theme from "../../styles/theme";
+import deviceAtom from "@recoil/deviceAtom";
+import { IPostWritingType } from "@recoil/postWriting/type";
+import withPostWriting from "@recoil/postWriting/withPostWriting";
+import theme from "@styles/theme";
 import SubmitContainer from "./SubmitContainer";
 
 const PostHeader = () => {

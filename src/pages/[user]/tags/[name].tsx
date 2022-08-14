@@ -1,4 +1,4 @@
-import { Card, CardSection } from "../../../component/Card";
+import { Card, CardSection } from "@component/Card";
 
 const TagName = () => {
   const userInfo = {

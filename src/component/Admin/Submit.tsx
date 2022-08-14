@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../styles/theme";
+import theme from "@styles/theme";
 
 const Submit = () => {
   return <StyledButton type="submit">등록</StyledButton>;

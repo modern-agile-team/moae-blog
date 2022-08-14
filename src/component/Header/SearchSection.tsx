@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../styles/theme";
+import theme from "@styles/theme";
 import { IoMdArrowBack } from "react-icons/io";
 import { GoSearch } from "react-icons/go";
 import { useRouter } from "next/router";

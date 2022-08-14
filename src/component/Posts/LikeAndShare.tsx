@@ -1,6 +1,6 @@
 import { MdOutlineShare, MdOutlineThumbUpAlt, MdThumbUp } from "react-icons/md";
 import styled from "styled-components";
-import theme from "../../styles/theme";
+import theme from "@styles/theme";
 
 interface Props {
   isLike: boolean;

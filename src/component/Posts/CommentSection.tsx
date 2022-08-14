@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import theme from "../../styles/theme";
-import { CommentListType } from "../../types/comment";
+import theme from "@styles/theme";
+import { CommentListType } from "src/types/comment";
 import Comment from "./Comment";
 
 const CommentSection = ({ commentList }: CommentListType) => {

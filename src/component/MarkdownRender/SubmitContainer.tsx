@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import withPostWriting from "../../recoil/postWriting/withPostWriting";
-import theme from "../../styles/theme";
+import withPostWriting from "@recoil/postWriting/withPostWriting";
+import theme from "@styles/theme";
 
 const SubmitContainer = () => {
   const post = useRecoilValue(withPostWriting);

@@ -2,7 +2,7 @@ import { throttle } from "lodash";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled, { css } from "styled-components";
-import theme from "../../styles/theme";
+import theme from "@styles/theme";
 import { Categori } from "../Categori";
 import { Header } from "../Header";
 

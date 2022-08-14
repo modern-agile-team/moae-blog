@@ -7,7 +7,7 @@ import Prism from "prismjs";
 import "prismjs/themes/prism.css";
 import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
-import withPostWriting from "../../recoil/postWriting/withPostWriting";
+import withPostWriting from "@recoil/postWriting/withPostWriting";
 
 interface Props {
   theme?: "dark" | "light";

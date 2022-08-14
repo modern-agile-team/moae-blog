@@ -1,5 +1,5 @@
-import { CommentSection, PostArticle, PostContainer, PostHeader } from "../../component/Posts";
-import { CommentType } from "../../types/comment";
+import { CommentSection, PostArticle, PostContainer, PostHeader } from "@component/Posts";
+import { CommentType } from "src/types/comment";
 
 const Post = () => {
   const postExample = {

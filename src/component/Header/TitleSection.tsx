@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GoHome } from "react-icons/go";
 import styled from "styled-components";
-import theme from "../../styles/theme";
+import theme from "@styles/theme";
 
 interface Props {
   user?: string;

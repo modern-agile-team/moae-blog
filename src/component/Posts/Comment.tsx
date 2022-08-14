@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import theme from "../../styles/theme";
-import { CommentType } from "../../types/comment";
+import theme from "@styles/theme";
+import { CommentType } from "src/types/comment";
 
 const Comment = (comment: CommentType) => {
   const { img, name, date, description } = comment;

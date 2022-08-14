@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "../../styles/theme";
-import { CategoriesType } from "../../types/categories";
+import theme from "@styles/theme";
+import { CategoriesType } from "src/types/categories";
 
 const Categori = ({ categories }: CategoriesType) => {
   return (
