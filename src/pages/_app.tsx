@@ -13,6 +13,7 @@ const GlobalRecoilStateWrapper = ({ children }: { children: React.ReactNode }) =
 
   useEffect(() => {
     if (window.document.documentElement.clientWidth <= 568) setDevice("mobile");
+    else if (window.document.documentElement.clientWidth <= 768) setDevice("tablet");
     else setDevice("desktop");
   }, []);
 

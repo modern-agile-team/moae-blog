@@ -46,6 +46,15 @@ const Wrapper = styled.div<{
   &:hover {
     transform: translateY(-6px);
   }
+
+  @media (max-width: 1024px) {
+    width: ${(props) => props.width || "20%"};
+  }
+
+  @media (max-width: 768px) {
+    width: ${(props) => props.width || "45%"};
+  }
+
   @media (max-width: 568px) {
     width: 100%;
   }

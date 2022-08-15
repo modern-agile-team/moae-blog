@@ -26,7 +26,7 @@ const HotPosts = () => {
   return (
     <Wrapper>
       <Carousel
-        slideToShow={device === "desktop" ? 5 : 2}
+        slideToShow={device === "desktop" ? 5 : device === "tablet" ? 2 : 1}
         autoplaySpeed={8000}
         arrowLocation="bottom-side"
         isAutoplay
