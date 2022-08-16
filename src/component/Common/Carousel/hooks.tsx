@@ -21,7 +21,7 @@ const useInterval = (callback: Function, delay: number, deps?: any[]) => {
   }, deps);
 };
 
-interface useCarouselType {
+interface IUseCarouselType {
   children: React.ReactNode;
   slideToShow?: number;
   transition?: number;
@@ -34,10 +34,10 @@ const useCarousel = ({
   transition = 1000,
   autoplaySpeed = 3000,
   isAutoplay = false,
-}: useCarouselType) => {
+}: IUseCarouselType) => {
   const childrenLength = React.Children.toArray(children).length;
   const [itemList, setItemList] = useState<any[]>([]);
-  const [showIndex, setShowIndex] = useState<number>(childrenLength / slideToShow);
+  const [showIndex, setShowIndex] = useState<number>(0);
   const [coordinateX, setCoordinateX] = useState(0);
   const [autoPlayStatus, setAutoPlayStatus] = useState<boolean>(isAutoplay);
   const [transitionTime, setTransitionTime] = useState(0);
@@ -45,7 +45,7 @@ const useCarousel = ({
   const itemLength = useMemo(() => itemList.length, [itemList]);
   const lastChildIndex = useMemo(
     () => childrenLength / slideToShow + childrenLength - slideToShow,
-    [itemLength, slideToShow]
+    [slideToShow, childrenLength]
   );
 
   const showPrev = () => {
@@ -135,6 +135,10 @@ const useCarousel = ({
       setTransitionTime(transition);
     }, transition);
   }, []);
+
+  useEffect(() => {
+    setShowIndex(childrenLength / slideToShow);
+  }, [childrenLength, slideToShow]);
 
   return {
     itemList,

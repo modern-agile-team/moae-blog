@@ -14,17 +14,16 @@ interface Props {
   };
   titleImage: string;
   id: string;
-  width?: string;
 }
 
-const Card = ({ title, description, date, userInfo, titleImage, id, width }: Props) => {
+const Card = ({ title, description, date, userInfo, titleImage, id }: Props) => {
   const moveToPost = useCallback(() => {
     if (typeof window === undefined) return;
     window.location.href = `/${userInfo.name}/${id}`;
   }, []);
 
   return (
-    <Wrapper onClick={moveToPost} width={width}>
+    <Wrapper onClick={moveToPost}>
       <Image titleImage={titleImage} />
       <Description title={title} description={description} date={date} />
       <Footer userInfo={userInfo} />
@@ -34,10 +33,8 @@ const Card = ({ title, description, date, userInfo, titleImage, id, width }: Pro
 
 export default React.memo(Card);
 
-const Wrapper = styled.div<{
-  width?: string;
-}>`
-  width: ${(props) => props.width || "calc(20% - 2rem)"};
+const Wrapper = styled.div`
+  width: 100%;
   margin: 1rem;
   border-radius: 6px;
   box-shadow: 0 3px 3px #e6e6e6;
@@ -45,17 +42,5 @@ const Wrapper = styled.div<{
   cursor: pointer;
   &:hover {
     transform: translateY(-6px);
-  }
-
-  @media (max-width: 1024px) {
-    width: ${(props) => props.width || "20%"};
-  }
-
-  @media (max-width: 768px) {
-    width: ${(props) => props.width || "45%"};
-  }
-
-  @media (max-width: 568px) {
-    width: 100%;
   }
 `;

@@ -87,6 +87,7 @@ export const Container = styled.div<{
     display: flex;
     position: relative;
     ${({ transition, len, showIndex }) => {
+      console.log(showIndex);
       return css`
         transition: ${transition / 1000}s;
         width: calc(${len} * 100%);
@@ -118,7 +119,13 @@ export const ChildrenWrapper = styled.div<{
 `;
 
 export const Player = styled.div<{
-  playerLocation: "bottom-mid" | "bottom-left" | "bottom-right" | "top-mid" | "top-left" | "top-right";
+  playerLocation:
+    | "bottom-mid"
+    | "bottom-left"
+    | "bottom-right"
+    | "top-mid"
+    | "top-left"
+    | "top-right";
 }>`
   display: flex;
   justify-content: center;

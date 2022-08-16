@@ -34,7 +34,7 @@ const Carousel = ({
     autoplaySpeed,
     isAutoplay,
   });
-  const { showPrev, showNext, stopPlayCarousel, playCarousel } = listeners;
+  const { showPrev, showNext } = listeners;
   const sizedPrevArrowIcon = useMemo(() => cloneElement(prevArrowIcon), [prevArrowIcon]);
   const sizedNextArrowIcon = useMemo(() => cloneElement(nextArrowIcon), [nextArrowIcon]);
 
