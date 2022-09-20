@@ -1,58 +1,122 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import theme from "@styles/theme";
-import { CategoriesType } from "src/types/categories";
+import { BiCaretUp, BiCaretDown } from "react-icons/bi";
 
-const Categori = ({ categories }: CategoriesType) => {
+const Categori = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggleOpen = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <CategoriSection>
-      <ul>
-        {categories.map((categori) => {
-          return (
-            <li key={categori.id}>
-              <h5>
-                <a href={`${categori.link}`}>{categori.name}</a>
-              </h5>
-            </li>
-          );
-        })}
-      </ul>
-    </CategoriSection>
+    <Wrapper>
+      <ButtonWrapper onClick={handleToggleOpen}>
+        <span>전체 카테고리</span>
+        <div>{isOpen ? <BiCaretUp /> : <BiCaretDown />}</div>
+      </ButtonWrapper>
+      {isOpen && (
+        <CategoryWrapper>
+          <Categories>
+            {"1"
+              .repeat(100)
+              .split("")
+              .map((el, i) => {
+                if (i % 4 === 0) {
+                  return (
+                    <li>
+                      <span>FE</span>
+                    </li>
+                  );
+                } else if (i % 5 === 0) {
+                  return (
+                    <li>
+                      <span>javascript</span>
+                    </li>
+                  );
+                } else if (i % 3 === 0) {
+                  return (
+                    <li>
+                      <span>BackEnd</span>
+                    </li>
+                  );
+                } else if (i % 9 === 0) {
+                  return (
+                    <li>
+                      <span>Computer Science</span>
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li>
+                      <span>Server</span>
+                    </li>
+                  );
+                }
+              })}
+          </Categories>
+        </CategoryWrapper>
+      )}
+    </Wrapper>
   );
 };
 
 export default React.memo(Categori);
 
-const CategoriSection = styled.section`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 15px;
+`;
+
+const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
+  width: max-content;
+  margin-bottom: 5px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+const CategoryWrapper = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
   width: 100%;
-  height: 4rem;
-  margin-top: 1.5rem;
-  ul {
-    display: flex;
-    margin-left: -10px;
+  background-color: ${theme.COLORS.BG1};
+  padding: 1em 6em;
+  box-shadow: 0 8px 2px -2px #3939396c;
+  max-height: 250px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 100%;
+    background-color: ${theme.COLORS.BG1};
+    border-radius: 16px;
   }
+  &::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: ${theme.COLORS.MAIN};
+    border-radius: 16px;
+  }
+`;
+
+const Categories = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
   li {
-    padding: 0 10px;
-  }
-  a {
-    position: relative;
-    color: ${theme.COLORS.MAINDARK};
+    padding: 2px 14px;
+    border-radius: 16px;
+    border: 1px solid #e6e6e6;
+    background-color: #e6e6e6;
+    color: #2a2a2a;
+    cursor: pointer;
     &:hover {
-      &::before {
-        content: "";
-        width: 100%;
-        border: 1px solid;
-        position: absolute;
-        bottom: -10px;
-      }
+      border: 1px solid ${theme.COLORS.MAIN};
+      background-color: ${theme.COLORS.BG1};
+      color: ${theme.COLORS.MAIN};
     }
-  }
-  h5 {
-    margin: 0;
-  }
-  @media (max-width: 568px) {
-    display: none;
   }
 `;

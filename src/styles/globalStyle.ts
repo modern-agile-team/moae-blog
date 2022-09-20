@@ -58,6 +58,17 @@ h6 {
   font-weight: ${theme.FONT.HEAD6.fontWeight};
   line-height: ${theme.FONT.HEAD6.lineHeight};
 }
+&::-webkit-scrollbar {
+    width: 10px;
+    height: 100%;
+    background-color: ${theme.COLORS.BG1};
+    border-radius: 16px;
+  }
+  &::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: #a6a6a6;
+    border-radius: 16px;
+  }
 `;
 
 export default GlobalStyle;

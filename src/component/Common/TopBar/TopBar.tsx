@@ -1,5 +1,4 @@
 import { throttle } from "lodash";
-import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled, { css } from "styled-components";
 import theme from "@styles/theme";
@@ -15,35 +14,11 @@ interface ScrollType {
 const TopBar = () => {
   const [pageY, setPageY] = useState<ScrollType>({ value: 0, direction: "down", scrollUpTimes: 0 });
   const user = "";
-  const router = useRouter();
-
-  const location = router.pathname;
-  const categories = [
-    {
-      id: "1283078as",
-      name: "Front-End",
-      link: "/categori/frontend",
-    },
-    {
-      id: "1237uyxzc",
-      name: "Back-End",
-      link: "/categori/backend",
-    },
-    {
-      id: "123213uyxzc",
-      name: "Design",
-      link: "/categori/design",
-    },
-    {
-      id: "1237asdyxzc",
-      name: "Computer Science",
-      link: "/categori/computerscience",
-    },
-  ];
 
   const detectScroll = useCallback(() => {
     setPageY(({ value, scrollUpTimes }) => {
-      if (value > window.scrollY) return { value: window.scrollY, direction: "up", scrollUpTimes: scrollUpTimes + 1 };
+      if (value > window.scrollY)
+        return { value: window.scrollY, direction: "up", scrollUpTimes: scrollUpTimes + 1 };
       else return { value: window.scrollY, direction: "down", scrollUpTimes: scrollUpTimes - 1 };
     });
   }, [pageY]);
@@ -58,7 +33,7 @@ const TopBar = () => {
   return (
     <Container pageY={pageY}>
       <Header user={user} />
-      {location !== "/post" && location !== "/write" && <Categori categories={categories} />}
+      <Categori />
     </Container>
   );
 };
@@ -75,14 +50,17 @@ const Container = styled.div<{
   position: sticky;
 
   ${(props) => {
-    let top = -200;
+    const MAX_SCROLL_COUNT = 10;
+    const MAX_HIDE = 400;
+
+    let top = -MAX_HIDE;
     if (top < 0) {
-      top += 25 * props.pageY.scrollUpTimes;
-      if (top < -200) {
+      top += (-top / MAX_SCROLL_COUNT) * props.pageY.scrollUpTimes;
+      if (top < -MAX_HIDE) {
         props.pageY.scrollUpTimes = 0;
-        top = -200;
-      } else if (top > 0) {
-        props.pageY.scrollUpTimes = 8;
+        top = -MAX_HIDE;
+      } else if (top >= 0) {
+        props.pageY.scrollUpTimes = MAX_SCROLL_COUNT;
         top = 0;
       }
     }
