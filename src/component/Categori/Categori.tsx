@@ -100,6 +100,9 @@ const CategoryWrapper = styled.div`
     background-color: ${theme.COLORS.MAIN};
     border-radius: 16px;
   }
+  @media (max-width: 568px) {
+    padding: 0 1rem;
+  }
 `;
 
 const Categories = styled.ul`
