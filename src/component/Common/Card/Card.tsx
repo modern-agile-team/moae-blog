@@ -18,16 +18,13 @@ interface Props {
 }
 
 const Card = ({ title, description, date, userInfo, titleImage, id }: Props) => {
-  const moveToPost = useCallback(() => {
-    if (typeof window === undefined) return;
-    window.location.href = `/${userInfo.name}/${id}`;
-  }, []);
-
   return (
-    <Wrapper onClick={moveToPost}>
-      <Image titleImage={titleImage} />
-      <Description title={title} description={description} date={date} />
-      <Footer userInfo={userInfo} />
+    <Wrapper>
+      <a href={`/${userInfo.name}/${id}`}>
+        <Image titleImage={titleImage} />
+        <Description title={title} description={description} date={date} />
+        <Footer userInfo={userInfo} />
+      </a>
     </Wrapper>
   );
 };
