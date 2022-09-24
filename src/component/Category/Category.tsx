@@ -3,12 +3,12 @@ import styled from "styled-components";
 import theme from "@styles/theme";
 import { BiCaretUp, BiCaretDown } from "react-icons/bi";
 
-const Categori = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleToggleOpen = () => {
-    setIsOpen(!isOpen);
-  };
+interface ICategoryProps {
+  isOpen: boolean;
+  handleToggleOpen: () => void;
+}
+const Category = (props: ICategoryProps) => {
+  const { isOpen, handleToggleOpen } = props;
   return (
     <Wrapper>
       <ButtonWrapper onClick={handleToggleOpen}>
@@ -25,31 +25,31 @@ const Categori = () => {
                 if (i % 4 === 0) {
                   return (
                     <li>
-                      <span>FE</span>
+                      <button>FE</button>
                     </li>
                   );
                 } else if (i % 5 === 0) {
                   return (
                     <li>
-                      <span>javascript</span>
+                      <button>javascript</button>
                     </li>
                   );
                 } else if (i % 3 === 0) {
                   return (
                     <li>
-                      <span>BackEnd</span>
+                      <button>BackEnd</button>
                     </li>
                   );
                 } else if (i % 9 === 0) {
                   return (
                     <li>
-                      <span>Computer Science</span>
+                      <button>Computer Science</button>
                     </li>
                   );
                 } else {
                   return (
                     <li>
-                      <span>Server</span>
+                      <button>Server</button>
                     </li>
                   );
                 }
@@ -61,7 +61,7 @@ const Categori = () => {
   );
 };
 
-export default React.memo(Categori);
+export default React.memo(Category);
 
 const Wrapper = styled.div`
   display: flex;
@@ -70,12 +70,15 @@ const Wrapper = styled.div`
   margin-top: 15px;
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.button`
   display: flex;
   align-items: center;
   width: max-content;
   margin-bottom: 5px;
   font-weight: bold;
+  font-size: 16px;
+  padding: 0;
+  border: none;
   cursor: pointer;
 `;
 
@@ -109,12 +112,13 @@ const Categories = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  li {
-    padding: 2px 14px;
+  button {
     border-radius: 16px;
     border: 1px solid #e6e6e6;
     background-color: #e6e6e6;
     color: #2a2a2a;
+    font-size: 16px;
+    padding: 2px 14px;
     cursor: pointer;
     &:hover {
       border: 1px solid ${theme.COLORS.MAIN};

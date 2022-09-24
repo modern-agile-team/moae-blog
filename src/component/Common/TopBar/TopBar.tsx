@@ -1,9 +1,10 @@
 import { throttle } from "lodash";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import theme from "@styles/theme";
-import { Categori } from "@component/Categori";
+
 import { Header } from "../Header";
+import { Category } from "@component/Category";
 
 interface ScrollType {
   value: number;
@@ -12,13 +13,26 @@ interface ScrollType {
 }
 
 const TopBar = () => {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const topBarRef = useRef<HTMLDivElement>(null);
+
+  const handleToggleCategory = () => {
+    setIsCategoryOpen(!isCategoryOpen);
+  };
+
+  const closeCategory = (e: MouseEvent) => {
+    if (!topBarRef.current) return;
+    if (isCategoryOpen && !topBarRef.current.contains(e.target as Node)) {
+      setIsCategoryOpen(false);
+    }
+  };
+
   const [pageY, setPageY] = useState<ScrollType>({ value: 0, direction: "down", scrollUpTimes: 0 });
   const user = "";
 
   const detectScroll = useCallback(() => {
     setPageY(({ value, scrollUpTimes }) => {
-      if (value > window.scrollY)
-        return { value: window.scrollY, direction: "up", scrollUpTimes: scrollUpTimes + 1 };
+      if (value > window.scrollY) return { value: window.scrollY, direction: "up", scrollUpTimes: scrollUpTimes + 1 };
       else return { value: window.scrollY, direction: "down", scrollUpTimes: scrollUpTimes - 1 };
     });
   }, [pageY]);
@@ -30,10 +44,14 @@ const TopBar = () => {
     return () => window.removeEventListener("scroll", throttleScroll);
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("click", closeCategory);
+    return () => window.removeEventListener("click", closeCategory);
+  }, [isCategoryOpen]);
   return (
-    <Container pageY={pageY}>
+    <Container pageY={pageY} ref={topBarRef}>
       <Header user={user} />
-      <Categori />
+      <Category isOpen={isCategoryOpen} handleToggleOpen={handleToggleCategory} />
     </Container>
   );
 };
@@ -50,7 +68,7 @@ const Container = styled.div<{
   position: sticky;
 
   ${(props) => {
-    const MAX_SCROLL_COUNT = 10;
+    const MAX_SCROLL_COUNT = 6;
     const MAX_HIDE = 400;
 
     let top = -MAX_HIDE;
