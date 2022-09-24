@@ -2,7 +2,7 @@ import { SIGNUP_TYPE, SIGNIN_TYPE } from "./types/apis";
 
 class HTTP_REQUEST {
   private _path = "";
-  private token = window.localStorage.getItem("token");
+  private _token = window.localStorage.getItem("token");
 
   constructor(path: string) {
     this._path = path;
@@ -20,7 +20,7 @@ class HTTP_REQUEST {
      */
     const signUp = (param: SIGNUP_TYPE) => {
       try {
-        return this.instance()
+        return this._instance()
           .POST("/signUp", param)
           .then((res) => console.log(res));
       } catch (err) {
@@ -35,7 +35,7 @@ class HTTP_REQUEST {
      */
     const signIn = (param: SIGNIN_TYPE) => {
       try {
-        return this.instance()
+        return this._instance()
           .POST("/signIn", param)
           .then((res) => console.log(res));
       } catch (err) {
@@ -46,7 +46,7 @@ class HTTP_REQUEST {
     return { signUp, signIn };
   }
 
-  private instance() {
+  private _instance() {
     const GET = (path: string) => fetch(`${this._path}${path}`, { method: "GET" }).then((res) => res.json());
 
     const PUT = (path: string, param: any) =>
