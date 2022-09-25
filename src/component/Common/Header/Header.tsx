@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { GoSearch } from "react-icons/go";
 import theme from "@styles/theme";
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import LoginSection from "./LoginSection";
 import TitleSection from "./TitleSection";
 import { useRouter } from "next/router";
@@ -9,17 +9,13 @@ import UserSection from "./UserSection";
 import getToken from "@utils/getToken";
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
   const token = getToken();
+  const isLogin = useMemo(() => Boolean(token), [token]);
   const router = useRouter();
 
   const toggleIsSearchBarOpen = () => {
     router.push("/searching");
   };
-
-  useEffect(() => {
-    token ? setIsLogin(true) : setIsLogin(false);
-  }, [token]);
 
   return (
     <Wrapper>

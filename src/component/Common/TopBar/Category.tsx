@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import theme from "@styles/theme";
 import { BiCaretUp, BiCaretDown } from "react-icons/bi";
+import Link from "next/link";
 
 interface ICategoryProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface ICategoryProps {
 }
 const Category = (props: ICategoryProps) => {
   const { isOpen, handleToggleOpen } = props;
+
   return (
     <Wrapper>
       <ButtonWrapper onClick={handleToggleOpen}>
@@ -24,32 +26,32 @@ const Category = (props: ICategoryProps) => {
               .map((el, i) => {
                 if (i % 4 === 0) {
                   return (
-                    <li>
-                      <button>FE</button>
+                    <li onClick={handleToggleOpen}>
+                      <Link href="/category/FE">FE</Link>
                     </li>
                   );
                 } else if (i % 5 === 0) {
                   return (
-                    <li>
-                      <button>javascript</button>
+                    <li onClick={handleToggleOpen}>
+                      <Link href="/category/javascript">javascript</Link>
                     </li>
                   );
                 } else if (i % 3 === 0) {
                   return (
-                    <li>
-                      <button>BackEnd</button>
+                    <li onClick={handleToggleOpen}>
+                      <Link href="/category/BackEnd">BackEnd</Link>
                     </li>
                   );
                 } else if (i % 9 === 0) {
                   return (
-                    <li>
-                      <button>Computer Science</button>
+                    <li onClick={handleToggleOpen}>
+                      <Link href="/category/Computer">Computer Science</Link>
                     </li>
                   );
                 } else {
                   return (
-                    <li>
-                      <button>Server</button>
+                    <li onClick={handleToggleOpen}>
+                      <Link href="/category/Server">Server</Link>
                     </li>
                   );
                 }
@@ -79,6 +81,7 @@ const ButtonWrapper = styled.button`
   font-size: 16px;
   padding: 0;
   border: none;
+  background-color: ${theme.COLORS.BG1};
   cursor: pointer;
 `;
 
@@ -112,7 +115,7 @@ const Categories = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  button {
+  li {
     border-radius: 16px;
     border: 1px solid #e6e6e6;
     background-color: #e6e6e6;

@@ -5,7 +5,6 @@ import { ScrollType } from "./type";
 const useTopBar = (ref: React.RefObject<HTMLElement>) => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [pageY, setPageY] = useState<ScrollType>({ value: 0, direction: "down", scrollUpTimes: 0 });
-  const [user, setUser] = useState("");
 
   const handleToggleCategory = () => {
     setIsCategoryOpen(!isCategoryOpen);

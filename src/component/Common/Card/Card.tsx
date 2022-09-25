@@ -1,9 +1,8 @@
 import theme from "@styles/theme";
-import React, { useCallback } from "react";
+import React, { lazy, Suspense } from "react";
 import styled from "styled-components";
 import Description from "./Description";
 import Footer from "./Footer";
-import Image from "./Image";
 
 interface Props {
   title: string;
@@ -17,15 +16,19 @@ interface Props {
   id: string;
 }
 
+const LazyLoadingImage = lazy(() => import("./Image"));
+
 const Card = ({ title, description, date, userInfo, titleImage, id }: Props) => {
   return (
-    <Wrapper>
-      <a href={`/user/${userInfo.name}/${id}`}>
-        <Image titleImage={titleImage} />
-        <Description title={title} description={description} date={date} />
-        <Footer userInfo={userInfo} />
-      </a>
-    </Wrapper>
+    <Suspense fallback={<div>...loading</div>}>
+      <Wrapper>
+        <a href={`/user/${userInfo.name}/${id}`}>
+          <LazyLoadingImage titleImage={titleImage} />
+          <Description title={title} description={description} date={date} />
+          <Footer userInfo={userInfo} />
+        </a>
+      </Wrapper>
+    </Suspense>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Header } from "../Header";
-import { Category } from "@component/Category";
+import Category from "./Category";
 import useTopBar from "./hooks";
 import { Container } from "./style";
 
