@@ -3,29 +3,12 @@ import { GoHome } from "react-icons/go";
 import styled from "styled-components";
 import theme from "@styles/theme";
 
-interface Props {
-  user?: string;
-}
-
-const TitleSection = ({ user }: Props) => {
+const TitleSection = () => {
   return (
     <Wrapper>
-      {!user ? (
-        <h1>
-          <Link href="/.">Moaeblog</Link>
-        </h1>
-      ) : (
-        <div id="user">
-          <GoHome
-            onClick={() => {
-              window.location.href = "/.";
-            }}
-          />
-          <h1>
-            <Link href={`/${user}`}>{user}</Link>
-          </h1>
-        </div>
-      )}
+      <h1>
+        <Link href="/.">Moaeblog</Link>
+      </h1>
     </Wrapper>
   );
 };

@@ -7,11 +7,8 @@ import TitleSection from "./TitleSection";
 import { useRouter } from "next/router";
 import UserSection from "./UserSection";
 import getToken from "@utils/getToken";
-interface Props {
-  user?: string;
-}
 
-const Header = ({ user }: Props) => {
+const Header = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const token = getToken();
   const router = useRouter();
@@ -26,7 +23,7 @@ const Header = ({ user }: Props) => {
 
   return (
     <Wrapper>
-      <TitleSection user={user} />
+      <TitleSection />
       <section>
         <button id="search-btn" onClick={toggleIsSearchBarOpen}>
           <GoSearch size={20} />

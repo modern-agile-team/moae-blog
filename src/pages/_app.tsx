@@ -3,22 +3,15 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "@styles/globalStyle";
 import theme from "@styles/theme";
 import { SessionProvider } from "next-auth/react";
-import React, { useEffect } from "react";
-import { RecoilRoot, useSetRecoilState } from "recoil";
-import deviceAtom from "@recoil/deviceAtom";
+import React from "react";
+import { RecoilRoot } from "recoil";
 import { TopBar } from "@component/Common";
+import dynamic from "next/dynamic";
 
-const GlobalRecoilStateWrapper = ({ children }: { children: React.ReactNode }) => {
-  const setDevice = useSetRecoilState(deviceAtom);
-
-  useEffect(() => {
-    if (window.document.documentElement.clientWidth <= 568) setDevice("mobile");
-    else if (window.document.documentElement.clientWidth <= 768) setDevice("tablet");
-    else setDevice("desktop");
-  }, []);
-
-  return <div>{children}</div>;
-};
+const DynamicRecoilStateWrapper = dynamic(() => import("@component/Global").then((mod) => mod.RecoilStateWrapper), {
+  ssr: false,
+  suspense: false,
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -27,10 +20,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <SessionProvider session={pageProps.session}>
           <RecoilRoot>
-            <GlobalRecoilStateWrapper>
+            <DynamicRecoilStateWrapper>
               <TopBar />
               <Component {...pageProps} />
-            </GlobalRecoilStateWrapper>
+            </DynamicRecoilStateWrapper>
           </RecoilRoot>
         </SessionProvider>
       </ThemeProvider>
