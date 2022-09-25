@@ -20,7 +20,7 @@ interface Props {
 const Card = ({ title, description, date, userInfo, titleImage, id }: Props) => {
   return (
     <Wrapper>
-      <a href={`/${userInfo.name}/${id}`}>
+      <a href={`/user/${userInfo.name}/${id}`}>
         <Image titleImage={titleImage} />
         <Description title={title} description={description} date={date} />
         <Footer userInfo={userInfo} />
