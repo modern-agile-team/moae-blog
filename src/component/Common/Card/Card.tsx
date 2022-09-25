@@ -1,6 +1,7 @@
 import theme from "@styles/theme";
 import React, { lazy, Suspense } from "react";
 import styled from "styled-components";
+import { Loader } from "../Loader";
 import Description from "./Description";
 import Footer from "./Footer";
 
@@ -20,7 +21,7 @@ const LazyLoadingImage = lazy(() => import("./Image"));
 
 const Card = ({ title, description, date, userInfo, titleImage, id }: Props) => {
   return (
-    <Suspense fallback={<div>...loading</div>}>
+    <Suspense fallback={<Loader />}>
       <Wrapper>
         <a href={`/user/${userInfo.name}/${id}`}>
           <LazyLoadingImage titleImage={titleImage} />

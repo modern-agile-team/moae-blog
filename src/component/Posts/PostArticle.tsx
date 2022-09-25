@@ -1,8 +1,10 @@
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 import theme from "@styles/theme";
+import { Suspense } from "react";
+import { Loader } from "@component/Common/Loader";
 
-const MarkdownViewer = dynamic(() => import("./MarkdownViewer"), { ssr: false });
+const MarkdownViewer = dynamic(() => import("./MarkdownViewer"), { ssr: false, suspense: true });
 
 interface Props {
   description: string;
@@ -10,13 +12,27 @@ interface Props {
 
 const PostArticle = ({ description }: Props) => {
   return (
-    <Wrapper>
-      <MarkdownViewer initialValue={description} />
-    </Wrapper>
+    <Suspense
+      fallback={
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
+      }
+    >
+      <Wrapper>
+        <MarkdownViewer initialValue={description} />
+      </Wrapper>
+    </Suspense>
   );
 };
 
 export default PostArticle;
+
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
 
 const Wrapper = styled.article`
   margin-top: 3rem;
