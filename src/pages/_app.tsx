@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 import { TopBar } from "@component/Common";
 import dynamic from "next/dynamic";
 
-const DynamicRecoilStateWrapper = dynamic(() => import("@component/Global").then((mod) => mod.RecoilStateWrapper), {
+const DynamicRecoilStateWrapper = dynamic(() => import("@component/Global/RecoilStateWrapper"), {
   ssr: false,
   suspense: false,
 });
