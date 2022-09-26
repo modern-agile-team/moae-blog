@@ -21,7 +21,7 @@ const useInterval = (callback: Function, delay: number, deps?: any[]) => {
   }, deps);
 };
 
-interface IUseCarouselType {
+interface useCarouselPropsType {
   children: React.ReactNode;
   slideToShow?: number;
   transition?: number;
@@ -34,53 +34,60 @@ const useCarousel = ({
   transition = 1000,
   autoplaySpeed = 3000,
   isAutoplay = false,
-}: IUseCarouselType) => {
-  const childrenLength = React.Children.toArray(children).length;
+}: useCarouselPropsType) => {
   const [itemList, setItemList] = useState<any[]>([]);
-  const [showIndex, setShowIndex] = useState<number>(0);
   const [coordinateX, setCoordinateX] = useState(0);
   const [autoPlayStatus, setAutoPlayStatus] = useState<boolean>(isAutoplay);
   const [transitionTime, setTransitionTime] = useState(0);
   const [disable, setDisable] = useState(false);
+  const [forwardItemLength, setForwardItemLength] = useState(0);
+  const [showIndex, setShowIndex] = useState(0);
+
+  const childrenLength = React.Children.toArray(children).length;
   const itemLength = useMemo(() => itemList.length, [itemList]);
-  const lastChildIndex = useMemo(
-    () => childrenLength / slideToShow + childrenLength - slideToShow,
-    [slideToShow, childrenLength]
-  );
+
+  const startTransition = (index: number) => {
+    setDisable(true);
+    setTransitionTime(transition);
+    setShowIndex(index);
+  };
+
+  const endTransition = () => {
+    setTimeout(() => {
+      setDisable(false);
+      setShowIndex(forwardItemLength);
+    }, transition);
+  };
+
+  const duringTransition = (direction: "prev" | "next") => {
+    setTimeout(() => {
+      setTransitionTime(0);
+      if (direction === "next") {
+        setItemList((prev) => {
+          const { list: result } = setNextItem({ prevList: prev, showIndex, slideToShow, childrenLength });
+          return result;
+        });
+      } else {
+        setItemList((prev) => {
+          const { list: result } = setPreviousItem({ prevList: prev, showIndex, slideToShow, childrenLength });
+          return result;
+        });
+      }
+    }, transition);
+  };
 
   const showPrev = () => {
     if (disable) return;
-    setDisable(true);
-    setTransitionTime(transition);
-    setShowIndex(showIndex - 1);
-
-    if (showIndex <= lastChildIndex) {
-      setTimeout(() => {
-        setTransitionTime(0);
-        setShowIndex(showIndex + childrenLength / slideToShow - 1);
-      }, transition);
-    }
-
-    setTimeout(() => {
-      setDisable(false);
-    }, transition);
+    startTransition(showIndex - slideToShow);
+    duringTransition("prev");
+    endTransition();
   };
 
   const showNext = () => {
     if (disable) return;
-    setDisable(true);
-    setTransitionTime(transition);
-    setShowIndex(showIndex + 1);
-
-    if (showIndex >= lastChildIndex) {
-      setTimeout(() => {
-        setTransitionTime(0);
-        setShowIndex(showIndex - childrenLength / slideToShow + 1);
-      }, transition);
-    }
-    setTimeout(() => {
-      setDisable(false);
-    }, transition);
+    startTransition(showIndex + slideToShow);
+    duringTransition("next");
+    endTransition();
   };
 
   const onTouchStart = (e: React.TouchEvent) => {
@@ -103,14 +110,6 @@ const useCarousel = ({
     setCoordinateX(0);
   };
 
-  const playCarousel = () => {
-    setAutoPlayStatus(true);
-  };
-
-  const stopPlayCarousel = () => {
-    setAutoPlayStatus(false);
-  };
-
   useInterval(
     () => {
       if (autoPlayStatus) showNext();
@@ -121,24 +120,16 @@ const useCarousel = ({
   );
 
   useEffect(() => {
-    const list = React.Children.toArray(children);
-    const clonedList = [...list];
-    list.push(...clonedList);
-    list.push(...clonedList);
-    list.unshift(...clonedList);
-    list.unshift(...clonedList);
+    const { list, index, length } = init({ children, slideToShow });
+
+    setShowIndex(index);
+    setForwardItemLength(length);
     setItemList(list);
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setTransitionTime(transition);
-    }, transition);
+    setTransitionTime(0);
   }, []);
-
-  useEffect(() => {
-    setShowIndex(childrenLength / slideToShow);
-  }, [childrenLength, slideToShow]);
 
   return {
     itemList,
@@ -152,10 +143,108 @@ const useCarousel = ({
       onTouchStart,
       showNext,
       showPrev,
-      playCarousel,
-      stopPlayCarousel,
     },
   };
 };
 
-export { useInterval, useCarousel };
+export { useCarousel };
+
+const init = ({ children, slideToShow }: { children: React.ReactNode; slideToShow: number }) => {
+  const list = React.Children.toArray(children);
+  const showItems = list.slice(0, slideToShow);
+  const restItems = list.slice(slideToShow);
+
+  const backwardItems = restItems.slice(0, Math.floor(restItems.length / 2));
+
+  const forwardItems = restItems.slice(Math.floor(restItems.length / 2));
+  const result = [...forwardItems, ...showItems, ...backwardItems];
+
+  let showIndex = 0;
+  let forwardItemLength = 0;
+
+  if (Math.floor(list.length / slideToShow) <= slideToShow) {
+    const f = result.slice(0, slideToShow);
+    const b = result.slice(-slideToShow);
+    result.push(...f);
+    result.unshift(...b);
+    showIndex = forwardItems.length + slideToShow;
+    forwardItemLength = forwardItems.length + slideToShow;
+  } else {
+    showIndex = forwardItems.length;
+    forwardItemLength = forwardItems.length;
+  }
+
+  return { list: result, index: showIndex, length: forwardItemLength };
+};
+
+const setNextItem = ({
+  prevList,
+  childrenLength,
+  slideToShow,
+  showIndex,
+}: {
+  prevList: any[];
+  childrenLength: number;
+  slideToShow: number;
+  showIndex: number;
+}) => {
+  const list =
+    Math.floor(childrenLength / slideToShow) <= slideToShow
+      ? [...prevList].splice(slideToShow, childrenLength)
+      : [...prevList];
+  const result = [];
+  const index = showIndex - childrenLength / slideToShow + 1;
+
+  if (Math.floor(childrenLength / slideToShow) <= slideToShow) {
+    for (let i = 0; i < slideToShow; i++) {
+      result.push(list.shift());
+    }
+    list.push(...result);
+    const forward = list.slice(0, slideToShow);
+    const backward = list.slice(-slideToShow);
+    list.push(...forward);
+    list.unshift(...backward);
+  } else {
+    for (let i = 0; i < slideToShow; i++) {
+      result.push(list.shift());
+    }
+    list.push(...result);
+  }
+  return { list, index };
+};
+
+const setPreviousItem = ({
+  prevList,
+  childrenLength,
+  slideToShow,
+  showIndex,
+}: {
+  prevList: any[];
+  childrenLength: number;
+  slideToShow: number;
+  showIndex: number;
+}) => {
+  const list =
+    Math.floor(childrenLength / slideToShow) <= slideToShow
+      ? [...prevList].splice(slideToShow, childrenLength)
+      : [...prevList];
+  const result = [];
+  const index = showIndex + childrenLength / slideToShow - 1;
+
+  if (Math.floor(childrenLength / slideToShow) <= slideToShow) {
+    for (let i = 0; i < slideToShow; i++) {
+      result.unshift(list.pop());
+    }
+    list.unshift(...result);
+    const forward = list.slice(0, slideToShow);
+    const backward = list.slice(-slideToShow);
+    list.push(...forward);
+    list.unshift(...backward);
+  } else {
+    for (let i = 0; i < slideToShow; i++) {
+      result.unshift(list.pop());
+    }
+    list.unshift(...result);
+  }
+  return { list, index };
+};

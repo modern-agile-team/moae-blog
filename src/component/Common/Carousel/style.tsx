@@ -78,6 +78,7 @@ export const Container = styled.div<{
   len: number;
   transition: number;
   showIndex: number;
+  slideToShow: number;
 }>`
   overflow: hidden;
   .carousel-wrapper {
@@ -86,12 +87,11 @@ export const Container = styled.div<{
   .carousel-container {
     display: flex;
     position: relative;
-    ${({ transition, len, showIndex }) => {
-      console.log(showIndex);
+    ${({ transition, len, showIndex, slideToShow }) => {
       return css`
         transition: ${transition / 1000}s;
         width: calc(${len} * 100%);
-        transform: translateX(${(-showIndex * 100) / len}%);
+        transform: translateX(${(-showIndex * 100) / len / slideToShow}%);
       `;
     }}
   }
@@ -119,13 +119,7 @@ export const ChildrenWrapper = styled.div<{
 `;
 
 export const Player = styled.div<{
-  playerLocation:
-    | "bottom-mid"
-    | "bottom-left"
-    | "bottom-right"
-    | "top-mid"
-    | "top-left"
-    | "top-right";
+  playerLocation: "bottom-mid" | "bottom-left" | "bottom-right" | "top-mid" | "top-left" | "top-right";
 }>`
   display: flex;
   justify-content: center;

@@ -37,16 +37,14 @@ const Carousel = ({
   const { showPrev, showNext } = listeners;
   const sizedPrevArrowIcon = useMemo(() => cloneElement(prevArrowIcon), [prevArrowIcon]);
   const sizedNextArrowIcon = useMemo(() => cloneElement(nextArrowIcon), [nextArrowIcon]);
-
   return (
     <Wrapper arrowLocation={arrowLocation} width={width} {...listeners}>
-      <h3>이주의 게시글</h3>
       {isArrowShow && (
-        <div className="icon-wrapper" id="prev-button" onClick={showPrev}>
+        <div className="arrow-icon-wrapper" id="prev-button" onClick={showPrev}>
           {sizedPrevArrowIcon}
         </div>
       )}
-      <Container len={itemLength} transition={transitionTime} showIndex={showIndex}>
+      <Container len={itemLength} transition={transitionTime} showIndex={showIndex} slideToShow={slideToShow}>
         <div className="carousel-wrapper">
           <div className="carousel-container">
             {itemList.map((child, index) => {
@@ -68,7 +66,7 @@ const Carousel = ({
   );
 };
 
-export default React.memo(Carousel);
+export default Carousel;
 
 Carousel.defaultProps = {
   transition: 1000,
