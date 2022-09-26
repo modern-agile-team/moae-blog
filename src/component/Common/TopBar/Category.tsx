@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "@styles/theme";
 import { BiCaretUp, BiCaretDown } from "react-icons/bi";
 import Link from "next/link";
@@ -17,48 +17,46 @@ const Category = (props: ICategoryProps) => {
         <span>전체 카테고리</span>
         <div>{isOpen ? <BiCaretUp /> : <BiCaretDown />}</div>
       </ButtonWrapper>
-      {isOpen && (
-        <CategoryWrapper>
-          <Categories>
-            {"1"
-              .repeat(100)
-              .split("")
-              .map((el, i) => {
-                if (i % 4 === 0) {
-                  return (
-                    <li onClick={handleToggleOpen}>
-                      <Link href="/category/FE">FE</Link>
-                    </li>
-                  );
-                } else if (i % 5 === 0) {
-                  return (
-                    <li onClick={handleToggleOpen}>
-                      <Link href="/category/javascript">javascript</Link>
-                    </li>
-                  );
-                } else if (i % 3 === 0) {
-                  return (
-                    <li onClick={handleToggleOpen}>
-                      <Link href="/category/BackEnd">BackEnd</Link>
-                    </li>
-                  );
-                } else if (i % 9 === 0) {
-                  return (
-                    <li onClick={handleToggleOpen}>
-                      <Link href="/category/Computer">Computer Science</Link>
-                    </li>
-                  );
-                } else {
-                  return (
-                    <li onClick={handleToggleOpen}>
-                      <Link href="/category/Server">Server</Link>
-                    </li>
-                  );
-                }
-              })}
-          </Categories>
-        </CategoryWrapper>
-      )}
+      <CategoryWrapper isOpen={isOpen}>
+        <Categories>
+          {"1"
+            .repeat(100)
+            .split("")
+            .map((el, i) => {
+              if (i % 4 === 0) {
+                return (
+                  <li onClick={handleToggleOpen}>
+                    <Link href="/category/FE">FE</Link>
+                  </li>
+                );
+              } else if (i % 5 === 0) {
+                return (
+                  <li onClick={handleToggleOpen}>
+                    <Link href="/category/javascript">javascript</Link>
+                  </li>
+                );
+              } else if (i % 3 === 0) {
+                return (
+                  <li onClick={handleToggleOpen}>
+                    <Link href="/category/BackEnd">BackEnd</Link>
+                  </li>
+                );
+              } else if (i % 9 === 0) {
+                return (
+                  <li onClick={handleToggleOpen}>
+                    <Link href="/category/Computer">Computer Science</Link>
+                  </li>
+                );
+              } else {
+                return (
+                  <li onClick={handleToggleOpen}>
+                    <Link href="/category/Server">Server</Link>
+                  </li>
+                );
+              }
+            })}
+        </Categories>
+      </CategoryWrapper>
     </Wrapper>
   );
 };
@@ -68,8 +66,15 @@ export default React.memo(Category);
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   width: 100%;
-  margin-top: 15px;
+  padding: 15px 6rem;
+  padding-bottom: 0;
+  background-color: ${theme.COLORS.BG1};
+  @media (max-width: 568px) {
+    padding: 15px 1rem;
+    padding-bottom: 0;
+  }
 `;
 
 const ButtonWrapper = styled.button`
@@ -85,8 +90,22 @@ const ButtonWrapper = styled.button`
   cursor: pointer;
 `;
 
-const CategoryWrapper = styled.div`
+const CategoryWrapper = styled.div<{ isOpen: boolean }>`
   position: absolute;
+  ${({ isOpen }) => {
+    if (isOpen) {
+      return css`
+        transform: translateY(0);
+        opacity: 1;
+      `;
+    } else {
+      return css`
+        transform: translateY(calc(-100%));
+        opacity: 0;
+      `;
+    }
+  }}
+  z-index: -1;
   top: 100%;
   left: 0;
   width: 100%;
@@ -95,6 +114,7 @@ const CategoryWrapper = styled.div`
   box-shadow: 0 8px 2px -2px #3939396c;
   max-height: 250px;
   overflow-y: auto;
+  transition: 1s;
   &::-webkit-scrollbar {
     width: 10px;
     height: 100%;

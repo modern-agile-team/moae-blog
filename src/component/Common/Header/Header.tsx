@@ -38,6 +38,8 @@ const Wrapper = styled.header`
   justify-content: space-between;
   width: 100%;
   height: 4rem;
+  padding: 0 6rem;
+  background-color: ${theme.COLORS.BG1};
   section {
     display: flex;
     button {
@@ -70,6 +72,7 @@ const Wrapper = styled.header`
     }
   }
   @media (max-width: 568px) {
+    padding: 0 1rem;
     #write-btn {
       display: none;
     }

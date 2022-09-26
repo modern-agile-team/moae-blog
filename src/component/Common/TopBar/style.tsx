@@ -8,7 +8,6 @@ export const Container = styled.div<{
   background-color: ${theme.COLORS.BG1};
   z-index: 99;
   width: 100%;
-  padding: 0 6rem;
   position: sticky;
 
   ${(props) => {
@@ -36,7 +35,4 @@ export const Container = styled.div<{
       border-bottom: ${props.pageY.value > 150 ? `1px solid ${theme.COLORS.MAIN}` : "none"};
     `;
   }};
-  @media (max-width: 568px) {
-    padding: 0 1rem;
-  }
 `;
