@@ -1,22 +1,34 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Loader } from "../Loader";
 
 interface Props {
-  titleImage: string;
+  src: string;
 }
 
-const Image = ({ titleImage }: Props) => {
-  return <ImageDiv titleImage={titleImage} />;
+const CardImage = ({ src }: Props) => {
+  const [srcLoaded, setSrcLoaded] = useState<string | null>(null);
+
+  useEffect(() => {
+    const image = new Image();
+    image.src = src;
+    image.onload = () => {
+      setSrcLoaded(src);
+    };
+  }, [src]);
+
+  return <>{srcLoaded ? <StyledImage src={srcLoaded} /> : <Loader />}</>;
 };
 
-export default Image;
+export default CardImage;
 
-const ImageDiv = styled.div<{
-  titleImage: string;
+const StyledImage = styled.div<{
+  src: string;
 }>`
   width: 100%;
   padding-top: 52%;
   border-radius: 6px 6px 0 0;
   background-size: cover;
   background-position: center;
-  background-image: url(${(props) => props.titleImage});
+  background-image: url(${(props) => props.src});
 `;

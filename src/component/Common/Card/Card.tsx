@@ -1,9 +1,9 @@
 import theme from "@styles/theme";
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Loader } from "../Loader";
 import Description from "./Description";
 import Footer from "./Footer";
+import CardImage from "./Image";
 
 interface Props {
   title: string;
@@ -17,19 +17,15 @@ interface Props {
   id: string;
 }
 
-const LazyLoadingImage = lazy(() => import("./Image"));
-
 const Card = ({ title, description, date, userInfo, titleImage, id }: Props) => {
   return (
-    <Suspense fallback={<Loader />}>
-      <Wrapper>
-        <a href={`/user/${userInfo.name}/${id}`}>
-          <LazyLoadingImage titleImage={titleImage} />
-          <Description title={title} description={description} date={date} />
-          <Footer userInfo={userInfo} />
-        </a>
-      </Wrapper>
-    </Suspense>
+    <Wrapper>
+      <a href={`/user/${userInfo.name}/${id}`}>
+        <CardImage src={titleImage} />
+        <Description title={title} description={description} date={date} />
+        <Footer userInfo={userInfo} />
+      </a>
+    </Wrapper>
   );
 };
 
