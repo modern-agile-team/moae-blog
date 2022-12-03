@@ -1,8 +1,14 @@
 import type { NextPage } from "next";
 import { CardSection, Card } from "@component/Common";
 import HotPosts from "@component/HotPosts/HotPosts";
+import { useEffect, useState } from "react";
+
+const randomSize = () => {
+  return Math.floor(Math.random() * 1000);
+};
 
 const Home: NextPage = () => {
+  const [postCount, setPostCont] = useState(30);
   const userInfo = {
     profileImage: "https://picsum.photos/500/500",
     name: "아이유",
@@ -16,34 +22,28 @@ const Home: NextPage = () => {
     userInfo,
   };
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.addEventListener("scroll", (e) => {
+      const documentEl = window.document.documentElement;
+      if (documentEl.scrollHeight - (window.scrollY + documentEl.clientHeight) < 300) {
+        setPostCont(postCount + 30);
+      }
+    });
+  }, [postCount]);
+
   return (
     <div>
       <HotPosts />
       <CardSection>
-        <Card {...cardProps} titleImage="https://picsum.photos/500/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/600/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/700/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/800/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/100/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/200/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/300/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/400/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/800/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/900/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/1000/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/400/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/250/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/270/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/200/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/320/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/640/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/1280/720" />
-        <Card {...cardProps} titleImage="https://picsum.photos/2180/1280" />
-        <Card {...cardProps} titleImage="https://picsum.photos/1400/700" />
-        <Card {...cardProps} titleImage="https://picsum.photos/290/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/250/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/220/300" />
-        <Card {...cardProps} titleImage="https://picsum.photos/270/300" />
+        {[
+          "1"
+            .repeat(postCount)
+            .split("1")
+            .map((el) => {
+              return <Card {...cardProps} titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />;
+            }),
+        ]}
       </CardSection>
     </div>
   );
