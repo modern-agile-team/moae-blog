@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { CardSection, Card } from "@component/Common";
 import HotPosts from "@component/HotPosts/HotPosts";
 import { useEffect, useState } from "react";
+import { uuid } from "uuidv4";
 
 const randomSize = () => {
   return Math.floor(Math.random() * 1000);
@@ -41,7 +42,13 @@ const Home: NextPage = () => {
             .repeat(postCount)
             .split("1")
             .map((el) => {
-              return <Card {...cardProps} titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />;
+              return (
+                <Card
+                  key={uuid()}
+                  {...cardProps}
+                  titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+                />
+              );
             }),
         ]}
       </CardSection>
