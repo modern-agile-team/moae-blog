@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "@styles/theme";
+import { uuid } from "uuidv4";
 
 interface Props {
   title: string;
@@ -24,7 +25,7 @@ const Header = ({ title, date, writer, tags }: Props) => {
         <Tags>
           {tags.map((tag, index) => {
             return (
-              <li key={index}>
+              <li key={uuid()}>
                 <button>{tag}</button>
               </li>
             );

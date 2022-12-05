@@ -2,6 +2,7 @@ import React, { cloneElement, ReactElement, useMemo } from "react";
 import { useCarousel } from "./hooks";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { ChildrenWrapper, Container, Wrapper } from "./style";
+import { uuid } from "uuidv4";
 interface Props {
   children: React.ReactNode;
   width?: string;
@@ -49,7 +50,7 @@ const Carousel = ({
           <div className="carousel-container">
             {itemList.map((child, index) => {
               return (
-                <ChildrenWrapper len={itemLength} slideToShow={slideToShow} key={index}>
+                <ChildrenWrapper len={itemLength} slideToShow={slideToShow} key={uuid()}>
                   {child}
                 </ChildrenWrapper>
               );

@@ -6,6 +6,7 @@ import { IPostWritingType } from "@recoil/postWriting/type";
 import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
 import SubmitContainer from "./SubmitContainer";
+import { uuid } from "uuidv4";
 
 const PostHeader = () => {
   const device = useRecoilValue(deviceAtom);
@@ -42,7 +43,7 @@ const PostHeader = () => {
         <hr />
         <TagsArea>
           {post.tags.map((tag, index) => (
-            <p key={index}>{tag}</p>
+            <p key={uuid()}>{tag}</p>
           ))}
           <input
             id="tags"

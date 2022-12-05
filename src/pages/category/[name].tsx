@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { CardSection, Card } from "@component/Common";
+import { uuid } from "uuidv4";
 
 const Home: NextPage = () => {
   const userInfo = {
@@ -133,7 +134,7 @@ const Home: NextPage = () => {
     <div>
       <CardSection>
         {posts.map((post, index) => {
-          return <Card key={index} {...post} />;
+          return <Card key={uuid()} {...post} />;
         })}
       </CardSection>
     </div>
