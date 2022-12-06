@@ -9,9 +9,9 @@ export const Container = styled.div<{
   z-index: 99;
   width: 100%;
   position: sticky;
-
+  transition: 0.5s;
   ${(props) => {
-    const MAX_SCROLL_COUNT = 6;
+    const MAX_SCROLL_COUNT = 1;
     const MAX_HIDE = 400;
 
     let top = -MAX_HIDE;
