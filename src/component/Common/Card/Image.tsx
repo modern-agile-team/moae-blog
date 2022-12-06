@@ -4,19 +4,22 @@ import { Loader } from "../Loader";
 
 interface Props {
   src: string;
+  doLoad?: boolean;
 }
 
-const CardImage = ({ src }: Props) => {
+const CardImage = ({ src, doLoad = true }: Props) => {
   const [srcLoaded, setSrcLoaded] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!doLoad) return;
     const image = new Image();
     image.src = src;
     image.onload = () => {
       setSrcLoaded(src);
     };
-  }, [src]);
+  }, [doLoad, src]);
 
+  if (!doLoad) return <StyledImage src={src} />;
   return <>{srcLoaded ? <StyledImage src={srcLoaded} /> : <Loader />}</>;
 };
 

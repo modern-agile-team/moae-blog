@@ -1,4 +1,5 @@
 import theme from "@styles/theme";
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 import Description from "./Description";
@@ -15,16 +16,20 @@ interface Props {
   };
   titleImage: string;
   id: string;
+  doImageLoad?: boolean;
 }
 
-const Card = ({ title, description, date, userInfo, titleImage, id }: Props) => {
+const Card = ({ title, description, date, userInfo, titleImage, id, doImageLoad = true }: Props) => {
+  const router = useRouter();
   return (
-    <Wrapper>
-      <a href={`/user/${userInfo.name}/${id}`}>
-        <CardImage src={titleImage} />
-        <Description title={title} description={description} date={date} />
-        <Footer userInfo={userInfo} />
-      </a>
+    <Wrapper
+      onClick={() => {
+        router.push(`/user/${userInfo.name}/${id}`);
+      }}
+    >
+      <CardImage src={titleImage} doLoad={doImageLoad} />
+      <Description title={title} description={description} date={date} />
+      <Footer userInfo={userInfo} />
     </Wrapper>
   );
 };

@@ -5,6 +5,10 @@ import theme from "@styles/theme";
 import { Card, Carousel } from "@component/Common";
 import { useMemo } from "react";
 
+const randomSize = () => {
+  return Math.floor(Math.random() * 1000);
+};
+
 const HotPosts = () => {
   const device = useRecoilValue(deviceAtom);
 
@@ -20,8 +24,6 @@ const HotPosts = () => {
     description: "내용",
     date: "2022-05-22",
     userInfo,
-    titleImage:
-      "https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/optimize/90",
   };
 
   const slideToShow = useMemo(() => {
@@ -37,17 +39,17 @@ const HotPosts = () => {
 
   return (
     <Wrapper>
-      <Carousel slideToShow={slideToShow} autoplaySpeed={3000} isAutoplay={false} isArrowShow={true}>
-        <Card {...cardProps} description="1" />
-        <Card {...cardProps} description="2" />
-        <Card {...cardProps} description="3" />
-        <Card {...cardProps} description="4" />
-        <Card {...cardProps} description="5" />
-        <Card {...cardProps} description="6" />
-        <Card {...cardProps} description="7" />
-        <Card {...cardProps} description="8" />
-        <Card {...cardProps} description="9" />
-        <Card {...cardProps} description="10" />
+      <Carousel slideToShow={slideToShow} autoplaySpeed={7000} isArrowShow={true} isAutoplay={true}>
+        <Card {...cardProps} description="1" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="2" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="3" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="4" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="5" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="6" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="7" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="8" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="9" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card {...cardProps} description="10" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
       </Carousel>
     </Wrapper>
   );

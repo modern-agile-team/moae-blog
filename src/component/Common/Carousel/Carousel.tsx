@@ -23,7 +23,7 @@ const Carousel = ({
   autoplaySpeed = 3000,
   slideToShow = 1,
   isArrowShow = true,
-  isAutoplay = false,
+  isAutoplay = true,
   arrowLocation = "mid-side",
   prevArrowIcon = <FiChevronLeft />,
   nextArrowIcon = <FiChevronRight />,
@@ -39,7 +39,7 @@ const Carousel = ({
   const sizedPrevArrowIcon = useMemo(() => cloneElement(prevArrowIcon), [prevArrowIcon]);
   const sizedNextArrowIcon = useMemo(() => cloneElement(nextArrowIcon), [nextArrowIcon]);
   return (
-    <Wrapper arrowLocation={arrowLocation} width={width} {...listeners}>
+    <Wrapper arrowLocation={arrowLocation} width={width}>
       {isArrowShow && (
         <div className="arrow-icon-wrapper" id="prev-button" onClick={showPrev}>
           {sizedPrevArrowIcon}
@@ -48,10 +48,10 @@ const Carousel = ({
       <Container len={itemLength} transition={transitionTime} showIndex={showIndex} slideToShow={slideToShow}>
         <div className="carousel-wrapper">
           <div className="carousel-container">
-            {itemList.map((child, index) => {
+            {itemList.map((child) => {
               return (
                 <ChildrenWrapper len={itemLength} slideToShow={slideToShow} key={uuid()}>
-                  {child}
+                  {React.cloneElement(child, { doImageLoad: false })}
                 </ChildrenWrapper>
               );
             })}
