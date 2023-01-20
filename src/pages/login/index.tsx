@@ -1,8 +1,10 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, TextInput } from "@component/Common";
+import { login } from "@core/apis";
+import { useMutation } from "react-query";
 
 type LoginType = {
   email: string;
@@ -21,29 +23,26 @@ const Login = () => {
     setInputStatus({ ...inputStatus, [id]: value });
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      const data = { ...inputStatus };
-      const result = await axios({
-        url: "http://localhost:3000/api/login",
-        method: "POST",
-        data,
-      });
-      const { token } = result.data;
+  const { mutate } = useMutation(login, {
+    onSuccess: async (res) => {
+      const { token } = res.data;
       localStorage.setItem("token", token);
       router.push("/");
-    } catch (err: any) {
-      if (err.response.status === 400) {
-        alert("이메일 중복");
-      }
-    }
-  };
+    },
+    onError: async (err: AxiosError<{ message: string }>) => {
+      alert(err.response?.data.message);
+    },
+  });
 
   return (
     <div>
       <InputWrap>
-        <form onSubmit={onSubmit}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            mutate(inputStatus);
+          }}
+        >
           <TextInput id="email" type="text" placeholder="ID" onChange={onChange} />
           <TextInput id="password" type="password" placeholder="Password" onChange={onChange} />
           <LoginButton type="submit" placeholder="로그인" />

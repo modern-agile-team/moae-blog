@@ -7,11 +7,14 @@ import React from "react";
 import { RecoilRoot } from "recoil";
 import { TopBar } from "@component/Common";
 import dynamic from "next/dynamic";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const DynamicRecoilStateWrapper = dynamic(() => import("@component/Global/RecoilStateWrapper"), {
   ssr: false,
   suspense: false,
 });
+
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -20,10 +23,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <SessionProvider session={pageProps.session}>
           <RecoilRoot>
-            <DynamicRecoilStateWrapper>
-              <TopBar />
-              <Component {...pageProps} />
-            </DynamicRecoilStateWrapper>
+            <QueryClientProvider client={queryClient}>
+              <DynamicRecoilStateWrapper>
+                <TopBar />
+                <Component {...pageProps} />
+              </DynamicRecoilStateWrapper>
+            </QueryClientProvider>
           </RecoilRoot>
         </SessionProvider>
       </ThemeProvider>
