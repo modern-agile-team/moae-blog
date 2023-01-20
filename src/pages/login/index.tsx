@@ -5,13 +5,13 @@ import styled from "styled-components";
 import { Button, TextInput } from "@component/Common";
 
 type LoginType = {
-  username: string;
+  email: string;
   password: string;
 };
 
 const Login = () => {
   const [inputStatus, setInputStatus] = useState<LoginType>({
-    username: "",
+    email: "",
     password: "",
   });
   const router = useRouter();
@@ -26,7 +26,7 @@ const Login = () => {
       e.preventDefault();
       const data = { ...inputStatus };
       const result = await axios({
-        url: "https://myboard-backend.herokuapp.com/users/login/",
+        url: "http://localhost:3000/api/login",
         method: "POST",
         data,
       });
@@ -44,7 +44,7 @@ const Login = () => {
     <div>
       <InputWrap>
         <form onSubmit={onSubmit}>
-          <TextInput id="username" type="text" placeholder="ID" onChange={onChange} />
+          <TextInput id="email" type="text" placeholder="ID" onChange={onChange} />
           <TextInput id="password" type="password" placeholder="Password" onChange={onChange} />
           <LoginButton type="submit" placeholder="로그인" />
         </form>
