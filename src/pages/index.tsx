@@ -1,59 +1,49 @@
-import type { NextPage } from "next";
 import { CardSection, Card } from "@component/Common";
 import HotPosts from "@component/HotPosts/HotPosts";
-import { useEffect, useState } from "react";
+import { cardProps } from "src/constant/test";
 import { uuid } from "uuidv4";
 
 const randomSize = () => {
   return Math.floor(Math.random() * 1000);
 };
 
-const Home: NextPage = () => {
-  const [postCount, setPostCont] = useState(30);
-  const userInfo = {
-    profileImage: "https://picsum.photos/500/500",
-    name: "아이유",
-  };
+interface UserInfoType {
+  profileImage: string;
+  name: string;
+}
 
-  const cardProps = {
-    id: "1231245",
-    title: "타이틀",
-    description: "내용",
-    date: "2022-05-22",
-    userInfo,
-  };
+interface CardType {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  userInfo: UserInfoType;
+}
+interface HomeProps {
+  posts: CardType[];
+}
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    window.addEventListener("scroll", (e) => {
-      const documentEl = window.document.documentElement;
-      if (documentEl.scrollHeight - (window.scrollY + documentEl.clientHeight) < 300) {
-        setPostCont(postCount + 30);
-      }
-    });
-  }, [postCount]);
-
+const Home = ({ posts }: HomeProps) => {
   return (
     <div>
       <HotPosts />
       <CardSection>
-        {[
-          "1"
-            .repeat(postCount)
-            .split("1")
-            .map((el) => {
-              return (
-                <Card
-                  key={uuid()}
-                  {...cardProps}
-                  titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-                />
-              );
-            }),
-        ]}
+        {posts.map((el) => (
+          <Card key={uuid()} {...el} titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        ))}
       </CardSection>
     </div>
   );
 };
 
 export default Home;
+
+export async function getServerSideProps() {
+  const posts = [];
+
+  for (let i = 0; i < 30; i++) {
+    posts.push(cardProps);
+  }
+
+  return { props: { posts } };
+}
