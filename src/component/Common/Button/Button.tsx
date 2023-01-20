@@ -1,14 +1,10 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface IButtonType {
-  placeholder?: string;
-  type?: "button" | "reset" | "submit";
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-}
+interface IButtonType extends HTMLAttributes<HTMLButtonElement> {}
 
 const Button = (props: IButtonType) => {
-  return <StyledButton {...props}>{props.placeholder}</StyledButton>;
+  return <StyledButton {...props}>{props.children}</StyledButton>;
 };
 
 const StyledButton = styled.button`
