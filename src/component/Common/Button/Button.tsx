@@ -1,7 +1,9 @@
 import React, { HTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface IButtonType extends HTMLAttributes<HTMLButtonElement> {}
+interface IButtonType extends HTMLAttributes<HTMLButtonElement> {
+  type?: "button" | "submit" | "reset";
+}
 
 const Button = (props: IButtonType) => {
   return <StyledButton {...props}>{props.children}</StyledButton>;
