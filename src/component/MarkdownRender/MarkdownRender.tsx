@@ -22,7 +22,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
   const ref = useRef<Editor>(null);
 
   const onChange = () => {
-    setPost({ ...post, description: ref.current?.getInstance().getMarkdown() || "" });
+    setPost({ ...post, context: ref.current?.getInstance().getMarkdown() || "" });
   };
 
   const handleFileInput = async (blob: Blob | File) => {
@@ -51,7 +51,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
         initialEditType="markdown"
         useCommandShortcut={true}
         usageStatistics={false}
-        initialValue={post.description}
+        initialValue={post.context}
         placeholder={`글을 작성해 보세요`}
         onChange={onChange}
         theme={theme}

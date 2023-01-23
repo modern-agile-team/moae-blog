@@ -5,8 +5,8 @@ const postWriting = atom<IPostWritingType>({
   key: "postWriting",
   default: {
     title: "",
-    tags: [],
-    description: "## 글을 작성해 보세요",
+    categories: [],
+    context: "## 글을 작성해 보세요",
   },
 });
 
