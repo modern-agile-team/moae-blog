@@ -1,16 +1,14 @@
 import { NextApiHandler } from "next";
-import NextAuth from "next-auth";
-import { encode, decode } from "next-auth/jwt";
+import NextAuth, { Session, User } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
+import { encode, decode, JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
-
-const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
-export default authHandler;
 
 const options = {
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_CLIENT_ID || "",
-      clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET || "",
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_ID || "",
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET || "",
     }),
   ],
   jwt: {
@@ -19,4 +17,10 @@ const options = {
     decode: decode,
   },
   secret: "secret token",
+  callbacks: {
+    session: (params: any) => params,
+  },
 };
+
+const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
+export default authHandler;
