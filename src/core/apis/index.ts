@@ -1,8 +1,12 @@
 import instance from "./instance";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { fbAuth } from "../../../firebaseConfig";
 
-export const login = async () => {
-  const provider = new GoogleAuthProvider(); // provider를 구글로 설정
-  return await signInWithPopup(fbAuth, provider);
+interface LoginType {
+  email: string;
+  name: string;
+  baseUrl: string;
+}
+
+export const login = async (data: LoginType) => {
+  const result = await instance.post("/auth/sign-in", data);
+  return result;
 };

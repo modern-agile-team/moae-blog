@@ -17,9 +17,9 @@ const options = {
     decode: decode,
   },
   secret: "secret token",
-  callbacks: {
-    session: (params: any) => params,
-  },
+  // callbacks: {
+  //   session: (params: any) => params,
+  // },
 };
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
