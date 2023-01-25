@@ -1,4 +1,9 @@
-export default () => {
+const getToken = () => {
   if (typeof window === "undefined") return;
-  return localStorage.getItem("token") || "";
+  const accessToken = sessionStorage.getItem("accessToken");
+  const refreshToken = sessionStorage.getItem("refreshToken");
+
+  return { accessToken, refreshToken };
 };
+
+export default getToken;

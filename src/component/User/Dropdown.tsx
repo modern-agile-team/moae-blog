@@ -1,16 +1,16 @@
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import styled from "styled-components";
 import theme from "@styles/theme";
 
 const Dropdown = () => {
-  const session = useSession();
-
   const clickToLogout = () => {
     if (typeof window === undefined) return;
     signOut();
-    window.localStorage.removeItem("token");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
   };
+
   return (
     <Wrapper>
       <ul>
@@ -23,11 +23,6 @@ const Dropdown = () => {
         <Link href="/.">
           <li onClick={clickToLogout}>로그아웃</li>
         </Link>
-        {session.status === "authenticated" && (
-          <Link href="/admin">
-            <li>admin</li>
-          </Link>
-        )}
       </ul>
     </Wrapper>
   );

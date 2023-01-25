@@ -6,11 +6,10 @@ import LoginSection from "./LoginSection";
 import TitleSection from "./TitleSection";
 import { useRouter } from "next/router";
 import UserSection from "./UserSection";
-import getToken from "@utils/getToken";
+import { useSession } from "next-auth/react";
 
 const Header = () => {
-  const token = getToken();
-  const isLogin = useMemo(() => Boolean(token), [token]);
+  const session = useSession();
   const router = useRouter();
 
   const toggleIsSearchBarOpen = () => {
@@ -24,7 +23,7 @@ const Header = () => {
         <button id="search-btn" onClick={toggleIsSearchBarOpen}>
           <GoSearch size={20} />
         </button>
-        {isLogin ? <UserSection /> : <LoginSection />}
+        {session.status === "authenticated" ? <UserSection /> : <LoginSection />}
       </section>
     </Wrapper>
   );
