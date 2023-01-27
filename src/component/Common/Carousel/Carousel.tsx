@@ -1,8 +1,10 @@
 import React, { cloneElement, ReactElement, useMemo } from "react";
-import { useCarousel } from "./hooks";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { ChildrenWrapper, Container, Wrapper } from "./style";
 import { uuid } from "uuidv4";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+
+import * as S from "./style";
+import { useCarousel } from "./hooks";
+
 interface Props {
   children: React.ReactNode;
   width?: string;
@@ -38,32 +40,33 @@ const Carousel = ({
   const { showPrev, showNext } = listeners;
   const sizedPrevArrowIcon = useMemo(() => cloneElement(prevArrowIcon), [prevArrowIcon]);
   const sizedNextArrowIcon = useMemo(() => cloneElement(nextArrowIcon), [nextArrowIcon]);
+
   return (
-    <Wrapper arrowLocation={arrowLocation} width={width}>
+    <S.Wrapper arrowLocation={arrowLocation} width={width}>
       {isArrowShow && (
         <div className="arrow-icon-wrapper" id="prev-button" onClick={showPrev}>
           {sizedPrevArrowIcon}
         </div>
       )}
-      <Container len={itemLength} transition={transitionTime} showIndex={showIndex} slideToShow={slideToShow}>
+      <S.Container len={itemLength} transition={transitionTime} showIndex={showIndex} slideToShow={slideToShow}>
         <div className="carousel-wrapper">
           <div className="carousel-container">
             {itemList.map((child) => {
               return (
-                <ChildrenWrapper len={itemLength} slideToShow={slideToShow} key={uuid()}>
+                <S.Item len={itemLength} slideToShow={slideToShow} key={uuid()}>
                   {React.cloneElement(child, { doImageLoad: false })}
-                </ChildrenWrapper>
+                </S.Item>
               );
             })}
           </div>
         </div>
-      </Container>
+      </S.Container>
       {isArrowShow && (
         <div className="arrow-icon-wrapper" id="next-button" onClick={showNext}>
           {sizedNextArrowIcon}
         </div>
       )}
-    </Wrapper>
+    </S.Wrapper>
   );
 };
 

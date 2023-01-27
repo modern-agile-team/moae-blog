@@ -97,7 +97,7 @@ export const Container = styled.div<{
   }
 `;
 
-export const ChildrenWrapper = styled.div<{
+export const Item = styled.div<{
   slideToShow: number;
   len: number;
 }>`
