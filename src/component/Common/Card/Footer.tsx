@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import theme from "@styles/theme";
+import * as S from "./styled";
 
 interface Props {
   userInfo: {
@@ -8,34 +7,15 @@ interface Props {
   };
 }
 
-const Footer = ({ userInfo }: Props) => {
+const CardFooter = ({ userInfo }: Props) => {
   return (
-    <Wrapper>
+    <S.Footer>
       <div id="writer">
         <img src={userInfo.profileImage} alt="" />
         {userInfo.name}
       </div>
-    </Wrapper>
+    </S.Footer>
   );
 };
 
-export default Footer;
-
-const Wrapper = styled.div`
-  display: flex;
-  width: 100%;
-  padding: 1rem;
-  padding-top: 0;
-  background-color: ${theme.COLORS.BG1};
-  #writer {
-    display: flex;
-    align-items: center;
-    font-size: ${theme.FONT.SMALL.fontSize};
-    img {
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      margin-right: 0.5rem;
-    }
-  }
-`;
+export default CardFooter;
