@@ -21,7 +21,9 @@
       "@styles/*": ["./src/styles/*"],
       "@recoil/*": ["./src/recoil/*"],
       "@type/*": ["./src/types/*"],
-      "@core/*": ["./src/core/*"]
+      "@core/*": ["./src/core/*"],
+      "@constant/*": ["./src/constant/*"],
+      "@hooks/*": ["./src/hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
