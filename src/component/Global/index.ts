@@ -1,1 +1,1 @@
-export { default as RecoilStateWrapper } from "./RecoilStateWrapper";
+export { default as BackgroundSettingProvider } from "./BackgroundSetting";

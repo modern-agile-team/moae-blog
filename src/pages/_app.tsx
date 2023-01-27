@@ -9,7 +9,7 @@ import { TopBar } from "@component/Common";
 import dynamic from "next/dynamic";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-const DynamicRecoilStateWrapper = dynamic(() => import("@component/Global/RecoilStateWrapper"), {
+const BackgroundSettingProvider = dynamic(() => import("@component/Global/BackgroundSetting"), {
   ssr: false,
   suspense: false,
 });
@@ -24,10 +24,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <SessionProvider session={pageProps.session}>
           <RecoilRoot>
             <QueryClientProvider client={queryClient}>
-              <DynamicRecoilStateWrapper>
+              <BackgroundSettingProvider>
                 <TopBar />
                 <Component {...pageProps} />
-              </DynamicRecoilStateWrapper>
+              </BackgroundSettingProvider>
             </QueryClientProvider>
           </RecoilRoot>
         </SessionProvider>
