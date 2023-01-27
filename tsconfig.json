@@ -20,7 +20,7 @@
       "@utils/*": ["./src/utils/*"],
       "@styles/*": ["./src/styles/*"],
       "@recoil/*": ["./src/recoil/*"],
-      "@types/*": ["./src/types/*"],
+      "@type/*": ["./src/types/*"],
       "@core/*": ["./src/core/*"]
     }
   },
