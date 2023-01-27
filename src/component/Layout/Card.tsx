@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CardLayout = styled.section`
+const CardLayout = styled.div`
   padding: 0 30px;
   display: grid;
   place-items: center;
