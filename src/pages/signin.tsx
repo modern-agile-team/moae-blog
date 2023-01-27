@@ -1,4 +1,5 @@
 import { signIn, useSession } from "next-auth/react";
+import { AxiosError, AxiosResponse } from "axios";
 
 import * as Layout from "@component/Layout";
 import styled from "styled-components";
@@ -13,13 +14,18 @@ const SignIn = () => {
   console.log("::::", data, status);
 
   const { mutate } = useMutation(login, {
-    onSuccess(data, variables, context) {
-      console.log(":::::", data);
+    onSuccess(response: AxiosResponse<{ accessToken: string; refreshToken: string }>, variables, context) {
+      const { data } = response;
+      console.log(":::::::success", response);
+      sessionStorage.setItem("accessToken", data.accessToken);
+      sessionStorage.setItem("refreshToken", data.refreshToken);
     },
-    onError(error, variables, context) {
-      console.error(error);
+    onError(error: AxiosError, variables, context) {
+      console.error(error.response?.data, variables, context);
     },
   });
+
+  console.log("::::::token", sessionStorage.getItem("accessToken"), sessionStorage.getItem("refreshToken"));
 
   useEffect(() => {
     if (status === CONST.SESSION_STATUS.AUTHENTICATED) {
