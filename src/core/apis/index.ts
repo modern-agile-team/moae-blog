@@ -1,12 +1,7 @@
+import * as T from "@type/index";
 import instance from "./instance";
 
-interface LoginType {
-  email: string;
-  name: string;
-  baseUrl: string;
-}
-
-export const login = async (data: LoginType) => {
+export const login = async (data: T.API.Request.Login) => {
   const result = await instance.post("/auth/sign-in", data);
   return result;
 };
