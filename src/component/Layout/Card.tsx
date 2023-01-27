@@ -1,17 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const CardSection = ({ children }: Props) => {
-  return <Wrapper>{children}</Wrapper>;
-};
-
-export default CardSection;
-
-const Wrapper = styled.section`
+const CardLayout = styled.section`
   padding: 0 30px;
   display: grid;
   place-items: center;
@@ -28,3 +17,5 @@ const Wrapper = styled.section`
     grid-template-columns: repeat(1, 1fr);
   }
 `;
+
+export default CardLayout;

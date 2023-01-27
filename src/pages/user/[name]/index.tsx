@@ -1,10 +1,11 @@
-import { Card, CardSection } from "@component/Common";
-import { cardProps } from "src/constant/test";
+import { Card } from "@component/Common";
+import { cardProps } from "@constant/test";
+import * as L from "@component/Layout";
 
 const User = () => {
   return (
     <div>
-      <CardSection>
+      <L.Card>
         <Card {...cardProps} />
         <Card {...cardProps} />
         <Card {...cardProps} />
@@ -13,7 +14,7 @@ const User = () => {
         <Card {...cardProps} />
         <Card {...cardProps} />
         <Card {...cardProps} />
-      </CardSection>
+      </L.Card>
     </div>
   );
 };
