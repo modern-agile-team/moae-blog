@@ -1,7 +1,9 @@
-import { CardSection, Card } from "@component/Common";
-import HotPosts from "@component/HotPosts/HotPosts";
-import { cardProps } from "src/constant/test";
 import { uuid } from "uuidv4";
+
+import { Card } from "@component/Common";
+import HotPosts from "@component/HotPosts/HotPosts";
+import { cardProps } from "@constant/test";
+import * as L from "@component/Layout";
 
 const randomSize = () => {
   return Math.floor(Math.random() * 1000);
@@ -27,11 +29,11 @@ const Home = ({ posts }: HomeProps) => {
   return (
     <div>
       <HotPosts />
-      <CardSection>
+      <L.Card>
         {posts.map((el) => (
           <Card key={uuid()} {...el} titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
         ))}
-      </CardSection>
+      </L.Card>
     </div>
   );
 };
