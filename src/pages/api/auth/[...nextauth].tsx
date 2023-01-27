@@ -1,10 +1,10 @@
 import { NextApiHandler } from "next";
-import NextAuth, { Session, User } from "next-auth";
+import NextAuth, { AuthOptions, Session, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import { encode, decode, JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
 
-const options = {
+const options: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_ID || "",
@@ -20,6 +20,9 @@ const options = {
   // callbacks: {
   //   session: (params: any) => params,
   // },
+  pages: {
+    signIn: "/signin",
+  },
 };
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
