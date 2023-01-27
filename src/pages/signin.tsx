@@ -28,7 +28,7 @@ const SignIn = () => {
 
       mutate({ email: email!, name: name!, baseUrl: image! });
     }
-  }, []);
+  }, [status]);
 
   return (
     <Layout.Login>
