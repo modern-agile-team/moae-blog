@@ -7,12 +7,12 @@ interface Props {
   };
 }
 
-const CardFooter = ({ userInfo }: Props) => {
+const CardFooter = () => {
   return (
     <S.Footer>
       <div id="writer">
-        <img src={userInfo.profileImage} alt="" />
-        {userInfo.name}
+        {/* <img src={userInfo.profileImage} alt="" /> */}
+        {/* {userInfo.name} */}
       </div>
     </S.Footer>
   );

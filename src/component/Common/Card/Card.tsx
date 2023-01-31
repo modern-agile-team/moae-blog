@@ -10,27 +10,23 @@ interface Props {
   title: string;
   description: string;
   date: string;
-  userInfo: {
-    profileImage: string;
-    name: string;
-  };
+  // userInfo: {
+  //   profileImage: string;
+  //   name: string;
+  // };
   titleImage: string;
   id: string;
   doImageLoad?: boolean;
 }
 
-const Card = ({ title, description, date, userInfo, titleImage, id, doImageLoad = true }: Props) => {
+const Card = ({ title, description, date, titleImage, id, doImageLoad = true }: Props) => {
   const router = useRouter();
 
   return (
-    <S.Wrapper
-      onClick={() => {
-        router.push(`/user/${userInfo.name}/${id}`);
-      }}
-    >
+    <S.Wrapper>
       <CardImage src={titleImage} doLoad={doImageLoad} />
       <Description title={title} description={description} date={date} />
-      <Footer userInfo={userInfo} />
+      <Footer />
     </S.Wrapper>
   );
 };
