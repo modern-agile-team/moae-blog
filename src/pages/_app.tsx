@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "@styles/globalStyle";
 import theme from "@styles/theme";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import React from "react";
 import { RecoilRoot } from "recoil";
 import { TopBar } from "@component/Common";
@@ -25,10 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <RecoilRoot>
             <QueryClientProvider client={queryClient}>
               <Hydrate state={pageProps.dehydratedState}>
-                <BackgroundSettingProvider>
-                  <TopBar />
-                  <Component {...pageProps} />
-                </BackgroundSettingProvider>
+                <Settings {...pageProps} Component={Component} />
               </Hydrate>
             </QueryClientProvider>
           </RecoilRoot>
@@ -39,3 +36,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
+const Settings = ({ Component, pageProps }: AppProps) => {
+  const session = useSession();
+  if (session.status === "loading") return null;
+  return (
+    <BackgroundSettingProvider>
+      <TopBar />
+      <Component {...pageProps} />
+    </BackgroundSettingProvider>
+  );
+};
