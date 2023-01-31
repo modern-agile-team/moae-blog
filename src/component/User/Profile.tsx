@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Avatar from "./Avatar";
@@ -10,6 +11,7 @@ interface Props {
 const Profile = ({ img }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const avatarRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const closeDropdown = (e: any) => {
     if (isDropdownOpen && (!avatarRef.current || !avatarRef.current?.contains(e.target))) setIsDropdownOpen(false);
@@ -23,6 +25,10 @@ const Profile = ({ img }: Props) => {
     window.addEventListener("click", closeDropdown);
     return () => window.removeEventListener("click", closeDropdown);
   }, [isDropdownOpen]);
+
+  useEffect(() => {
+    setIsDropdownOpen(false);
+  }, [router.pathname]);
 
   return (
     <Wrapper ref={avatarRef}>
