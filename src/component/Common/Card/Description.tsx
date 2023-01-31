@@ -7,7 +7,7 @@ interface Props {
 }
 
 const CardDescription = ({ title, description, date }: Props) => {
-  const [year, mounth, day] = date.split("-");
+  const [year, mounth, day] = date.replace(/T[^Z]*Z/g, "").split("-");
 
   return (
     <S.Description>
