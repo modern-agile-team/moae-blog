@@ -7,7 +7,7 @@ import React from "react";
 import { RecoilRoot } from "recoil";
 import { TopBar } from "@component/Common";
 import dynamic from "next/dynamic";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 
 const BackgroundSettingProvider = dynamic(() => import("@component/Global/BackgroundSetting"), {
   ssr: false,
@@ -24,10 +24,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <SessionProvider session={pageProps.session}>
           <RecoilRoot>
             <QueryClientProvider client={queryClient}>
-              <BackgroundSettingProvider>
-                <TopBar />
-                <Component {...pageProps} />
-              </BackgroundSettingProvider>
+              <Hydrate state={pageProps.dehydratedState}>
+                <BackgroundSettingProvider>
+                  <TopBar />
+                  <Component {...pageProps} />
+                </BackgroundSettingProvider>
+              </Hydrate>
             </QueryClientProvider>
           </RecoilRoot>
         </SessionProvider>
