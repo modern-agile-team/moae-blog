@@ -1,5 +1,5 @@
 import { signIn, useSession } from "next-auth/react";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse, AxiosRequestConfig } from "axios";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useEffect } from "react";
@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import * as Layout from "@component/Layout";
 import { login } from "@core/apis";
 import CONST from "@constant/index";
+import setToken from "@utils/setToken";
 
 const SignIn = () => {
   const { data, status } = useSession();
@@ -18,6 +19,7 @@ const SignIn = () => {
       const { data } = response;
       sessionStorage.setItem("accessToken", data.accessToken);
       sessionStorage.setItem("refreshToken", data.refreshToken);
+      setToken(data.accessToken);
       router.push("/");
     },
     onError(error: AxiosError, variables, context) {

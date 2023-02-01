@@ -15,6 +15,18 @@ interface PostType {
   userId: number;
 }
 
+export const USER = {
+  defaultPath: "/auth",
+  async login(data: T.API.Request.Login) {
+    const result = await instance.post(`${USER.defaultPath}/sign-in`, data);
+    return result;
+  },
+  async checkAuth() {
+    const result = await instance.get(`${USER.defaultPath}/existence`);
+    return result;
+  },
+};
+
 export const BOARDS = {
   async getAll() {
     const result: AxiosResponse<PostType[]> = await instance.get("/board/all");
