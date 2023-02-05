@@ -15,6 +15,12 @@ interface PostType {
   userId: number;
 }
 
+interface CreatePost {
+  title: string;
+  context: string;
+  categories: string[];
+}
+
 export const USER = {
   defaultPath: "/auth",
   async login(data: T.API.Request.Login) {
@@ -30,6 +36,10 @@ export const USER = {
 export const BOARDS = {
   async getAll() {
     const result: AxiosResponse<PostType[]> = await instance.get("/board/all");
+    return result;
+  },
+  async create(params: CreatePost) {
+    const result: AxiosResponse<PostType[]> = await instance.post("/board", params);
     return result;
   },
 };

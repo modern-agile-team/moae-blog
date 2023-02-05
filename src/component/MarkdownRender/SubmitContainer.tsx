@@ -3,12 +3,24 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
+import { useMutation } from "react-query";
+import * as APIS from "@core/apis";
 
 const SubmitContainer = () => {
   const post = useRecoilValue(withPostWriting);
   const router = useRouter();
+
+  const { mutate, data } = useMutation("createPost", APIS.BOARDS.create, {
+    onError(error, variables, context) {
+      console.error("::::", error);
+    },
+    onSuccess(data, variables, context) {
+      console.log(":::::", data);
+    },
+  });
+
   const handleSubmit = () => {
-    console.log(post);
+    mutate(post);
   };
 
   const moveToBack = () => {
