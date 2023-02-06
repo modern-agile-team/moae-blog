@@ -15,7 +15,7 @@ const CardDescription = ({ title, description, date }: Props) => {
         <h6>{title}</h6>
       </div>
       <div id="description">
-        <p>{description.replace(/[`#*_,.`<>\{\}\[\]\\\/]/gim, "")}</p>
+        <p>{description.replace(/[`#*_`]/gim, "")}</p>
         <span>{`${year}년 ${mounth}월 ${day}일`}</span>
       </div>
     </S.Description>
