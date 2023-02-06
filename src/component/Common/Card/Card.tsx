@@ -15,15 +15,13 @@ interface Props {
   //   name: string;
   // };
   titleImage: string;
-  id: string;
   doImageLoad?: boolean;
+  onClick?: () => void;
 }
 
-const Card = ({ title, description, date, titleImage, id, doImageLoad = true }: Props) => {
-  const router = useRouter();
-
+const Card = ({ title, description, date, titleImage, onClick, doImageLoad = true }: Props) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper onClick={onClick}>
       <CardImage src={titleImage} doLoad={doImageLoad} />
       <Description title={title} description={description} date={date} />
       <Footer />

@@ -8,15 +8,18 @@ import HotPosts from "@component/HotPosts/HotPosts";
 import * as L from "@component/Layout";
 import * as APIS from "@core/apis";
 import { Loader } from "@component/Common/Loader";
-
-const randomSize = () => {
-  return Math.floor(Math.random() * 1000);
-};
+import { useRouter } from "next/router";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery("getAllBoards", APIS.BOARDS.getAll, {
     refetchOnWindowFocus: false,
   });
+
+  const randomSize = () => {
+    return Math.floor(Math.random() * 1000);
+  };
+
+  const router = useRouter();
 
   return (
     <div>
@@ -27,12 +30,12 @@ const Home = () => {
         ) : (
           data!.data.map((post) => (
             <Card
-              key={uuid()}
+              key={post.id}
               title={post.title}
-              id={post.id.toString()}
               date={post.createdAt}
               description={post.context}
               titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+              onClick={() => router.push(`/user/작성자이름/${post.id}`)}
             />
           ))
         )}

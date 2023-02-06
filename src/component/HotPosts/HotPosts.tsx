@@ -5,13 +5,11 @@ import theme from "@styles/theme";
 import { Card, Carousel } from "@component/Common";
 import { useMemo } from "react";
 import { cardProps } from "src/constant/test";
-
-const randomSize = () => {
-  return Math.floor(Math.random() * 1000);
-};
+import { useRouter } from "next/router";
 
 const HotPosts = () => {
   const device = useRecoilValue(deviceAtom);
+  const router = useRouter();
 
   const slideToShow = useMemo(() => {
     switch (device) {
@@ -24,19 +22,83 @@ const HotPosts = () => {
     }
   }, [device]);
 
+  const randomSize = () => {
+    return Math.floor(Math.random() * 1000);
+  };
+
   return (
     <Wrapper>
       <Carousel slideToShow={slideToShow} autoplaySpeed={7000} isArrowShow={true} isAutoplay={true}>
-        <Card {...cardProps} description="1" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="2" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="3" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="4" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="5" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="6" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="7" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="8" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="9" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
-        <Card {...cardProps} description="10" titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`} />
+        <Card
+          {...cardProps}
+          description="1"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="2"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="3"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="4"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="5"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="6"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="7"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="8"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="9"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
+        <Card
+          {...cardProps}
+          description="10"
+          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
+          doImageLoad
+        />
       </Carousel>
     </Wrapper>
   );
