@@ -23,7 +23,8 @@
       "@type/*": ["./src/types/*"],
       "@core/*": ["./src/core/*"],
       "@constant/*": ["./src/constant/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@hooks/*": ["./src/hooks/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
