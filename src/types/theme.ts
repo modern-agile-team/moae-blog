@@ -7,6 +7,7 @@ type ColorType = {
   BG1: string;
   MAIN: string;
   MAINDARK: string;
+  MAIN_BRIGHT: string;
 };
 
 type FontType = {

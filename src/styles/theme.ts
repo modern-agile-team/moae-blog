@@ -5,6 +5,7 @@ const theme: ThemeType = {
     BG1: "#f8f9fa",
     MAINDARK: "rgb(31, 22, 15)",
     MAIN: "rgb(60, 47, 37)",
+    MAIN_BRIGHT: "#57493e",
   },
   FONT: {
     HEAD1: {
