@@ -1,6 +1,7 @@
-import useDevice from "@hooks/useDevice";
-import setToken from "@utils/setToken";
 import { useEffect } from "react";
+
+import { useDevice } from "@hooks/index";
+import setToken from "@utils/setToken";
 
 const BackgroundSetting = ({ children }: { children: React.ReactNode }) => {
   useDevice();
