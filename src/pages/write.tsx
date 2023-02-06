@@ -1,23 +1,23 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { useQuery } from "react-query";
+
 import { PostEditor, MarkdownPostHeader } from "@component/MarkdownRender";
 import SubmitContainer from "@component/MarkdownRender/SubmitContainer";
 import deviceAtom from "@recoil/deviceAtom";
 import theme from "@styles/theme";
-import { useQuery } from "react-query";
 import { USER } from "@core/apis";
-import { useRouter } from "next/router";
 import { Loader } from "@component/Common/Loader";
+import { useLogout } from "@hooks/index";
 
 const Write = () => {
   const device = useRecoilValue(deviceAtom);
-  const router = useRouter();
+  const { execute: logout } = useLogout();
 
   const { isLoading } = useQuery("checkUser", USER.checkAuth, {
-    onError(err) {
-      console.log(":::::", err);
+    async onError(err) {
       alert("로그인을 후에 이용할 수 있습니다.");
-      router.back();
+      logout();
     },
   });
 

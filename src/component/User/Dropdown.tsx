@@ -1,15 +1,11 @@
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import styled from "styled-components";
+
 import theme from "@styles/theme";
+import { useLogout } from "@hooks/index";
 
 const Dropdown = () => {
-  const clickToLogout = () => {
-    if (typeof window === undefined) return;
-    signOut();
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("refreshToken");
-  };
+  const { execute: logout } = useLogout();
 
   return (
     <Wrapper>
@@ -21,7 +17,7 @@ const Dropdown = () => {
           <li>글 작성</li>
         </Link>
         <Link href="/.">
-          <li onClick={clickToLogout}>로그아웃</li>
+          <li onClick={logout}>로그아웃</li>
         </Link>
       </ul>
     </Wrapper>
