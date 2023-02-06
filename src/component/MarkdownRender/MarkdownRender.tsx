@@ -1,15 +1,22 @@
+import { useEffect, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
+import { v4 as uuidv4 } from "uuid";
+import S3 from "react-aws-s3-typescript";
+import Prism from "prismjs";
 import { Editor } from "@toast-ui/react-editor";
+
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
-import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
-import Prism from "prismjs";
 import "prismjs/themes/prism.css";
-import { useEffect, useRef } from "react";
-import { useRecoilState } from "recoil";
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
+import "@toast-ui/editor/dist/i18n/ko-kr";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
+
 import withPostWriting from "@recoil/postWriting/withPostWriting";
-import S3 from "react-aws-s3-typescript";
-import { v4 as uuidv4 } from "uuid";
+
 interface Props {
   theme?: "dark" | "light";
 }
@@ -18,6 +25,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
   const region = "ap-northeast-2";
   const bucket = "moae-blog-images";
   const [post, setPost] = useRecoilState(withPostWriting);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const ref = useRef<Editor>(null);
 
@@ -46,7 +54,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
     <>
       <Editor
         ref={ref}
-        plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+        plugins={[[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]}
         previewStyle="vertical"
         initialEditType="markdown"
         useCommandShortcut={true}
@@ -55,6 +63,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
         placeholder={`글을 작성해 보세요`}
         onChange={onChange}
         theme={theme}
+        language="ko-KR"
         hooks={{
           async addImageBlobHook(blob, callback) {
             const imageData = await handleFileInput(blob);
