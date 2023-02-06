@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import S3 from "react-aws-s3-typescript";
@@ -25,7 +25,6 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
   const region = "ap-northeast-2";
   const bucket = "moae-blog-images";
   const [post, setPost] = useRecoilState(withPostWriting);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const ref = useRef<Editor>(null);
 
