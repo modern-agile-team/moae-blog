@@ -33,16 +33,22 @@ const Wrapper = styled.div`
   transform: translateX(-50%);
   width: 200px;
   z-index: 9999;
-  background-color: ${theme.COLORS.BG1};
-  box-shadow: 0 3px 3px #e6e6e6;
   cursor: default;
   li {
-    margin: 10px 0;
-    padding: 1rem;
-    background-color: ${theme.COLORS.BG1};
+    padding: 25px 18px;
+    color: ${theme.COLORS.BG1};
+    background-color: ${theme.COLORS.MAIN_BRIGHT};
+    border: 1px solid ${theme.COLORS.MAIN_BRIGHT};
     cursor: pointer;
+    &:nth-child(1) {
+      border-radius: 6px 6px 0 0;
+    }
+    &:nth-last-child(1) {
+      border-radius: 0 0 6px 6px;
+    }
     &:hover {
-      filter: brightness(90%);
+      color: ${theme.COLORS.MAIN};
+      background-color: ${theme.COLORS.BG1};
     }
   }
   @media (max-width: 568px) {
