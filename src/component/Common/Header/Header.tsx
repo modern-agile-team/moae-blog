@@ -23,7 +23,7 @@ const Header = () => {
         <button id="search-btn" onClick={toggleIsSearchBarOpen}>
           <GoSearch size={20} />
         </button>
-        {session.status === "authenticated" ? <UserSection /> : <LoginSection />}
+        {session.status === "authenticated" ? <UserSection img={session.data.user?.image} /> : <LoginSection />}
       </section>
     </Wrapper>
   );

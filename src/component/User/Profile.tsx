@@ -42,6 +42,6 @@ export default Profile;
 
 const Wrapper = styled.div`
   position: relative;
-  border: 1px solid;
+  border: 1px solid #fff;
   border-radius: 50%;
 `;
