@@ -6,8 +6,8 @@ const useLogout = () => {
   const router = useRouter();
 
   const execute = () => {
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("refreshToken");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     if (session.status === "authenticated") {
       signOut({ redirect: false });
     }

@@ -7,7 +7,7 @@ const BackgroundSetting = ({ children }: { children: React.ReactNode }) => {
   useDevice();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("accessToken");
+    const token = localStorage.getItem("accessToken");
     setToken(token || "");
   }, []);
 

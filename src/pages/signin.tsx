@@ -17,8 +17,8 @@ const SignIn = () => {
   const { mutate } = useMutation(login, {
     onSuccess(response: AxiosResponse<{ accessToken: string; refreshToken: string }>, variables, context) {
       const { data } = response;
-      sessionStorage.setItem("accessToken", data.accessToken);
-      sessionStorage.setItem("refreshToken", data.refreshToken);
+      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
       setToken(data.accessToken);
       router.push("/");
     },

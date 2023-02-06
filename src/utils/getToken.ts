@@ -1,7 +1,7 @@
 const getToken = () => {
   if (typeof window === "undefined") return;
-  const accessToken = sessionStorage.getItem("accessToken");
-  const refreshToken = sessionStorage.getItem("refreshToken");
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
 
   return { accessToken, refreshToken };
 };
