@@ -5,13 +5,13 @@ import { uuid } from "uuidv4";
 
 interface Props {
   title: string;
-  date: string;
+  createdAt: string;
   writer: string;
   tags?: string[];
 }
 
-const Header = ({ title, date, writer, tags }: Props) => {
-  const [year, mounth, day] = date.split("-");
+const Header = ({ title, createdAt, writer, tags }: Props) => {
+  const [year, mounth, day] = createdAt.replace(/T[^Z]*Z/g, "").split("-");
   return (
     <Wrapper>
       <Title>
@@ -45,6 +45,7 @@ const Wrapper = styled.div``;
 const Title = styled.div`
   h1 {
     font-weight: bolder;
+    color: ${theme.COLORS.MAINDARK};
   }
   @media (max-width: 568px) {
     h1 {
@@ -55,7 +56,12 @@ const Title = styled.div`
 
 const WriteInfo = styled.div`
   b {
+    font-size: ${theme.FONT.HEAD5};
     margin-right: 15px;
+  }
+  span {
+    font-size: ${theme.FONT.HEAD5};
+    font-weight: lighter;
   }
 `;
 

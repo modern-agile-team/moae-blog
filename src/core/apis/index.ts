@@ -42,4 +42,9 @@ export const BOARDS = {
     const result: AxiosResponse<PostType[]> = await instance.post("/board", params);
     return result;
   },
+  async getPost(postId: string) {
+    const result: AxiosResponse<PostType & { user: { name: string; baseUrl: string } }> =
+      await instance.get(`/board/${postId}`);
+    return result;
+  },
 };

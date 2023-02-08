@@ -7,10 +7,10 @@ import { Loader } from "@component/Common/Loader";
 const MarkdownViewer = dynamic(() => import("./MarkdownViewer"), { ssr: false, suspense: true });
 
 interface Props {
-  description: string;
+  context: string;
 }
 
-const PostArticle = ({ description }: Props) => {
+const PostArticle = ({ context }: Props) => {
   return (
     <Suspense
       fallback={
@@ -20,7 +20,7 @@ const PostArticle = ({ description }: Props) => {
       }
     >
       <Wrapper>
-        <MarkdownViewer initialValue={description} />
+        <MarkdownViewer initialValue={context} />
       </Wrapper>
     </Suspense>
   );
