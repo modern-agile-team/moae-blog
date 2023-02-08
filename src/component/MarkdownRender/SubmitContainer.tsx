@@ -13,9 +13,10 @@ const SubmitContainer = () => {
   const { mutate, data } = useMutation("createPost", APIS.BOARDS.create, {
     onError(error, variables, context) {
       console.error("::::", error);
+      router.push("/");
     },
     onSuccess(data, variables, context) {
-      console.log(":::::", data);
+      router.push("/");
     },
   });
 
