@@ -40,7 +40,10 @@ const PostHeader = React.memo(Header);
 
 export default PostHeader;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding-bottom: 16px;
+  box-shadow: 0 5px 2px -2px ${theme.COLORS.MAIN_BRIGHT};
+`;
 
 const Title = styled.div`
   h1 {
