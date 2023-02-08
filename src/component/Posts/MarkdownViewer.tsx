@@ -17,7 +17,7 @@ const MarkdownViewer = ({ initialValue, theme = "light" }: Props) => {
   useEffect(() => {
     const codes = Array.from(document.getElementsByTagName("code"));
     for (const code of codes) {
-      code.style.fontSize = "20px";
+      code.style.fontSize = "18px";
     }
   }, []);
 
