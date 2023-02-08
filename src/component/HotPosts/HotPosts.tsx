@@ -35,7 +35,7 @@ const HotPosts = ({ posts }: { posts: any[] }) => {
             date={post.createdAt}
             description={post.context}
             titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-            onClick={() => router.push(`/user/작성자이름/${post.id}`)}
+            onClick={() => router.push(`/user/${post.user.name}/${post.id}`)}
           />
         ))}
       </Carousel>

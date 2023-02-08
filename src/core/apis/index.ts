@@ -13,6 +13,7 @@ interface PostType {
   title: string;
   updatedAt: string;
   userId: number;
+  user: { name: string; baseUrl: string };
 }
 
 interface CreatePost {
@@ -43,8 +44,7 @@ export const BOARDS = {
     return result;
   },
   async getPost(postId: string) {
-    const result: AxiosResponse<PostType & { user: { name: string; baseUrl: string } }> =
-      await instance.get(`/board/${postId}`);
+    const result: AxiosResponse<PostType> = await instance.get(`/board/${postId}`);
     return result;
   },
 };
