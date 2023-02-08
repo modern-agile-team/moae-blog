@@ -1,5 +1,4 @@
 import * as T from "@type/index";
-import { PostType } from "@type/post";
 import { AxiosResponse } from "axios";
 import instance from "./instance";
 
@@ -22,15 +21,15 @@ export const USER = {
 
 export const BOARDS = {
   async getAll() {
-    const result: AxiosResponse<PostType[]> = await instance.get("/board/all");
+    const result: AxiosResponse<T.POST.PostType[]> = await instance.get("/board/all");
     return result;
   },
-  async create(params: Partial<PostType>) {
-    const result: AxiosResponse<PostType[]> = await instance.post("/board", params);
+  async create(params: T.POST.CreatePostType) {
+    const result: AxiosResponse<T.POST.PostType[]> = await instance.post("/board", params);
     return result;
   },
   async getPost(postId: string) {
-    const result: AxiosResponse<PostType> = await instance.get(`/board/${postId}`);
+    const result: AxiosResponse<T.POST.PostType> = await instance.get(`/board/${postId}`);
     return result;
   },
 };

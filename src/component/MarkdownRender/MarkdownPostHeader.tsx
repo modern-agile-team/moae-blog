@@ -6,18 +6,16 @@ import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
 import SubmitContainer from "./SubmitContainer";
 import { uuid } from "uuidv4";
-import { PostType } from "@type/post";
-
-type CreatePostType = Pick<PostType, "categories" | "context" | "title">;
+import * as T from "@type/index";
 
 const PostHeader = () => {
   const device = useRecoilValue(deviceAtom);
   const [currentTag, setCurrentTag] = useState<string>("");
-  const [post, setPost] = useRecoilState<CreatePostType>(withPostWriting);
+  const [post, setPost] = useRecoilState<T.POST.CreatePostType>(withPostWriting);
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPost({
-      ...(post as CreatePostType),
+      ...(post as T.POST.CreatePostType),
       title: e.target.value,
     });
   };
@@ -38,7 +36,7 @@ const PostHeader = () => {
       const newTags = [...categories];
       newTags.push(currentTag);
       setPost({
-        ...(post as CreatePostType),
+        ...(post as T.POST.CreatePostType),
         categories: newTags,
       });
       setCurrentTag("");
