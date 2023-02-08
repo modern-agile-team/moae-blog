@@ -1,10 +1,10 @@
 export interface PostType {
-  id: string;
+  context: string;
+  createdAt: string;
+  id: number;
   title: string;
-  description: string;
-  date: string;
-  writer: string;
-  tags: string[];
-  likes: number;
-  previewImage?: string;
+  updatedAt: string;
+  userId: number;
+  user: { name: string; baseUrl: string };
+  categories: string[];
 }

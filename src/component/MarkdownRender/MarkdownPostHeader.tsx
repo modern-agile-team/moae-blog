@@ -2,19 +2,24 @@ import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import deviceAtom from "@recoil/deviceAtom";
-import { IPostWritingType } from "@recoil/postWriting/type";
 import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
 import SubmitContainer from "./SubmitContainer";
 import { uuid } from "uuidv4";
+import { PostType } from "@type/post";
+
+type CreatePostType = Pick<PostType, "categories" | "context" | "title">;
 
 const PostHeader = () => {
   const device = useRecoilValue(deviceAtom);
   const [currentTag, setCurrentTag] = useState<string>("");
-  const [post, setPost] = useRecoilState<IPostWritingType>(withPostWriting);
+  const [post, setPost] = useRecoilState<CreatePostType>(withPostWriting);
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPost({ ...(post as IPostWritingType), title: e.target.value });
+    setPost({
+      ...(post as CreatePostType),
+      title: e.target.value,
+    });
   };
 
   const handleChangeTags = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +37,10 @@ const PostHeader = () => {
       const { categories } = post;
       const newTags = [...categories];
       newTags.push(currentTag);
-      setPost({ ...(post as IPostWritingType), categories: newTags });
+      setPost({
+        ...(post as CreatePostType),
+        categories: newTags,
+      });
       setCurrentTag("");
     }
   };

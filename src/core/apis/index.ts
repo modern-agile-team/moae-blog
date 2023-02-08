@@ -1,4 +1,5 @@
 import * as T from "@type/index";
+import { PostType } from "@type/post";
 import { AxiosResponse } from "axios";
 import instance from "./instance";
 
@@ -6,21 +7,6 @@ export const login = async (data: T.API.Request.Login) => {
   const result = await instance.post("/auth/sign-in", data);
   return result;
 };
-interface PostType {
-  context: string;
-  createdAt: string;
-  id: number;
-  title: string;
-  updatedAt: string;
-  userId: number;
-  user: { name: string; baseUrl: string };
-}
-
-interface CreatePost {
-  title: string;
-  context: string;
-  categories: string[];
-}
 
 export const USER = {
   defaultPath: "/auth",
@@ -39,7 +25,7 @@ export const BOARDS = {
     const result: AxiosResponse<PostType[]> = await instance.get("/board/all");
     return result;
   },
-  async create(params: CreatePost) {
+  async create(params: Partial<PostType>) {
     const result: AxiosResponse<PostType[]> = await instance.post("/board", params);
     return result;
   },

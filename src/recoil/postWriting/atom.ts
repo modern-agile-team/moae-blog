@@ -1,7 +1,7 @@
+import { PostType } from "@type/post";
 import { atom } from "recoil";
-import { IPostWritingType } from "./type";
 
-const postWriting = atom<IPostWritingType>({
+const postWriting = atom<Pick<PostType, "title" | "categories" | "context">>({
   key: "postWriting",
   default: {
     title: "",
