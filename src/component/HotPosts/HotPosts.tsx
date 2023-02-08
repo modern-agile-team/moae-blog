@@ -4,10 +4,9 @@ import deviceAtom from "@recoil/deviceAtom";
 import theme from "@styles/theme";
 import { Card, Carousel } from "@component/Common";
 import { useMemo } from "react";
-import { cardProps } from "src/constant/test";
 import { useRouter } from "next/router";
 
-const HotPosts = () => {
+const HotPosts = ({ posts }: { posts: any[] }) => {
   const device = useRecoilValue(deviceAtom);
   const router = useRouter();
 
@@ -29,76 +28,16 @@ const HotPosts = () => {
   return (
     <Wrapper>
       <Carousel slideToShow={slideToShow} autoplaySpeed={7000} isArrowShow={true} isAutoplay={true}>
-        <Card
-          {...cardProps}
-          description="1"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="2"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="3"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="4"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="5"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="6"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="7"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="8"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="9"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
-        <Card
-          {...cardProps}
-          description="10"
-          titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-          onClick={() => router.push(`/user/${cardProps.userInfo.name}/${cardProps.id}`)}
-          doImageLoad
-        />
+        {posts.map((post) => (
+          <Card
+            key={post.id}
+            title={post.title}
+            date={post.createdAt}
+            description={post.context}
+            titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+            onClick={() => router.push(`/user/작성자이름/${post.id}`)}
+          />
+        ))}
       </Carousel>
     </Wrapper>
   );

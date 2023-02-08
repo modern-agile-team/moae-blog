@@ -23,23 +23,25 @@ const Home = () => {
 
   return (
     <div>
-      <HotPosts />
-      <L.Card>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          data!.data.map((post) => (
-            <Card
-              key={post.id}
-              title={post.title}
-              date={post.createdAt}
-              description={post.context}
-              titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
-              onClick={() => router.push(`/user/작성자이름/${post.id}`)}
-            />
-          ))
-        )}
-      </L.Card>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <HotPosts posts={data!.data.slice(0, 10)} />
+          <L.Card>
+            {data!.data.map((post) => (
+              <Card
+                key={post.id}
+                title={post.title}
+                date={post.createdAt}
+                description={post.context}
+                titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+                onClick={() => router.push(`/user/작성자이름/${post.id}`)}
+              />
+            ))}
+          </L.Card>
+        </>
+      )}
     </div>
   );
 };
