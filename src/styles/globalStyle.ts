@@ -68,7 +68,57 @@ h6 {
     width: 10px;
     background-color: #a6a6a6;
     border-radius: 16px;
-  }
+  } 
+
+
+.toastui-editor-contents h1 {
+  font-size: calc(24px + 4px) !important;
+  line-height: 28px;
+  border-bottom: 3px double #999;
+  margin: 52px 0 15px 0;
+  padding-bottom: 7px;
+}
+
+.toastui-editor-contents h2 {
+  font-size: calc(22px + 4px) !important;
+  line-height: 23px;
+  border-bottom: 1px solid #dbdbdb;
+  margin: 20px 0 13px 0;
+  padding-bottom: 7px;
+}
+
+.toastui-editor-contents h3 {
+  font-size: calc(20px + 4px) !important;
+  margin: 18px 0 2px;
+}
+
+.toastui-editor-contents h4 {
+  font-size: calc(18px + 4px) !important;
+  margin: 10px 0 2px;
+}
+
+.toastui-editor-contents h3,
+.toastui-editor-contents h4 {
+  line-height: 18px;
+}
+
+.toastui-editor-contents h5 {
+  font-size: calc(16px + 4px) !important;
+}
+
+.toastui-editor-contents h6 {
+  font-size: calc(14px + 4px) !important;
+}
+
+.toastui-editor-contents {
+  margin: 0;
+  padding: 0;
+  font-size: calc(13px + 4px) !important;
+  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', '나눔바른고딕',
+    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+  z-index: 20;
+}
+
 `;
 
 export default GlobalStyle;
