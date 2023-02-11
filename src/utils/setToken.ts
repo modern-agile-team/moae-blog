@@ -1,11 +1,10 @@
-import instance from "@core/apis/instance";
-
-const setToken = (token: string) => {
-  instance.interceptors.request.use((config) => {
-    if (!config.headers) config.headers = { Authorization: "" };
-    config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  });
+const setToken = ({ accessToken, refreshToken }: { accessToken?: string; refreshToken?: string }) => {
+  if (accessToken) {
+    localStorage.setItem("accessToken", accessToken);
+  }
+  if (refreshToken) {
+    localStorage.setItem("refreshToken", refreshToken);
+  }
 };
 
 export default setToken;
