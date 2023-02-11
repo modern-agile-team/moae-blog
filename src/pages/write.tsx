@@ -17,7 +17,8 @@ const Write = () => {
 
   const { mutate } = useMutation("refresh", APIS.USER.refresh, {
     onSuccess(data, variables, context) {
-      setToken(data.data);
+      const { accessToken, refreshToken } = data.data;
+      setToken({ accessToken, refreshToken });
     },
     onError(error, variables, context) {
       alert("로그인을 후에 이용할 수 있습니다.");
