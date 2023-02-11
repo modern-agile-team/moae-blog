@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useMutation } from "react-query";
 
 import * as Layout from "@component/Layout";
-import CONST from "@constant/index";
+import { SESSION_STATUS } from "@constant/index";
 import { setAxiosAuthHeader } from "@utils/index";
 import APIS from "@core/apis";
 
@@ -28,7 +28,7 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    if (status === CONST.SESSION_STATUS.AUTHENTICATED) {
+    if (status === SESSION_STATUS.AUTHENTICATED) {
       if (!data.user) return;
       const { email, name, image } = data.user;
 

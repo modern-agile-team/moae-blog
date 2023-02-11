@@ -2,16 +2,16 @@ import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
 import deviceAtom from "@recoil/deviceAtom";
-import CONST from "@constant/index";
+import { DEVICE } from "@constant/index";
 
 const useDevice = () => {
   const setDevice = useSetRecoilState(deviceAtom);
 
   const changeDeviceSize = () => {
     setDevice(() => {
-      if (window.innerWidth <= 568) return CONST.DEVICE.MOBILE;
-      else if (window.innerWidth <= 768) return CONST.DEVICE.TABLET;
-      else return CONST.DEVICE.DESK_TOP;
+      if (window.innerWidth <= 568) return DEVICE.MOBILE;
+      else if (window.innerWidth <= 768) return DEVICE.TABLET;
+      else return DEVICE.DESK_TOP;
     });
   };
 
