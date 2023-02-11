@@ -10,12 +10,13 @@ import theme from "@styles/theme";
 import APIS from "@core/apis";
 import { useLogout } from "@hooks/index";
 import { getToken, setAxiosAuthHeader, setToken } from "@utils/index";
+import { API_KEYS } from "@constant/index";
 
 const Write = () => {
   const device = useRecoilValue(deviceAtom);
   const { execute: logout } = useLogout();
 
-  const { mutate } = useMutation("refresh", APIS.USER.refresh, {
+  const { mutate } = useMutation(API_KEYS.USER.REFRESH, APIS.USER.refresh, {
     onSuccess(data, variables, context) {
       const { accessToken, refreshToken } = data.data;
       setToken({ accessToken, refreshToken });
@@ -26,7 +27,7 @@ const Write = () => {
     },
   });
 
-  const { isLoading } = useQuery("checkUser", APIS.USER.checkAuth, {
+  const { isLoading } = useQuery(API_KEYS.USER.CHECK, APIS.USER.checkAuth, {
     onError(err) {
       const token = getToken();
       if (token?.refreshToken) {

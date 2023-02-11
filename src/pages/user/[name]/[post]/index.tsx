@@ -1,5 +1,6 @@
 import { Loader } from "@component/Common/Loader";
 import { CommentSection, PostArticle, PostContainer, PostHeader } from "@component/Posts";
+import { API_KEYS } from "@constant/index";
 import APIS from "@core/apis";
 import { useRouter } from "next/router";
 import { useQueries, useQuery } from "react-query";
@@ -20,7 +21,7 @@ const Post = () => {
 
   const [posts, comment] = useQueries([
     {
-      queryKey: ["getPost", router.query.post],
+      queryKey: [API_KEYS.BOARDS.GET_POST, router.query.post],
       queryFn: () => APIS.BOARDS.getPost(router.query.post as string),
       suspense: true,
       onSuccess(data: any) {
@@ -31,7 +32,7 @@ const Post = () => {
       },
     },
     {
-      queryKey: ["getComment", router.query.post],
+      queryKey: [API_KEYS.COMMENT.GET_COMMENT, router.query.post],
       queryFn: () => APIS.COMMENT.getComments(router.query.post as string),
       suspense: true,
       onSuccess(data: any) {
