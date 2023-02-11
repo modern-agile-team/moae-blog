@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 
 import { useDevice } from "@hooks/index";
-import setToken from "@utils/setToken";
+import { setAxiosAuthHeader, getToken } from "@utils/index";
 
 const BackgroundSetting = ({ children }: { children: React.ReactNode }) => {
+  const token = getToken();
+
   useDevice();
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    setToken(token || "");
-  }, []);
+    setAxiosAuthHeader(token?.accessToken || "");
+  }, [token]);
 
   return <>{children}</>;
 };
