@@ -14,7 +14,13 @@ const BackgroundSettingProvider = dynamic(() => import("@component/Global/Backgr
   suspense: false,
 });
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

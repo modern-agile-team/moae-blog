@@ -30,7 +30,7 @@ export default PostContainer;
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   min-height: calc(100vh - 200px);
   @media (max-width: 568px) {

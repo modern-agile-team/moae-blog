@@ -1,8 +1,8 @@
 import { Loader } from "@component/Common/Loader";
 import { CommentSection, PostArticle, PostContainer, PostHeader } from "@component/Posts";
-import { BOARDS } from "@core/apis";
+import APIS from "@core/apis";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useQueries, useQuery } from "react-query";
 import { CommentType } from "src/types/comment";
 
 const Post = () => {
@@ -18,14 +18,39 @@ const Post = () => {
     },
   ];
 
+  const [posts, comment] = useQueries([
+    {
+      queryKey: ["getPost", router.query.post],
+      queryFn: () => APIS.BOARDS.getPost(router.query.post as string),
+      suspense: true,
+      onSuccess(data: any) {
+        console.log(":::::post", data);
+      },
+      onError(error: any) {
+        console.log(":::::postErr", error);
+      },
+    },
+    {
+      queryKey: ["getComment", router.query.post],
+      queryFn: () => APIS.COMMENT.getComments(router.query.post as string),
+      suspense: true,
+      onSuccess(data: any) {
+        console.log(":::::comment", data);
+      },
+      onError(error: any) {
+        console.log(":::::commentErr", error);
+      },
+    },
+  ]);
+
   const { isLoading, data: result } = useQuery(`getPost ${router.query.post}`, () =>
-    BOARDS.getPost(router.query.post as string)
+    APIS.BOARDS.getPost(router.query.post as string)
   );
 
   return (
     <div>
       <PostContainer>
-        {isLoading && !result ? (
+        {posts.isLoading || comment.isLoading ? (
           <Loader />
         ) : (
           <>

@@ -6,20 +6,20 @@ import { useEffect } from "react";
 import { useMutation } from "react-query";
 
 import * as Layout from "@component/Layout";
-import { login } from "@core/apis";
 import CONST from "@constant/index";
-import setToken from "@utils/setToken";
+import { setAxiosAuthHeader } from "@utils/index";
+import APIS from "@core/apis";
 
 const SignIn = () => {
   const { data, status } = useSession();
   const router = useRouter();
 
-  const { mutate } = useMutation(login, {
+  const { mutate } = useMutation(APIS.USER.login, {
     onSuccess(response: AxiosResponse<{ accessToken: string; refreshToken: string }>, variables, context) {
       const { data } = response;
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      setToken(data.accessToken);
+      setAxiosAuthHeader(data.accessToken);
       router.push("/");
     },
     onError(error: AxiosError, variables, context) {

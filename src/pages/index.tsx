@@ -6,14 +6,12 @@ import safeJsonStringify from "safe-json-stringify";
 import { Card } from "@component/Common";
 import HotPosts from "@component/HotPosts/HotPosts";
 import * as L from "@component/Layout";
-import * as APIS from "@core/apis";
+import APIS from "@core/apis";
 import { Loader } from "@component/Common/Loader";
 import { useRouter } from "next/router";
 
 const Home = () => {
-  const { isLoading, error, data } = useQuery("getAllBoards", APIS.BOARDS.getAll, {
-    refetchOnWindowFocus: false,
-  });
+  const { isLoading, error, data } = useQuery("getAllBoards", APIS.BOARDS.getAll);
 
   const randomSize = () => {
     return Math.floor(Math.random() * 1000);

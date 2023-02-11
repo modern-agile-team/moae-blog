@@ -1,23 +1,40 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 import { PostEditor, MarkdownPostHeader } from "@component/MarkdownRender";
 import SubmitContainer from "@component/MarkdownRender/SubmitContainer";
+import { Loader } from "@component/Common/Loader";
 import deviceAtom from "@recoil/deviceAtom";
 import theme from "@styles/theme";
-import { USER } from "@core/apis";
-import { Loader } from "@component/Common/Loader";
+import APIS from "@core/apis";
 import { useLogout } from "@hooks/index";
+import { getToken, setAxiosAuthHeader, setToken } from "@utils/index";
 
 const Write = () => {
   const device = useRecoilValue(deviceAtom);
   const { execute: logout } = useLogout();
 
-  const { isLoading } = useQuery("checkUser", USER.checkAuth, {
-    async onError(err) {
+  const { mutate } = useMutation("refresh", APIS.USER.refresh, {
+    onSuccess(data, variables, context) {
+      setToken(data.data);
+    },
+    onError(error, variables, context) {
       alert("로그인을 후에 이용할 수 있습니다.");
       logout();
+    },
+  });
+
+  const { isLoading } = useQuery("checkUser", APIS.USER.checkAuth, {
+    onError(err) {
+      const token = getToken();
+      if (token?.refreshToken) {
+        setAxiosAuthHeader(token.refreshToken);
+        mutate();
+      } else {
+        alert("로그인을 후에 이용할 수 있습니다.");
+        logout();
+      }
     },
   });
 
