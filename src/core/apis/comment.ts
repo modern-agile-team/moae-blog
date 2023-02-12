@@ -1,5 +1,5 @@
-import * as T from "@type/index";
 import { AxiosResponse } from "axios";
+
 import instance from "./instance";
 
 const COMMENT = {
@@ -8,8 +8,8 @@ const COMMENT = {
     const result: AxiosResponse<any> = await instance.get(`${COMMENT.path}/${postId}/comments`);
     return result;
   },
-  async createComment(postId: string) {
-    const result: AxiosResponse<any> = await instance.post(`${COMMENT.path}/${postId}/comments`);
+  async createComment({ postId, context }: { postId: string; context: string }) {
+    const result: AxiosResponse<any> = await instance.post(`${COMMENT.path}/${postId}/comments`, { context });
     return result;
   },
   async modifyComment(postId: string, commentId: string) {

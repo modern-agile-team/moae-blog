@@ -3,9 +3,10 @@ export interface CommentListType {
 }
 
 export interface CommentType {
-  id: string;
-  img: string;
-  name: string;
-  date: string;
-  description: string;
+  boardId: number;
+  context: string;
+  createdAt: string;
+  id: number;
+  updatedAt: string;
+  userId: number;
 }

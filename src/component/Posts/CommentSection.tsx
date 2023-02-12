@@ -1,11 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
+import { useMutation } from "react-query";
+
 import theme from "@styles/theme";
-import { CommentListType } from "src/types/comment";
 import Comment from "./Comment";
+import { CommentListType } from "@type/comment";
+import { API_KEYS } from "@constant/index";
+import { COMMENT } from "@core/apis";
 
 const CommentSection = ({ commentList }: CommentListType) => {
+  const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [comment, setComment] = useState("");
 
   const onKeyUp = () => {
     if (!textareaRef.current) return;
@@ -14,12 +21,39 @@ const CommentSection = ({ commentList }: CommentListType) => {
     textareaRef.current.style.height = `${height + 8}px`;
   };
 
+  const { mutate: createComment } = useMutation(API_KEYS.COMMENT.CREATE, COMMENT.createComment, {
+    onSuccess(data, variables, context) {
+      console.log(":::::", data);
+    },
+    onError(error, variables, context) {
+      console.error("::::: failed to create comment", error);
+    },
+  });
+
+  const handleCreateComment = () => {
+    if (comment === "" || comment.length > 500) {
+      alert("댓글 내용을 입력해 주세요. 길이 최소 1 ~ 최대 500");
+      return;
+    }
+    createComment({ postId: `${router.query.post}`, context: comment });
+    setComment("");
+  };
+
   return (
     <Wrapper>
-      <h3>{`${commentList.length}개의 댓글`}</h3>
+      <h3>{commentList.length === 0 ? "작성된 댓글이 없습니다." : `${commentList.length}개의 댓글`}</h3>
       <div className="comment-container">
-        <textarea ref={textareaRef} placeholder="댓글을 입력하세요" onKeyUp={onKeyUp} />
-        <button id="comment-btn">댓글 입력</button>
+        <textarea
+          ref={textareaRef}
+          placeholder={commentList.length === 0 ? "첫번째 댓글을 작성해보세요" : "댓글을 입력하세요"}
+          onKeyUp={onKeyUp}
+          onChange={(e) => {
+            setComment(e.target.value);
+          }}
+        />
+        <button id="comment-btn" onClick={handleCreateComment}>
+          댓글 입력
+        </button>
       </div>
       <ul>
         {commentList.map((comment) => {
