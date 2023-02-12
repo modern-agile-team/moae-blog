@@ -7,6 +7,7 @@ export interface PostType {
   userId: number;
   user: { name: string; baseUrl: string };
   categories: string[];
+  thumbnail?: string;
 }
 
 export type CreatePostType = Pick<PostType, "categories" | "context" | "title">;
