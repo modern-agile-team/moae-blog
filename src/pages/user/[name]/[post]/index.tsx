@@ -3,7 +3,7 @@ import { useQueries } from "react-query";
 
 import { Loader } from "@component/Common/Loader";
 import { CommentSection, PostArticle, PostContainer, PostHeader } from "@component/Posts";
-import { API_KEYS } from "@constant/index";
+import { API_KEYS } from "@core/constant";
 import * as APIS from "@core/apis";
 
 const Post = () => {

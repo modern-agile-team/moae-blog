@@ -22,7 +22,6 @@
       "@recoil/*": ["./src/recoil/*"],
       "@type/*": ["./src/types/*"],
       "@core/*": ["./src/core/*"],
-      "@constant/*": ["./src/constant/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"]
     }

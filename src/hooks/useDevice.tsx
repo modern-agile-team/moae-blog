@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
 import deviceAtom from "@recoil/deviceAtom";
-import { DEVICE } from "@constant/index";
+import { DEVICE } from "@core/constant";
 
 const useDevice = () => {
   const setDevice = useSetRecoilState(deviceAtom);

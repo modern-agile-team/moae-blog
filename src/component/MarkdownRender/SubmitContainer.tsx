@@ -5,7 +5,7 @@ import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
 import { useMutation } from "react-query";
 import * as APIS from "@core/apis";
-import { API_KEYS } from "@constant/index";
+import { API_KEYS } from "@core/constant";
 
 const SubmitContainer = () => {
   const post = useRecoilValue(withPostWriting);

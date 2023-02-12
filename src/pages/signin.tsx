@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useMutation } from "react-query";
 
 import * as Layout from "@component/Layout";
-import { API_KEYS, SESSION_STATUS } from "@constant/index";
+import { API_KEYS, SESSION_STATUS } from "@core/constant";
 import { setAxiosAuthHeader } from "@utils/index";
 import * as APIS from "@core/apis";
 

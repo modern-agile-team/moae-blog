@@ -1,19 +1,12 @@
 import type { NextPage } from "next";
-import { uuid } from "uuidv4";
-
-import { Card } from "@component/Common";
-import { cardProps } from "@constant/test";
 import * as L from "@component/Layout";
+import { Card } from "@component/Common";
 
 const Home: NextPage = () => {
-  const posts = new Array(30).fill(cardProps);
-
   return (
     <div>
       <L.Card>
-        {posts.map((post) => {
-          return <Card key={uuid()} {...post} />;
-        })}
+        <Card title="asd" description="asdkljz" date="2022-10-11" />
       </L.Card>
     </div>
   );

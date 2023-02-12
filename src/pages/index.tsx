@@ -9,7 +9,7 @@ import HotPosts from "@component/HotPosts/HotPosts";
 import * as L from "@component/Layout";
 import * as APIS from "@core/apis";
 import { Loader } from "@component/Common/Loader";
-import { API_KEYS } from "@constant/index";
+import { API_KEYS } from "@core/constant";
 
 const Home = () => {
   const { isLoading, data } = useQuery(API_KEYS.BOARDS.GET_ALL, APIS.BOARDS.getAll);

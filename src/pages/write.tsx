@@ -10,7 +10,7 @@ import theme from "@styles/theme";
 import * as APIS from "@core/apis";
 import { useLogout } from "@hooks/index";
 import { getToken, setAxiosAuthHeader, setToken } from "@utils/index";
-import { API_KEYS } from "@constant/index";
+import { API_KEYS } from "@core/constant";
 
 const Write = () => {
   const device = useRecoilValue(deviceAtom);
