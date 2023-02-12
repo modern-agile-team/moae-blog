@@ -1,12 +1,12 @@
 import { signIn, useSession } from "next-auth/react";
-import { AxiosError, AxiosResponse, AxiosRequestConfig } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useMutation } from "react-query";
 
 import * as Layout from "@component/Layout";
-import { SESSION_STATUS } from "@constant/index";
+import { API_KEYS, SESSION_STATUS } from "@constant/index";
 import { setAxiosAuthHeader } from "@utils/index";
 import * as APIS from "@core/apis";
 
@@ -14,7 +14,7 @@ const SignIn = () => {
   const { data, status } = useSession();
   const router = useRouter();
 
-  const { mutate } = useMutation(APIS.USER.login, {
+  const { mutate } = useMutation(API_KEYS.USER.SIGN_IN, APIS.USER.login, {
     onSuccess(response: AxiosResponse<{ accessToken: string; refreshToken: string }>, variables, context) {
       const { data } = response;
       localStorage.setItem("accessToken", data.accessToken);
