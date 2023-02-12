@@ -8,9 +8,10 @@ import * as S from "./style";
 interface ICategoryProps {
   isOpen: boolean;
   handleToggleOpen: () => void;
+  categoryList: string[];
 }
 const Category = (props: ICategoryProps) => {
-  const { isOpen, handleToggleOpen } = props;
+  const { isOpen, handleToggleOpen, categoryList } = props;
 
   return (
     <S.CategoryWrapper>
@@ -20,42 +21,13 @@ const Category = (props: ICategoryProps) => {
       </S.CategoryButton>
       <S.CategoryListWrapper isOpen={isOpen}>
         <S.Categories>
-          {"1"
-            .repeat(100)
-            .split("")
-            .map((el, i) => {
-              if (i % 4 === 0) {
-                return (
-                  <li onClick={handleToggleOpen} key={uuid()}>
-                    <Link href="/category/FE">FE</Link>
-                  </li>
-                );
-              } else if (i % 5 === 0) {
-                return (
-                  <li onClick={handleToggleOpen} key={uuid()}>
-                    <Link href="/category/javascript">javascript</Link>
-                  </li>
-                );
-              } else if (i % 3 === 0) {
-                return (
-                  <li onClick={handleToggleOpen} key={uuid()}>
-                    <Link href="/category/BackEnd">BackEnd</Link>
-                  </li>
-                );
-              } else if (i % 9 === 0) {
-                return (
-                  <li onClick={handleToggleOpen} key={uuid()}>
-                    <Link href="/category/Computer">Computer Science</Link>
-                  </li>
-                );
-              } else {
-                return (
-                  <li onClick={handleToggleOpen} key={uuid()}>
-                    <Link href="/category/Server">Server</Link>
-                  </li>
-                );
-              }
-            })}
+          {categoryList.map((category, index) => {
+            return (
+              <li onClick={handleToggleOpen} key={index}>
+                <Link href={`/category/${category}`}>{category}</Link>
+              </li>
+            );
+          })}
         </S.Categories>
       </S.CategoryListWrapper>
     </S.CategoryWrapper>

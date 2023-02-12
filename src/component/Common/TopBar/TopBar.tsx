@@ -4,13 +4,16 @@ import Category from "./Category";
 import useTopBar from "./hooks";
 import { Container } from "./style";
 
-const TopBar = () => {
+const TopBar = ({ categoryList }: { categoryList?: string[] }) => {
   const topBarRef = useRef<HTMLDivElement>(null);
   const { pageY, isCategoryOpen, handleToggleCategory } = useTopBar(topBarRef);
+
   return (
     <Container pageY={pageY} ref={topBarRef}>
       <Header />
-      <Category isOpen={isCategoryOpen} handleToggleOpen={handleToggleCategory} />
+      {categoryList && categoryList.length !== 0 && (
+        <Category isOpen={isCategoryOpen} handleToggleOpen={handleToggleCategory} categoryList={categoryList} />
+      )}
     </Container>
   );
 };
