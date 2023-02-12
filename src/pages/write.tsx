@@ -28,6 +28,7 @@ const Write = () => {
   });
 
   const { isLoading } = useQuery(API_KEYS.USER.CHECK, APIS.USER.checkAuth, {
+    retry: false,
     onError(err) {
       const token = getToken();
       if (token?.refreshToken) {
