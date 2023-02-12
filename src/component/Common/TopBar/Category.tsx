@@ -13,6 +13,7 @@ interface ICategoryProps {
 const Category = (props: ICategoryProps) => {
   const { isOpen, handleToggleOpen, categoryList } = props;
 
+  console.log(":::::", categoryList);
   return (
     <S.CategoryWrapper>
       <S.CategoryButton onClick={handleToggleOpen}>
@@ -21,13 +22,14 @@ const Category = (props: ICategoryProps) => {
       </S.CategoryButton>
       <S.CategoryListWrapper isOpen={isOpen}>
         <S.Categories>
-          {categoryList.map((category, index) => {
-            return (
-              <li onClick={handleToggleOpen} key={index}>
-                <Link href={`/category/${category}`}>{category}</Link>
-              </li>
-            );
-          })}
+          {categoryList.length > 0 &&
+            categoryList.map((category, index) => {
+              return (
+                <li onClick={handleToggleOpen} key={index}>
+                  <Link href={`/category/${category}`}>{category}</Link>
+                </li>
+              );
+            })}
         </S.Categories>
       </S.CategoryListWrapper>
     </S.CategoryWrapper>

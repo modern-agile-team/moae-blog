@@ -54,7 +54,7 @@ const Settings = ({ Component, pageProps }: AppProps) => {
   if (session.status === "loading") return null;
   return (
     <BackgroundSettingProvider>
-      <TopBar categoryList={categoryList?.data} />
+      <TopBar categoryList={categoryList?.data.map((category: any) => category.name)} />
       <Component {...pageProps} />
     </BackgroundSettingProvider>
   );
