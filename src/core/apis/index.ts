@@ -45,7 +45,7 @@ export const BOARDS = {
 };
 
 export const COMMENT = {
-  path: "/board",
+  path: "/comment",
   async getComments(postId: string) {
     const result: AxiosResponse<any> = await instance.get(`${BOARDS.path}/${postId}/comments`);
     return result;
@@ -64,8 +64,21 @@ export const COMMENT = {
   },
 };
 
+export const CATEGORY = {
+  path: "/category",
+  async getAll() {
+    const result: AxiosResponse<any> = await instance.get(`${CATEGORY.path}`);
+    return result;
+  },
+  async getBoardByCategory(categoryId: string) {
+    const result: AxiosResponse<T.POST.PostType[]> = await instance.get(`${CATEGORY.path}/${categoryId}`);
+    return result;
+  },
+};
+
 export default {
   USER,
   BOARDS,
   COMMENT,
+  CATEGORY,
 };

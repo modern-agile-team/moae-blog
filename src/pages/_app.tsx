@@ -1,13 +1,17 @@
-import type { AppProps } from "next/app";
-import { ThemeProvider } from "styled-components";
-import GlobalStyle from "@styles/globalStyle";
-import theme from "@styles/theme";
-import { SessionProvider, useSession } from "next-auth/react";
 import React from "react";
 import { RecoilRoot } from "recoil";
-import { TopBar } from "@component/Common";
+//@ts-ignore
+import safeJsonStringify from "safe-json-stringify";
 import dynamic from "next/dynamic";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import type { AppProps } from "next/app";
+import { Hydrate, QueryClient, QueryClientProvider, useQuery, dehydrate } from "react-query";
+import { ThemeProvider } from "styled-components";
+import { SessionProvider, useSession } from "next-auth/react";
+
+import GlobalStyle from "@styles/globalStyle";
+import theme from "@styles/theme";
+import APIS from "@core/apis";
+import { TopBar } from "@component/Common";
 
 const BackgroundSettingProvider = dynamic(() => import("@component/Global/BackgroundSetting"), {
   ssr: false,
@@ -45,11 +49,19 @@ export default MyApp;
 
 const Settings = ({ Component, pageProps }: AppProps) => {
   const session = useSession();
+  const { data: categoryList } = useQuery("getAllCategory", APIS.CATEGORY.getAll);
+
   if (session.status === "loading") return null;
   return (
     <BackgroundSettingProvider>
-      <TopBar />
+      <TopBar categoryList={categoryList?.data} />
       <Component {...pageProps} />
     </BackgroundSettingProvider>
   );
 };
+
+export async function getServerSideProps() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery("getAllCategory", APIS.CATEGORY.getAll);
+  return { props: { dehydratedState: JSON.parse(safeJsonStringify(dehydrate(queryClient))) } };
+}
