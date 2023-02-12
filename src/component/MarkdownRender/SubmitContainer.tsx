@@ -13,7 +13,6 @@ const SubmitContainer = () => {
 
   const { mutate, data } = useMutation(API_KEYS.BOARDS.CREATE, APIS.BOARDS.create, {
     onError(error, variables, context) {
-      console.error("::::", error);
       router.push("/");
     },
     onSuccess(data, variables, context) {

@@ -13,7 +13,6 @@ interface ICategoryProps {
 const Category = (props: ICategoryProps) => {
   const { isOpen, handleToggleOpen, categoryList } = props;
 
-  console.log(":::::", categoryList);
   return (
     <S.CategoryWrapper>
       <S.CategoryButton onClick={handleToggleOpen}>

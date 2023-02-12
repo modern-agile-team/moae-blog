@@ -14,17 +14,13 @@ const Post = () => {
       queryKey: [API_KEYS.BOARDS.GET_POST, router.query.post],
       queryFn: () => APIS.BOARDS.getPost(router.query.post as string),
       suspense: true,
-      onError(error: any) {
-        console.log(":::::postErr", error);
-      },
+      onError(error: any) {},
     },
     {
       queryKey: [API_KEYS.COMMENT.GET_COMMENT, router.query.post],
       queryFn: () => APIS.COMMENT.getComments(router.query.post as string),
       suspense: true,
-      onError(error: any) {
-        console.log(":::::commentErr", error);
-      },
+      onError(error: any) {},
     },
   ]);
 

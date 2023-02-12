@@ -22,12 +22,8 @@ const CommentSection = ({ commentList }: CommentListType) => {
   };
 
   const { mutate: createComment } = useMutation(API_KEYS.COMMENT.CREATE, COMMENT.createComment, {
-    onSuccess(data, variables, context) {
-      console.log(":::::", data);
-    },
-    onError(error, variables, context) {
-      console.error("::::: failed to create comment", error);
-    },
+    onSuccess(data, variables, context) {},
+    onError(error, variables, context) {},
   });
 
   const handleCreateComment = () => {

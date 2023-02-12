@@ -22,9 +22,7 @@ const SignIn = () => {
       setAxiosAuthHeader(data.accessToken);
       router.push("/");
     },
-    onError(error: AxiosError, variables, context) {
-      console.error(error.response?.data, variables, context);
-    },
+    onError(error: AxiosError, variables, context) {},
   });
 
   useEffect(() => {
