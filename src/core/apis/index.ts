@@ -45,21 +45,21 @@ export const BOARDS = {
 };
 
 export const COMMENT = {
-  path: "/comment",
+  path: "/board",
   async getComments(postId: string) {
-    const result: AxiosResponse<any> = await instance.get(`${BOARDS.path}/${postId}/comments`);
+    const result: AxiosResponse<any> = await instance.get(`${COMMENT.path}/${postId}/comments`);
     return result;
   },
   async createComment(postId: string) {
-    const result: AxiosResponse<any> = await instance.post(`${BOARDS.path}/${postId}/comments`);
+    const result: AxiosResponse<any> = await instance.post(`${COMMENT.path}/${postId}/comments`);
     return result;
   },
   async modifyComment(postId: string, commentId: string) {
-    const result: AxiosResponse<any> = await instance.put(`${BOARDS.path}/${postId}/comments/${commentId}`);
+    const result: AxiosResponse<any> = await instance.put(`${COMMENT.path}/${postId}/comments/${commentId}`);
     return result;
   },
   async deleteComment(postId: string, commentId: string) {
-    const result: AxiosResponse<any> = await instance.delete(`${BOARDS.path}/${postId}/comments/${commentId}`);
+    const result: AxiosResponse<any> = await instance.delete(`${COMMENT.path}/${postId}/comments/${commentId}`);
     return result;
   },
 };
