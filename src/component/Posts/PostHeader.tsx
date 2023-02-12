@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "@styles/theme";
 import { uuid } from "uuidv4";
+
+import theme from "@styles/theme";
+import { formatData } from "@utils/index";
 
 interface Props {
   title: string;
@@ -11,7 +13,7 @@ interface Props {
 }
 
 const Header = ({ title, createdAt, writer, tags }: Props) => {
-  const [year, mounth, day] = createdAt.replace(/T[^Z]*Z/g, "").split("-");
+  const { year, month, day } = formatData(createdAt, "date");
   return (
     <Wrapper>
       <Title>
@@ -19,7 +21,7 @@ const Header = ({ title, createdAt, writer, tags }: Props) => {
       </Title>
       <WriteInfo>
         <b>{writer}</b>
-        <span>{`${year}년 ${mounth}월 ${day}일`}</span>
+        <span>{`${year}년 ${month}월 ${day}일`}</span>
       </WriteInfo>
       {tags && (
         <Tags>

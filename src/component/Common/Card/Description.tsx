@@ -1,3 +1,4 @@
+import { formatData } from "@utils/index";
 import * as S from "./styled";
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 }
 
 const CardDescription = ({ title, description, date }: Props) => {
-  const [year, mounth, day] = date.replace(/T[^Z]*Z/g, "").split("-");
+  const { year, month, day } = formatData(date, "date");
 
   return (
     <S.Description>
@@ -16,7 +17,7 @@ const CardDescription = ({ title, description, date }: Props) => {
       </div>
       <div id="description">
         <p>{description.replace(/[`#*_`]/gim, "")}</p>
-        <span>{`${year}년 ${mounth}월 ${day}일`}</span>
+        <span>{`${year}년 ${month}월 ${day}일`}</span>
       </div>
     </S.Description>
   );

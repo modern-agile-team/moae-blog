@@ -1,22 +1,24 @@
 import styled from "styled-components";
+
 import theme from "@styles/theme";
-import { CommentType } from "src/types/comment";
+import { CommentType } from "@type/comment";
+import { formatData } from "@utils/index";
 
 const Comment = (comment: CommentType) => {
-  const { img, name, date, description } = comment;
-  const [year, mounth, day] = date.split("-");
+  const { context, createdAt, userId, boardId } = comment;
+  const { year, month, day } = formatData(createdAt, "date");
 
   return (
     <Wrapper>
       <WritterInfo>
-        <img src={img} />
+        {/* <img src={img} /> */}
         <div>
-          <p>{name}</p>
-          <p id="date">{`${year}년 ${mounth}월 ${day}일`}</p>
+          {/* <p>{name}</p> */}
+          <p id="date">{`${year}년 ${month}월 ${day}일`}</p>
         </div>
       </WritterInfo>
       <div>
-        <p id="description">{description}</p>
+        <p id="description">{context}</p>
       </div>
     </Wrapper>
   );
