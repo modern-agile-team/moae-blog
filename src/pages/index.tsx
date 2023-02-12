@@ -1,6 +1,6 @@
-import { uuid } from "uuidv4";
 import { useQuery, QueryClient, dehydrate } from "react-query";
 import { useRouter } from "next/router";
+import { AxiosError } from "axios";
 //@ts-ignore
 import safeJsonStringify from "safe-json-stringify";
 
@@ -12,11 +12,7 @@ import { Loader } from "@component/Common/Loader";
 import { API_KEYS } from "@constant/index";
 
 const Home = () => {
-  const { isLoading, error, data } = useQuery(API_KEYS.BOARDS.GET_ALL, APIS.BOARDS.getAll);
-
-  const randomSize = () => {
-    return Math.floor(Math.random() * 1000);
-  };
+  const { isLoading, data } = useQuery(API_KEYS.BOARDS.GET_ALL, APIS.BOARDS.getAll);
 
   const router = useRouter();
 
@@ -26,7 +22,7 @@ const Home = () => {
         <Loader />
       ) : (
         <>
-          <HotPosts posts={data!.data.slice(0, 10)} />
+          {data && data.data.length > 4 && <HotPosts posts={data!.data.slice(0, 10)} />}
           <L.Card>
             {data!.data.map((post) => (
               <Card
@@ -34,7 +30,7 @@ const Home = () => {
                 title={post.title}
                 date={post.createdAt}
                 description={post.context}
-                titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+                titleImage={post.thumbnail}
                 onClick={() => router.push(`/user/${post.user.name}/${post.id}`)}
               />
             ))}
