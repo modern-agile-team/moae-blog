@@ -13,7 +13,12 @@ const SubmitContainer = () => {
 
   const { mutate, data } = useMutation(API_KEYS.BOARDS.CREATE, APIS.BOARDS.create, {
     onError(error, variables, context) {
-      router.push("/");
+      if (variables.title === "") {
+        alert("제목을 입력하세요.");
+      } else {
+        alert("에러");
+        console.error("Error occurred while create post ===> \n", error);
+      }
     },
     onSuccess(data, variables, context) {
       router.push("/");
