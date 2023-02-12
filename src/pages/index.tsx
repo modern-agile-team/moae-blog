@@ -7,7 +7,7 @@ import safeJsonStringify from "safe-json-stringify";
 import { Card } from "@component/Common";
 import HotPosts from "@component/HotPosts/HotPosts";
 import * as L from "@component/Layout";
-import APIS from "@core/apis";
+import * as APIS from "@core/apis";
 import { Loader } from "@component/Common/Loader";
 import { API_KEYS } from "@constant/index";
 

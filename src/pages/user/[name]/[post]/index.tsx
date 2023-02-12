@@ -1,7 +1,7 @@
 import { Loader } from "@component/Common/Loader";
 import { CommentSection, PostArticle, PostContainer, PostHeader } from "@component/Posts";
 import { API_KEYS } from "@constant/index";
-import APIS from "@core/apis";
+import * as APIS from "@core/apis";
 import { useRouter } from "next/router";
 import { useQueries, useQuery } from "react-query";
 import { CommentType } from "src/types/comment";

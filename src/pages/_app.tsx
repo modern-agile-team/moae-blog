@@ -10,7 +10,7 @@ import { SessionProvider, useSession } from "next-auth/react";
 
 import GlobalStyle from "@styles/globalStyle";
 import theme from "@styles/theme";
-import APIS from "@core/apis";
+import * as APIS from "@core/apis";
 import { TopBar } from "@component/Common";
 
 const BackgroundSettingProvider = dynamic(() => import("@component/Global/BackgroundSetting"), {

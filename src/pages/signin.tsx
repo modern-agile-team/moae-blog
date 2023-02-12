@@ -8,7 +8,7 @@ import { useMutation } from "react-query";
 import * as Layout from "@component/Layout";
 import { SESSION_STATUS } from "@constant/index";
 import { setAxiosAuthHeader } from "@utils/index";
-import APIS from "@core/apis";
+import * as APIS from "@core/apis";
 
 const SignIn = () => {
   const { data, status } = useSession();

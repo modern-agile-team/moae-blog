@@ -7,7 +7,7 @@ import SubmitContainer from "@component/MarkdownRender/SubmitContainer";
 import { Loader } from "@component/Common/Loader";
 import deviceAtom from "@recoil/deviceAtom";
 import theme from "@styles/theme";
-import APIS from "@core/apis";
+import * as APIS from "@core/apis";
 import { useLogout } from "@hooks/index";
 import { getToken, setAxiosAuthHeader, setToken } from "@utils/index";
 import { API_KEYS } from "@constant/index";
