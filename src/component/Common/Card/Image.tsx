@@ -21,7 +21,7 @@ const CardImage = ({ src, doLoad = true }: Props) => {
       setSrcLoaded(src);
     };
     image.onerror = () => {
-      setSrcLoaded("https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg");
+      setSrcLoaded("https://spnimage.edaily.co.kr/images/Photo/files/NP/S/2021/05/PS21051800093.jpg");
     };
   }, [doLoad, src]);
 
