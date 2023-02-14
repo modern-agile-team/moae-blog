@@ -26,7 +26,10 @@ const SubmitContainer = () => {
   });
 
   const handleSubmit = () => {
-    mutate(post);
+    const regex = /\!\[.*\]\((.*?)\)/g;
+    const imageList = regex.exec(post.context) || [""];
+
+    mutate({ ...post, thumbnail: imageList[1] });
   };
 
   const moveToBack = () => {

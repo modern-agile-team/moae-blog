@@ -10,4 +10,4 @@ export interface PostType {
   thumbnail?: string;
 }
 
-export type CreatePostType = Pick<PostType, "categories" | "context" | "title">;
+export type CreatePostType = Pick<PostType, "categories" | "context" | "title" | "thumbnail">;
