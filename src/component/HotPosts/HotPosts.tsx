@@ -1,12 +1,14 @@
+import { useMemo } from "react";
+import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+
 import deviceAtom from "@recoil/deviceAtom";
 import theme from "@styles/theme";
 import { Card, Carousel } from "@component/Common";
-import { useMemo } from "react";
-import { useRouter } from "next/router";
+import * as T from "@core/types";
 
-const HotPosts = ({ posts }: { posts: any[] }) => {
+const HotPosts = ({ posts }: { posts: T.POST.PostType[] }) => {
   const device = useRecoilValue(deviceAtom);
   const router = useRouter();
 
@@ -21,10 +23,6 @@ const HotPosts = ({ posts }: { posts: any[] }) => {
     }
   }, [device]);
 
-  const randomSize = () => {
-    return Math.floor(Math.random() * 1000);
-  };
-
   return (
     <Wrapper>
       <Carousel slideToShow={slideToShow} autoplaySpeed={7000} isArrowShow={true} isAutoplay={true}>
@@ -34,7 +32,7 @@ const HotPosts = ({ posts }: { posts: any[] }) => {
             title={post.title}
             date={post.createdAt}
             description={post.context}
-            titleImage={`https://picsum.photos/${randomSize()}/${randomSize()}`}
+            titleImage={post.thumbnail}
             onClick={() => router.push(`/user/${post.user.name}/${post.id}`)}
           />
         ))}
