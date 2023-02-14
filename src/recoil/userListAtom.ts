@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { IUserList } from "../types/user";
+import { IUserList } from "../core/types/user";
 
 const userListAtom = atom<IUserList>({
   key: "userListAtom",

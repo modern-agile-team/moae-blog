@@ -6,7 +6,7 @@ import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
 import SubmitContainer from "./SubmitContainer";
 import { uuid } from "uuidv4";
-import * as T from "@type/index";
+import * as T from "@core/types/index";
 
 const PostHeader = () => {
   const device = useRecoilValue(deviceAtom);

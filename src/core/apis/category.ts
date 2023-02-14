@@ -1,4 +1,4 @@
-import * as T from "@type/index";
+import * as T from "@core/types/index";
 import { AxiosResponse } from "axios";
 import instance from "./instance";
 

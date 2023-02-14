@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { uuid } from "uuidv4";
 
 import theme from "@styles/theme";
-import { formatData } from "@utils/index";
+import { formatData } from "@core/utils/index";
 
 interface Props {
   title: string;

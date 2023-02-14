@@ -20,7 +20,6 @@
       "@utils/*": ["./src/utils/*"],
       "@styles/*": ["./src/styles/*"],
       "@recoil/*": ["./src/recoil/*"],
-      "@type/*": ["./src/types/*"],
       "@core/*": ["./src/core/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"]

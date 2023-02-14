@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 import theme from "@styles/theme";
-import { CommentType } from "@type/comment";
-import { formatData } from "@utils/index";
+import { CommentType } from "@core/types/comment";
+import { formatData } from "@core/utils/index";
 
 const Comment = (comment: CommentType) => {
   const { context, createdAt, userId, boardId } = comment;

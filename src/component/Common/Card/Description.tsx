@@ -1,4 +1,4 @@
-import { formatData } from "@utils/index";
+import { formatData } from "@core/utils/index";
 import * as S from "./styled";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { POST } from "@type/index";
+import { POST } from "@core/types/index";
 import { atom } from "recoil";
 
 const postWriting = atom<POST.CreatePostType>({

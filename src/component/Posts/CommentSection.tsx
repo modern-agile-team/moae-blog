@@ -5,7 +5,7 @@ import { useMutation } from "react-query";
 
 import theme from "@styles/theme";
 import Comment from "./Comment";
-import { CommentListType } from "@type/comment";
+import { CommentListType } from "@core/types/comment";
 import { API_KEYS } from "@core/constant";
 import { COMMENT } from "@core/apis";
 

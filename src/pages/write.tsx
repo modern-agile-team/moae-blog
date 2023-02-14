@@ -9,7 +9,7 @@ import deviceAtom from "@recoil/deviceAtom";
 import theme from "@styles/theme";
 import * as APIS from "@core/apis";
 import { useLogout } from "@hooks/index";
-import { getToken, setAxiosAuthHeader, setToken } from "@utils/index";
+import { getToken, setAxiosAuthHeader, setToken } from "@core/utils/index";
 import { API_KEYS } from "@core/constant";
 
 const Write = () => {

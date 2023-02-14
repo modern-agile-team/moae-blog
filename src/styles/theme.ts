@@ -1,4 +1,4 @@
-import { ThemeType } from "src/types/theme";
+import { ThemeType } from "@core/types/theme";
 
 const theme: ThemeType = {
   COLORS: {
