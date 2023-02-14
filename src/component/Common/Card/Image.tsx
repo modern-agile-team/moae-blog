@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import * as S from "./styled";
 import { Loader } from "../Loader";
 
+import Logo from "@assets/images/logo.png";
+
 interface Props {
   src: string;
   doLoad?: boolean;
@@ -17,6 +19,9 @@ const CardImage = ({ src, doLoad = true }: Props) => {
     image.src = src;
     image.onload = () => {
       setSrcLoaded(src);
+    };
+    image.onerror = () => {
+      setSrcLoaded(Logo.src);
     };
   }, [doLoad, src]);
 
