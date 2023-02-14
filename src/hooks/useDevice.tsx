@@ -16,8 +16,10 @@ const useDevice = () => {
   };
 
   useEffect(() => {
+    changeDeviceSize();
     window.addEventListener("resize", changeDeviceSize);
     return () => {
+      changeDeviceSize();
       window.removeEventListener("resize", changeDeviceSize);
     };
   }, []);
