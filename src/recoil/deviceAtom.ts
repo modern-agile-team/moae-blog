@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-const deviceAtom = atom<"mobile" | "desktop" | "tablet">({
+const deviceAtom = atom<"mobile" | "tablet" | "laptop" | "desktop">({
   key: "deviceAtom",
   default: "desktop",
 });

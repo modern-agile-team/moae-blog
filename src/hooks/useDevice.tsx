@@ -11,6 +11,7 @@ const useDevice = () => {
     setDevice(() => {
       if (window.innerWidth <= 568) return DEVICE.MOBILE;
       else if (window.innerWidth <= 768) return DEVICE.TABLET;
+      else if (window.innerWidth <= 1280) return DEVICE.LAP_TOP;
       else return DEVICE.DESK_TOP;
     });
   };
