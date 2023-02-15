@@ -16,6 +16,8 @@ const HotPosts = ({ posts }: { posts: T.POST.PostType[] }) => {
     switch (device) {
       case "desktop":
         return 4;
+      case "laptop":
+        return 3;
       case "tablet":
         return 2;
       case "mobile":
@@ -25,7 +27,7 @@ const HotPosts = ({ posts }: { posts: T.POST.PostType[] }) => {
 
   return (
     <Wrapper>
-      <Carousel slideToShow={slideToShow} autoplaySpeed={7000} isArrowShow={true} isAutoplay={true}>
+      <Carousel slideToShow={slideToShow} autoplaySpeed={100000000} isArrowShow={true} isAutoplay={true}>
         {posts.map((post) => (
           <Card
             key={post.id}
