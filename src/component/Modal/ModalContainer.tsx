@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useRecoilValue } from "recoil";
 
 import { default as modalState } from "@recoil/modalList";
+import useModal from "@hooks/useModal";
 import * as S from "./style";
 import * as Modal from "./ModalList";
-import useModal from "@hooks/useModal";
 
 const ModalContainer = () => {
   const modalList = useRecoilValue(modalState);
@@ -33,10 +33,9 @@ const ModalContainer = () => {
       {modalList.map((modalName) => {
         const Component = Modal[modalName];
         return (
-          <>
-            <button onClick={() => hideModal(modalName)}>닫기</button>
-            <Component />
-          </>
+          <S.ModalLayout key={modalName}>
+            <Component name={modalName} onHide={() => hideModal(modalName)} />
+          </S.ModalLayout>
         );
       })}
     </S.Wrapper>,
