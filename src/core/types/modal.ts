@@ -1,5 +1,7 @@
 import * as ModalList from "@component/Modal/ModalList";
 
-type ModalType = keyof typeof ModalList;
-
-export default ModalType;
+export type ModalType = keyof typeof ModalList;
+export interface ModalProps {
+  name: ModalType;
+  onHide: () => void;
+}

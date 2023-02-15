@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 
 import modalList from "@recoil/modalList";
-import ModalType from "@core/types/modal";
+import { ModalType } from "@core/types/modal";
 
 const useModal = () => {
   const setModalList = useSetRecoilState(modalList);
