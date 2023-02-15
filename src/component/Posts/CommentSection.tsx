@@ -1,18 +1,19 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import theme from "@styles/theme";
-import Comment from "./Comment";
 import { CommentListType } from "@core/types/comment";
 import { API_KEYS } from "@core/constant";
 import { COMMENT } from "@core/apis";
+import Comment from "./Comment";
 
 const CommentSection = ({ commentList }: CommentListType) => {
   const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [comment, setComment] = useState("");
+  const queryClient = useQueryClient();
 
   const onKeyUp = () => {
     if (!textareaRef.current) return;
@@ -22,8 +23,15 @@ const CommentSection = ({ commentList }: CommentListType) => {
   };
 
   const { mutate: createComment } = useMutation(API_KEYS.COMMENT.CREATE, COMMENT.createComment, {
-    onSuccess(data, variables, context) {},
-    onError(error, variables, context) {},
+    onSuccess(data) {
+      queryClient.setQueryData([API_KEYS.COMMENT.GET_COMMENT, router.query.post], {
+        data: [...commentList, data.data],
+      });
+    },
+    onError(error, variables, context) {
+      alert("댓글 작성 실패~~!!");
+      console.error(error);
+    },
   });
 
   const handleCreateComment = () => {
@@ -42,6 +50,7 @@ const CommentSection = ({ commentList }: CommentListType) => {
         <textarea
           ref={textareaRef}
           placeholder={commentList.length === 0 ? "첫번째 댓글을 작성해보세요" : "댓글을 입력하세요"}
+          value={comment}
           onKeyUp={onKeyUp}
           onChange={(e) => {
             setComment(e.target.value);
