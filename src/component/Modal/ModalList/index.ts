@@ -1,1 +1,1 @@
-export { default as WriteConfirm } from "./WriteConfirm";
+export { default as WriteConfirm } from "./WriteConfirm/WriteConfirmModal";
