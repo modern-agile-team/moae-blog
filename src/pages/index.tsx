@@ -1,6 +1,5 @@
 import { useQuery, QueryClient, dehydrate } from "react-query";
 import { useRouter } from "next/router";
-import { AxiosError } from "axios";
 //@ts-ignore
 import safeJsonStringify from "safe-json-stringify";
 
@@ -10,14 +9,16 @@ import * as L from "@component/Layout";
 import * as APIS from "@core/apis";
 import { Loader } from "@component/Common/Loader";
 import { API_KEYS } from "@core/constant";
+import useModal from "@hooks/useModal";
 
 const Home = () => {
   const { isLoading, data } = useQuery(API_KEYS.BOARDS.GET_ALL, APIS.BOARDS.getAll);
-
+  const { showModal } = useModal();
   const router = useRouter();
 
   return (
     <div>
+      <button onClick={() => showModal("WriteConfirm")}>ㅎㅇ</button>
       {isLoading ? (
         <Loader />
       ) : (
