@@ -1,15 +1,6 @@
-import React, { HTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface IButtonType extends HTMLAttributes<HTMLButtonElement> {
-  type?: "button" | "submit" | "reset";
-}
-
-const Button = (props: IButtonType) => {
-  return <StyledButton {...props}>{props.children}</StyledButton>;
-};
-
-const StyledButton = styled.button`
+export default styled.button`
   border-radius: 3px;
   border: none;
   background-color: rgb(60, 47, 37);
@@ -18,5 +9,3 @@ const StyledButton = styled.button`
   font-size: 15px;
   cursor: pointer;
 `;
-
-export default Button;
