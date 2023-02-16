@@ -16,6 +16,7 @@ export const Header = styled.header`
   h1 {
     margin: 0;
     font-size: ${theme.FONT.HEAD3};
+    color: ${theme.COLORS.MAIN};
   }
 `;
 
@@ -35,9 +36,11 @@ export const CloseButton = styled.button`
   align-items: center;
   background: none;
   border: none;
-  padding: 6px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   transition: 0.5s;
+  cursor: pointer;
   svg {
     color: ${theme.COLORS.MAIN_BRIGHT};
   }
