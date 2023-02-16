@@ -6,12 +6,11 @@ import theme from "@styles/theme";
 import useModal from "@hooks/useModal";
 
 const SubmitContainer = () => {
-  const post = useRecoilValue(withPostWriting);
   const router = useRouter();
   const { showModal } = useModal();
 
   const handleSubmit = () => {
-    showModal("WriteConfirm", { post });
+    showModal("WriteConfirm");
   };
 
   const moveToBack = () => {
