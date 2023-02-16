@@ -16,10 +16,8 @@ export const ModalLayout = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-height: 500px;
-  min-width: 500px;
   background-color: ${theme.COLORS.BG1};
   border: 1px solid;
   border-radius: 6px;
-  padding: 20px;
+  padding: 20px 40px;
 `;
