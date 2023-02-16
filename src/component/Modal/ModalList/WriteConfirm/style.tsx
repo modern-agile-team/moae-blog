@@ -1,20 +1,33 @@
-import theme from "@styles/theme";
 import styled from "styled-components";
+
+import theme from "@styles/theme";
+import * as C from "@component/Common";
 
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   width: 500px;
+  gap: 20px;
 `;
 
 export const Header = styled.header`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  h1 {
+    margin: 0;
+    font-size: ${theme.FONT.HEAD3};
+  }
 `;
 
-export const Body = styled.div``;
+export const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
-export const Footer = styled.footer``;
+export const Footer = styled.footer`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 export const CloseButton = styled.button`
   display: flex;
@@ -37,7 +50,12 @@ export const ThumbnailImage = styled.div<{ src: string }>`
   width: 100%;
   padding-top: 52%;
   border-radius: 6px 6px 0 0;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   background-image: url(${(props) => props.src});
+`;
+
+export const SubmitButton = styled(C.Button)`
+  padding: 3px 10px;
 `;

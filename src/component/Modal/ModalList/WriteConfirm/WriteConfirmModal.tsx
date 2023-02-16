@@ -6,14 +6,15 @@ import { useMemo, useState } from "react";
 
 import { API_KEYS } from "@core/constant";
 import { ModalProps } from "@core/types/modal";
-import * as APIS from "@core/apis";
 import withPostWriting from "@recoil/postWriting/withPostWriting";
+import theme from "@styles/theme";
+import Logo from "@assets/images/logo.png";
+import * as APIS from "@core/apis";
+import * as C from "@component/Common";
 import * as S from "./style";
-import { Carousel } from "@component/Common";
 
 const WriteConfirmModal = (props: ModalProps) => {
   const { onHide } = props;
-
   const [thumbnail, setThumbnail] = useState("");
   const post = useRecoilValue(withPostWriting);
   const router = useRouter();
@@ -47,33 +48,40 @@ const WriteConfirmModal = (props: ModalProps) => {
   return (
     <S.Layout>
       <S.Header>
+        <h1>썸네일을 고르세요</h1>
         <S.CloseButton onClick={onHide}>
           <AiOutlineClose />
         </S.CloseButton>
       </S.Header>
       <S.Body>
-        <h1>썸네일을 고르세요</h1>
-        <Carousel
-          getCurrentItem={(item) => {
-            try {
-              setThumbnail(item.props.src || "");
-            } catch (err) {
-              console.error(err);
-              setThumbnail("");
-            }
-          }}
-        >
-          {imageList && imageList.map((image) => <S.ThumbnailImage src={image} />)}
-        </Carousel>
+        {imageList ? (
+          <C.Carousel
+            backgroundColor={theme.COLORS.BG1}
+            getCurrentItem={(item) => {
+              try {
+                setThumbnail(item.props.src || Logo.src);
+              } catch (err) {
+                console.error(err);
+                setThumbnail(Logo.src);
+              }
+            }}
+          >
+            {imageList.map((image) => (
+              <S.ThumbnailImage src={image} />
+            ))}
+          </C.Carousel>
+        ) : (
+          <S.ThumbnailImage src={Logo.src} />
+        )}
       </S.Body>
       <S.Footer>
-        <button
+        <S.SubmitButton
           onClick={() => {
             mutate({ ...post, thumbnail });
           }}
         >
           제출
-        </button>
+        </S.SubmitButton>
       </S.Footer>
     </S.Layout>
   );
