@@ -16,6 +16,7 @@ interface Props {
   arrowLocation?: "bottom" | "mid-side" | "top" | "bottom-side" | "top-side";
   prevArrowIcon?: ReactElement;
   nextArrowIcon?: ReactElement;
+  backgroundColor?: string;
   getCurrentItem?: (param: any) => void;
 }
 
@@ -30,6 +31,7 @@ const Carousel = ({
   arrowLocation = "mid-side",
   prevArrowIcon = <FiChevronLeft />,
   nextArrowIcon = <FiChevronRight />,
+  backgroundColor,
   getCurrentItem,
 }: Props) => {
   const { itemList, showIndex, transitionTime, listeners, itemLength } = useCarousel({
@@ -51,7 +53,7 @@ const Carousel = ({
   }, [showIndex]);
 
   return (
-    <S.Wrapper arrowLocation={arrowLocation} width={width}>
+    <S.Wrapper arrowLocation={arrowLocation} width={width} backgroundColor={backgroundColor}>
       {isArrowShow && (
         <div className="arrow-icon-wrapper" id="prev-button" onClick={showPrev}>
           {sizedPrevArrowIcon}
