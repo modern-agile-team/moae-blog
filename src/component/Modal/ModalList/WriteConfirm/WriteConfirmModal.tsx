@@ -1,17 +1,35 @@
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
+import { AiOutlineClose } from "react-icons/ai";
+import { useRecoilValue } from "recoil";
+import { useMemo, useState } from "react";
 
 import { API_KEYS } from "@core/constant";
 import { ModalProps } from "@core/types/modal";
 import * as APIS from "@core/apis";
+import withPostWriting from "@recoil/postWriting/withPostWriting";
+import * as S from "./style";
+import { Carousel } from "@component/Common";
 
 const WriteConfirmModal = (props: ModalProps) => {
-  const { onHide, post } = props;
-  const router = useRouter();
-  const regex = /\!\[.*\]\((.*?)\)/g;
-  const imageList = post.context.match(regex) || [""];
+  const { onHide } = props;
 
-  const { mutate, data } = useMutation(API_KEYS.BOARDS.CREATE, APIS.BOARDS.create, {
+  const [thumbnail, setThumbnail] = useState("");
+  const post = useRecoilValue(withPostWriting);
+  const router = useRouter();
+
+  const imageList = useMemo(() => {
+    const regex = new RegExp(/\!\[.*\]\((.*?)\)/, "g");
+    return (
+      post.context.match(regex)?.map((image) => {
+        const _regex = new RegExp(/\!\[.*\]\((.*?)\)/, "g");
+        const result = _regex.exec(image);
+        return result ? result[1] : "";
+      }) || null
+    );
+  }, []);
+
+  const { mutate } = useMutation(API_KEYS.BOARDS.CREATE, APIS.BOARDS.create, {
     onError(error, variables, context) {
       if (variables.title === "") {
         alert("제목을 입력하세요.");
@@ -21,16 +39,43 @@ const WriteConfirmModal = (props: ModalProps) => {
       }
     },
     onSuccess() {
+      onHide();
       router.push("/");
     },
   });
 
-  console.log(":::::", imageList);
-
   return (
-    <div>
-      <button onClick={onHide}>닫기</button>
-    </div>
+    <S.Layout>
+      <S.Header>
+        <S.CloseButton onClick={onHide}>
+          <AiOutlineClose />
+        </S.CloseButton>
+      </S.Header>
+      <S.Body>
+        <h1>썸네일을 고르세요</h1>
+        <Carousel
+          getCurrentItem={(item) => {
+            try {
+              setThumbnail(item.props.src || "");
+            } catch (err) {
+              console.error(err);
+              setThumbnail("");
+            }
+          }}
+        >
+          {imageList && imageList.map((image) => <S.ThumbnailImage src={image} />)}
+        </Carousel>
+      </S.Body>
+      <S.Footer>
+        <button
+          onClick={() => {
+            mutate({ ...post, thumbnail });
+          }}
+        >
+          제출
+        </button>
+      </S.Footer>
+    </S.Layout>
   );
 };
 
