@@ -12,17 +12,9 @@ const ModalContainer = () => {
   const { hideModal } = useModal();
 
   useEffect(() => {
-    if (modalList.length === 0) {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "hidden";
-    }
+    document.body.style.overflow = modalList.length === 0 ? "auto" : "hidden";
     return () => {
-      if (modalList.length === 0) {
-        document.body.style.overflow = "auto";
-      } else {
-        document.body.style.overflow = "hidden";
-      }
+      document.body.style.overflow = modalList.length === 0 ? "auto" : "hidden";
     };
   }, [modalList]);
 

@@ -7,13 +7,7 @@ const useModal = () => {
   const setModalList = useSetRecoilState(modalList);
 
   const showModal = (modalName: ModalType) => {
-    setModalList((prev) => {
-      if (prev.length > 1) {
-        return [...prev, modalName];
-      } else {
-        return [modalName];
-      }
-    });
+    setModalList((prev) => (prev.length > 1 ? [...prev, modalName] : [modalName]));
   };
 
   const resetModal = () => {
