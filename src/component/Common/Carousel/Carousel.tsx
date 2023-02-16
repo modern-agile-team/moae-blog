@@ -1,4 +1,4 @@
-import React, { cloneElement, ReactElement, useMemo } from "react";
+import React, { cloneElement, ReactElement, useEffect, useMemo } from "react";
 import { uuid } from "uuidv4";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
@@ -16,6 +16,7 @@ interface Props {
   arrowLocation?: "bottom" | "mid-side" | "top" | "bottom-side" | "top-side";
   prevArrowIcon?: ReactElement;
   nextArrowIcon?: ReactElement;
+  getCurrentItem?: (param: any) => void;
 }
 
 const Carousel = ({
@@ -29,6 +30,7 @@ const Carousel = ({
   arrowLocation = "mid-side",
   prevArrowIcon = <FiChevronLeft />,
   nextArrowIcon = <FiChevronRight />,
+  getCurrentItem,
 }: Props) => {
   const { itemList, showIndex, transitionTime, listeners, itemLength } = useCarousel({
     children,
@@ -40,6 +42,13 @@ const Carousel = ({
   const { showPrev, showNext } = listeners;
   const sizedPrevArrowIcon = useMemo(() => cloneElement(prevArrowIcon), [prevArrowIcon]);
   const sizedNextArrowIcon = useMemo(() => cloneElement(nextArrowIcon), [nextArrowIcon]);
+
+  useEffect(() => {
+    getCurrentItem && getCurrentItem(itemList[showIndex]);
+    return () => {
+      getCurrentItem && getCurrentItem(itemList[showIndex]);
+    };
+  }, [showIndex]);
 
   return (
     <S.Wrapper arrowLocation={arrowLocation} width={width}>
