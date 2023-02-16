@@ -3,33 +3,15 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
-import { useMutation } from "react-query";
-import * as APIS from "@core/apis";
-import { API_KEYS } from "@core/constant";
+import useModal from "@hooks/useModal";
 
 const SubmitContainer = () => {
   const post = useRecoilValue(withPostWriting);
   const router = useRouter();
-
-  const { mutate, data } = useMutation(API_KEYS.BOARDS.CREATE, APIS.BOARDS.create, {
-    onError(error, variables, context) {
-      if (variables.title === "") {
-        alert("제목을 입력하세요.");
-      } else {
-        alert("에러");
-        console.error("Error occurred while create post ===> \n", error);
-      }
-    },
-    onSuccess(data, variables, context) {
-      router.push("/");
-    },
-  });
+  const { showModal } = useModal();
 
   const handleSubmit = () => {
-    const regex = /\!\[.*\]\((.*?)\)/g;
-    const imageList = regex.exec(post.context) || [""];
-
-    mutate({ ...post, thumbnail: imageList[1] });
+    showModal("WriteConfirm", { post });
   };
 
   const moveToBack = () => {
