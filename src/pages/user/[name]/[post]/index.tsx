@@ -31,7 +31,7 @@ const Post = () => {
           <Loader />
         ) : (
           <>
-            <PostHeader {...posts.data!.data} writer={posts.data!.data.user.name || ""} />
+            <PostHeader {...posts.data!.data} user={posts.data!.data.user || ""} />
             <PostArticle {...posts.data!.data} />
             <CommentSection commentList={comment.data?.data} />
           </>

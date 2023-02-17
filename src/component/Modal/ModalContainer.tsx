@@ -22,11 +22,11 @@ const ModalContainer = () => {
 
   return createPortal(
     <S.Wrapper id="modal">
-      {modalList.map((modalName) => {
-        const Component = Modal[modalName];
+      {modalList.map((modalItem) => {
+        const Component = Modal[modalItem.name];
         return (
-          <S.ModalLayout key={modalName}>
-            <Component name={modalName} onHide={() => hideModal(modalName)} />
+          <S.ModalLayout key={modalItem.name}>
+            <Component name={modalItem.name} onHide={() => hideModal(modalItem.name)} {...modalItem.props} />
           </S.ModalLayout>
         );
       })}

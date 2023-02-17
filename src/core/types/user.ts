@@ -1,8 +1,11 @@
 export interface UserType {
-  id: string;
-  name: string;
-  img: string;
+  authCode: number;
+  id: number;
+  baseUrl: string;
+  createdAt: string;
   email: string;
+  name: string;
+  updatedAt: string;
 }
 
 export interface IUserList {

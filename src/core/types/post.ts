@@ -1,3 +1,5 @@
+import { UserType } from "./user";
+
 export interface PostType {
   context: string;
   createdAt: string;
@@ -5,7 +7,7 @@ export interface PostType {
   title: string;
   updatedAt: string;
   userId: number;
-  user: { name: string; baseUrl: string };
+  user: UserType;
   categories: string[];
   thumbnail?: string;
 }

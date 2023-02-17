@@ -1,31 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import { uuid } from "uuidv4";
+import { useSession } from "next-auth/react";
 
 import theme from "@styles/theme";
 import { formatData } from "@core/utils/index";
+import { PostType } from "@core/types/post";
 
-interface Props {
-  title: string;
-  createdAt: string;
-  writer: string;
-  tags?: string[];
-}
-
-const Header = ({ title, createdAt, writer, tags }: Props) => {
+const Header = ({ title, createdAt, user, categories }: PostType) => {
   const { year, month, day } = formatData(createdAt, "date");
+  const session = useSession();
+
   return (
     <Wrapper>
       <Title>
         <h1>{title}</h1>
       </Title>
       <WriteInfo>
-        <b>{writer}</b>
+        <b>{user.name}</b>
         <span>{`${year}년 ${month}월 ${day}일`}</span>
+        {user.email === session.data?.user?.email && (
+          <div>
+            <button id="modify">수정</button>
+            <button id="delete">삭제</button>
+          </div>
+        )}
       </WriteInfo>
-      {tags && (
+      {/* {categories && (
         <Tags>
-          {tags.map((tag, index) => {
+          {categories.map((tag, index) => {
             return (
               <li key={uuid()}>
                 <button>{tag}</button>
@@ -33,7 +35,7 @@ const Header = ({ title, createdAt, writer, tags }: Props) => {
             );
           })}
         </Tags>
-      )}
+      )} */}
     </Wrapper>
   );
 };
@@ -60,6 +62,8 @@ const Title = styled.div`
 `;
 
 const WriteInfo = styled.div`
+  display: flex;
+  gap: 15px;
   b {
     font-size: ${theme.FONT.HEAD5};
     margin-right: 15px;
@@ -67,6 +71,28 @@ const WriteInfo = styled.div`
   span {
     font-size: ${theme.FONT.HEAD5};
     font-weight: lighter;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    button {
+      border: none;
+      padding: 3px 7px;
+      border-radius: 6px;
+      &:hover {
+        opacity: 0.8;
+      }
+      cursor: pointer;
+    }
+    #delete {
+      background-color: #df2828;
+      color: #fff;
+    }
+    #modify {
+      background-color: ${theme.COLORS.MAIN_BRIGHT};
+      color: #fff;
+    }
   }
 `;
 

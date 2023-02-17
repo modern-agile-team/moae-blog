@@ -1,5 +1,13 @@
 import theme from "@styles/theme";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const toTop = keyframes`
+  from {
+    top: 100%
+  }to {
+    top: 50%;
+  }
+`;
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -8,7 +16,7 @@ export const Wrapper = styled.div`
   z-index: 100;
   width: 100vw;
   height: 100vh;
-  background-color: #5e5e5e2f;
+  background-color: #2f2f2f98;
 `;
 
 export const ModalLayout = styled.div`
@@ -16,10 +24,9 @@ export const ModalLayout = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-height: 500px;
-  min-width: 500px;
   background-color: ${theme.COLORS.BG1};
-  border: 1px solid;
   border-radius: 6px;
-  padding: 20px;
+  padding: 20px 40px;
+  box-shadow: 3px 4px 5px 2px ${theme.COLORS.MAIN_BRIGHT};
+  animation: ${toTop} forwards 0.5s;
 `;
