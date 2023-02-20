@@ -18,6 +18,7 @@ const Header = ({ title, createdAt, user, categories }: PostType) => {
   const { mutate } = useMutation([API_KEYS.BOARDS.DELETE, router.query.post], API.BOARDS.deletePost, {
     onSuccess(data, variables, context) {
       console.log("::::::", data);
+      alert("게시글이 삭제되었습니다.");
       router.push("/");
     },
     onError(error, variables, context) {
@@ -46,7 +47,9 @@ const Header = ({ title, createdAt, user, categories }: PostType) => {
             <button
               id="delete"
               onClick={() => {
-                mutate(`${router.query.post}`);
+                if (confirm("게시글을 삭제하시겠습니까?")) {
+                  mutate(`${router.query.post}`);
+                }
               }}
             >
               삭제
