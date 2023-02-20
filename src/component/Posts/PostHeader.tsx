@@ -1,14 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import { useSession } from "next-auth/react";
+import { useMutation } from "react-query";
+import { useRouter } from "next/router";
 
 import theme from "@styles/theme";
 import { formatData } from "@core/utils/index";
 import { PostType } from "@core/types/post";
+import { API_KEYS } from "@core/constant";
+import * as API from "@core/apis";
 
 const Header = ({ title, createdAt, user, categories }: PostType) => {
   const { year, month, day } = formatData(createdAt, "date");
   const session = useSession();
+  const router = useRouter();
+
+  const { mutate } = useMutation([API_KEYS.BOARDS.DELETE, router.query.post], API.BOARDS.deletePost, {
+    onSuccess(data, variables, context) {
+      console.log("::::::", data);
+      alert("게시글이 삭제되었습니다.");
+      router.push("/");
+    },
+    onError(error, variables, context) {
+      console.error(":::::", error);
+    },
+  });
 
   return (
     <Wrapper>
@@ -20,8 +36,24 @@ const Header = ({ title, createdAt, user, categories }: PostType) => {
         <span>{`${year}년 ${month}월 ${day}일`}</span>
         {user.email === session.data?.user?.email && (
           <div>
-            <button id="modify">수정</button>
-            <button id="delete">삭제</button>
+            <button
+              id="modify"
+              onClick={() => {
+                router.push(`/modify/${router.query.post}`);
+              }}
+            >
+              수정
+            </button>
+            <button
+              id="delete"
+              onClick={() => {
+                if (confirm("게시글을 삭제하시겠습니까?")) {
+                  mutate(`${router.query.post}`);
+                }
+              }}
+            >
+              삭제
+            </button>
           </div>
         )}
       </WriteInfo>
@@ -66,7 +98,6 @@ const WriteInfo = styled.div`
   gap: 15px;
   b {
     font-size: ${theme.FONT.HEAD5};
-    margin-right: 15px;
   }
   span {
     font-size: ${theme.FONT.HEAD5};
