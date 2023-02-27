@@ -23,6 +23,7 @@
     "lodash": "^4.17.21",
     "next": "12.1.6",
     "next-auth": "^4.18.8",
+    "nookies": "^2.5.2",
     "prismjs": "^1.28.0",
     "react": "18.1.0",
     "react-aws-s3-typescript": "^1.1.4",
