@@ -33,8 +33,7 @@
     "react-toastify": "^9.1.1",
     "recoil": "^0.7.3-alpha.2",
     "safe-json-stringify": "^1.2.0",
-    "styled-components": "^5.3.5",
-    "uuidv4": "^6.2.13"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@types/node": "17.0.34",

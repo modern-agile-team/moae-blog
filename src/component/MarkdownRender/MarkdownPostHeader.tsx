@@ -5,7 +5,6 @@ import deviceAtom from "@recoil/deviceAtom";
 import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
 import SubmitContainer from "./SubmitContainer";
-import { uuid } from "uuidv4";
 import * as T from "@core/types/index";
 
 const PostHeader = () => {
@@ -49,7 +48,7 @@ const PostHeader = () => {
         <hr />
         <TagsArea>
           {post.categories.map((category, index) => (
-            <p key={uuid()}>{category}</p>
+            <p key={index}>{category}</p>
           ))}
           <input
             id="tags"
