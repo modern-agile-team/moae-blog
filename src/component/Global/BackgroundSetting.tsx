@@ -1,7 +1,8 @@
-import { useDevice } from "@hooks/index";
+import { useDevice, useCheckAuth } from "@hooks/index";
 
 const BackgroundSetting = ({ children }: { children: React.ReactNode }) => {
   useDevice();
+  useCheckAuth();
 
   return <>{children}</>;
 };
