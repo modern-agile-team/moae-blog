@@ -1,6 +1,5 @@
 import { useQuery, QueryClient, dehydrate } from "react-query";
 import { useRouter } from "next/router";
-import { AxiosError } from "axios";
 //@ts-ignore
 import safeJsonStringify from "safe-json-stringify";
 
@@ -13,7 +12,6 @@ import { API_KEYS } from "@core/constant";
 
 const Home = () => {
   const { isLoading, data } = useQuery(API_KEYS.BOARDS.GET_ALL, APIS.BOARDS.getAll);
-
   const router = useRouter();
 
   return (

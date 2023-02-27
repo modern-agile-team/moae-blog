@@ -12,6 +12,7 @@ import GlobalStyle from "@styles/globalStyle";
 import theme from "@styles/theme";
 import * as APIS from "@core/apis";
 import { TopBar } from "@component/Common";
+import ModalContainer from "@component/Modal/ModalContainer";
 
 const BackgroundSettingProvider = dynamic(() => import("@component/Global/BackgroundSetting"), {
   ssr: false,
@@ -56,6 +57,7 @@ const Settings = ({ Component, pageProps }: AppProps) => {
     <BackgroundSettingProvider>
       <TopBar categoryList={categoryList?.data.map((category: any) => category.name)} />
       <Component {...pageProps} />
+      <ModalContainer />
     </BackgroundSettingProvider>
   );
 };

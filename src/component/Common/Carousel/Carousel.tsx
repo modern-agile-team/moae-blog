@@ -1,4 +1,4 @@
-import React, { cloneElement, ReactElement, useMemo } from "react";
+import React, { cloneElement, ReactElement, useEffect, useMemo } from "react";
 import { uuid } from "uuidv4";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
@@ -16,6 +16,8 @@ interface Props {
   arrowLocation?: "bottom" | "mid-side" | "top" | "bottom-side" | "top-side";
   prevArrowIcon?: ReactElement;
   nextArrowIcon?: ReactElement;
+  backgroundColor?: string;
+  getCurrentItem?: (param: any) => void;
 }
 
 const Carousel = ({
@@ -29,6 +31,8 @@ const Carousel = ({
   arrowLocation = "mid-side",
   prevArrowIcon = <FiChevronLeft />,
   nextArrowIcon = <FiChevronRight />,
+  backgroundColor,
+  getCurrentItem,
 }: Props) => {
   const { itemList, showIndex, transitionTime, listeners, itemLength } = useCarousel({
     children,
@@ -41,8 +45,15 @@ const Carousel = ({
   const sizedPrevArrowIcon = useMemo(() => cloneElement(prevArrowIcon), [prevArrowIcon]);
   const sizedNextArrowIcon = useMemo(() => cloneElement(nextArrowIcon), [nextArrowIcon]);
 
+  useEffect(() => {
+    getCurrentItem && getCurrentItem(itemList[showIndex]);
+    return () => {
+      getCurrentItem && getCurrentItem(itemList[showIndex]);
+    };
+  }, [showIndex]);
+
   return (
-    <S.Wrapper arrowLocation={arrowLocation} width={width}>
+    <S.Wrapper arrowLocation={arrowLocation} width={width} backgroundColor={backgroundColor}>
       {isArrowShow && (
         <div className="arrow-icon-wrapper" id="prev-button" onClick={showPrev}>
           {sizedPrevArrowIcon}

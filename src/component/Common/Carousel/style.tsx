@@ -18,11 +18,12 @@ interface PlayerLocationType {
 export const Wrapper = styled.div<{
   arrowLocation: "bottom" | "mid-side" | "top" | "bottom-side" | "top-side";
   width?: string;
+  backgroundColor?: string;
 }>`
   width: ${(props) => props.width || "100%"};
   position: relative;
   margin: 0 auto;
-  background: rgb(60, 47, 37);
+  background: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : "rgb(60, 47, 37)")};
   padding: 30px 0;
   ${({ arrowLocation }) => {
     const location: ArrowLocationType = {

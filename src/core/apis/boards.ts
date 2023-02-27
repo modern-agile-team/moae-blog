@@ -16,7 +16,7 @@ const BOARDS = {
     const result: AxiosResponse<T.POST.PostType> = await instance.get(`${BOARDS.path}/${postId}`);
     return result;
   },
-  async modifyPost(postId: string, params: T.POST.CreatePostType) {
+  async modifyPost({ postId, params }: { postId: string; params: T.POST.CreatePostType }) {
     const result: AxiosResponse<T.POST.PostType> = await instance.patch(`${BOARDS.path}/${postId}`, params);
     return result;
   },

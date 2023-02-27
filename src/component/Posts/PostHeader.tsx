@@ -1,31 +1,65 @@
 import React from "react";
 import styled from "styled-components";
-import { uuid } from "uuidv4";
+import { useSession } from "next-auth/react";
+import { useMutation } from "react-query";
+import { useRouter } from "next/router";
 
 import theme from "@styles/theme";
 import { formatData } from "@core/utils/index";
+import { PostType } from "@core/types/post";
+import { API_KEYS } from "@core/constant";
+import * as API from "@core/apis";
 
-interface Props {
-  title: string;
-  createdAt: string;
-  writer: string;
-  tags?: string[];
-}
-
-const Header = ({ title, createdAt, writer, tags }: Props) => {
+const Header = ({ title, createdAt, user, categories }: PostType) => {
   const { year, month, day } = formatData(createdAt, "date");
+  const session = useSession();
+  const router = useRouter();
+
+  const { mutate } = useMutation([API_KEYS.BOARDS.DELETE, router.query.post], API.BOARDS.deletePost, {
+    onSuccess(data, variables, context) {
+      console.log("::::::", data);
+      alert("게시글이 삭제되었습니다.");
+      router.push("/");
+    },
+    onError(error, variables, context) {
+      console.error(":::::", error);
+    },
+  });
+
   return (
     <Wrapper>
       <Title>
         <h1>{title}</h1>
       </Title>
       <WriteInfo>
-        <b>{writer}</b>
+        <b>{user.name}</b>
         <span>{`${year}년 ${month}월 ${day}일`}</span>
+        {user.email === session.data?.user?.email && (
+          <div>
+            <button
+              id="modify"
+              onClick={() => {
+                router.push(`/modify/${router.query.post}`);
+              }}
+            >
+              수정
+            </button>
+            <button
+              id="delete"
+              onClick={() => {
+                if (confirm("게시글을 삭제하시겠습니까?")) {
+                  mutate(`${router.query.post}`);
+                }
+              }}
+            >
+              삭제
+            </button>
+          </div>
+        )}
       </WriteInfo>
-      {tags && (
+      {/* {categories && (
         <Tags>
-          {tags.map((tag, index) => {
+          {categories.map((tag, index) => {
             return (
               <li key={uuid()}>
                 <button>{tag}</button>
@@ -33,7 +67,7 @@ const Header = ({ title, createdAt, writer, tags }: Props) => {
             );
           })}
         </Tags>
-      )}
+      )} */}
     </Wrapper>
   );
 };
@@ -60,13 +94,36 @@ const Title = styled.div`
 `;
 
 const WriteInfo = styled.div`
+  display: flex;
+  gap: 15px;
   b {
     font-size: ${theme.FONT.HEAD5};
-    margin-right: 15px;
   }
   span {
     font-size: ${theme.FONT.HEAD5};
     font-weight: lighter;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    button {
+      border: none;
+      padding: 3px 7px;
+      border-radius: 6px;
+      &:hover {
+        opacity: 0.8;
+      }
+      cursor: pointer;
+    }
+    #delete {
+      background-color: #df2828;
+      color: #fff;
+    }
+    #modify {
+      background-color: ${theme.COLORS.MAIN_BRIGHT};
+      color: #fff;
+    }
   }
 `;
 
