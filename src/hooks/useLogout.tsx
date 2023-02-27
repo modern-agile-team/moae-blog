@@ -1,13 +1,14 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { destroyCookie } from "nookies";
 
 const useLogout = () => {
   const session = useSession();
   const router = useRouter();
 
   const execute = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    destroyCookie(null, "accessToken");
+    destroyCookie(null, "refreshToken");
     if (session.status === "authenticated") {
       signOut({ redirect: false });
     }

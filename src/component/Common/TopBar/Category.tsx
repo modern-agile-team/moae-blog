@@ -1,7 +1,6 @@
 import React from "react";
 import { BiCaretUp, BiCaretDown } from "react-icons/bi";
 import Link from "next/link";
-import { uuid } from "uuidv4";
 
 import * as S from "./style";
 
