@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
-import { v4 as uuidv4 } from "uuid";
 import S3 from "react-aws-s3-typescript";
 import Prism from "prismjs";
 import { Editor } from "@toast-ui/react-editor";
@@ -41,7 +40,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
     };
 
     const S3Client = new S3(s3config);
-    const result = await S3Client.uploadFile(blob as File, uuidv4());
+    const result = await S3Client.uploadFile(blob as File);
     return result;
   };
   useEffect(() => {

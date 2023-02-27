@@ -1,7 +1,7 @@
+import { parseCookies } from "nookies";
+
 const getToken = () => {
-  if (typeof window === "undefined") return;
-  const accessToken = localStorage.getItem("accessToken");
-  const refreshToken = localStorage.getItem("refreshToken");
+  const { accessToken, refreshToken } = parseCookies();
 
   return { accessToken, refreshToken };
 };

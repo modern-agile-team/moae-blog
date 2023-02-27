@@ -1,5 +1,4 @@
 import React, { cloneElement, ReactElement, useEffect, useMemo } from "react";
-import { uuid } from "uuidv4";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import * as S from "./style";
@@ -62,9 +61,9 @@ const Carousel = ({
       <S.Container len={itemLength} transition={transitionTime} showIndex={showIndex} slideToShow={slideToShow}>
         <div className="carousel-wrapper">
           <div className="carousel-container">
-            {itemList.map((child) => {
+            {itemList.map((child, index) => {
               return (
-                <S.Item len={itemLength} slideToShow={slideToShow} key={uuid()}>
+                <S.Item len={itemLength} slideToShow={slideToShow} key={index}>
                   {React.cloneElement(child, { doImageLoad: false })}
                 </S.Item>
               );

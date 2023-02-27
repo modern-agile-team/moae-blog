@@ -7,7 +7,7 @@ import { useMutation } from "react-query";
 
 import * as Layout from "@component/Layout";
 import { API_KEYS, SESSION_STATUS } from "@core/constant";
-import { setAxiosAuthHeader } from "@core/utils/index";
+import { setAxiosAuthHeader, setToken } from "@core/utils/index";
 import * as APIS from "@core/apis";
 
 const SignIn = () => {
@@ -17,8 +17,7 @@ const SignIn = () => {
   const { mutate } = useMutation(API_KEYS.USER.SIGN_IN, APIS.USER.login, {
     onSuccess(response: AxiosResponse<{ accessToken: string; refreshToken: string }>, variables, context) {
       const { data } = response;
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
+      setToken(data);
       setAxiosAuthHeader(data.accessToken);
       router.push("/");
     },
