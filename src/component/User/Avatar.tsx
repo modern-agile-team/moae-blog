@@ -7,20 +7,16 @@ interface Props {
 }
 
 const Avatar = ({ img, onClick }: Props) => {
-  return <Wrapper img={img || ""} onClick={onClick}></Wrapper>;
+  return <Wrapper src={img || ""} onClick={onClick} referrerPolicy="no-referrer"></Wrapper>;
 };
 
 export default Avatar;
 
-const Wrapper = styled.div<{
-  img: string;
-}>`
+const Wrapper = styled.img`
   position: relative;
   width: 40px;
   height: 40px;
   border: none;
   border-radius: 50%;
-  background-image: url(${(props) => props.img});
-  background-size: cover;
   cursor: pointer;
 `;
