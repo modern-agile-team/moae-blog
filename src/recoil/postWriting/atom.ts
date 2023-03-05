@@ -6,7 +6,7 @@ const postWriting = atom<POST.CreatePostType>({
   default: {
     title: "",
     categories: [],
-    context: "## 글을 작성해 보세요",
+    context: "",
   },
 });
 

@@ -1,5 +1,15 @@
 import { UserType } from "./user";
 
+export type CategoryType = {
+  boardId: number;
+  categoryId: number;
+  category: {
+    createdAt: string;
+    id: number;
+    name: string;
+  };
+};
+
 export interface PostType {
   context: string;
   createdAt: string;
@@ -8,7 +18,7 @@ export interface PostType {
   updatedAt: string;
   userId: number;
   user: UserType;
-  categories: string[];
+  categories: CategoryType[];
   thumbnail?: string;
 }
 

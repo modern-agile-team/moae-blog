@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { PostEditor, MarkdownPostHeader } from "@component/MarkdownRender";
@@ -7,12 +7,32 @@ import { Loader } from "@component/Common/Loader";
 import deviceAtom from "@recoil/deviceAtom";
 import theme from "@styles/theme";
 import { useCheckAuth } from "@hooks/index";
+import withPostWriting from "@recoil/postWriting/withPostWriting";
+import { useEffect } from "react";
+import { useQuery } from "react-query";
+import { API_KEYS } from "@core/constant";
+import * as APIS from "@core/apis";
+import { useRouter } from "next/router";
 
 const PostModifyPage = () => {
   const device = useRecoilValue(deviceAtom);
+  const setPost = useSetRecoilState(withPostWriting);
+  const router = useRouter();
+
+  const { data } = useQuery([API_KEYS.BOARDS.GET_POST, router.query.post], () =>
+    APIS.BOARDS.getPost(router.query.post as string)
+  );
+
   const { isLoading } = useCheckAuth(() => {
     alert("로그인 이후에 이용할 수 있습니다.");
   });
+
+  useEffect(() => {
+    if (data) {
+      const { data: currentPost } = data;
+      setPost({ ...currentPost });
+    }
+  }, [data]);
 
   return (
     <div>

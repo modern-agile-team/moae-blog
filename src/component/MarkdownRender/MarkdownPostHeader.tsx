@@ -24,31 +24,30 @@ const PostHeader = () => {
   };
 
   const handleKeyDownTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { categories } = post;
+    const newTags = categories.map((category) => category.category.name);
     if (currentTag === "" && e.code === "Backspace") {
-      const { categories } = post;
-      const newTags = [...categories];
       newTags.pop();
-      setPost({ ...post, categories: newTags });
+      setPost({ ...post, categories });
     }
     if (e.code === "Enter" && e.nativeEvent.isComposing === false) {
-      const { categories } = post;
-      const newTags = [...categories];
       newTags.push(currentTag);
       setPost({
         ...(post as T.POST.CreatePostType),
-        categories: newTags,
+        categories,
       });
       setCurrentTag("");
     }
   };
+
   return (
     <Wrapper>
       <InputContainer>
-        <input id="title" placeholder="제목을 입력하세요" onChange={handleChangeTitle} />
+        <input id="title" placeholder="제목을 입력하세요" onChange={handleChangeTitle} value={post.title} />
         <hr />
         <TagsArea>
           {post.categories.map((category, index) => (
-            <p key={index}>{category}</p>
+            <p key={index}>{category.category.name}</p>
           ))}
           <input
             id="tags"

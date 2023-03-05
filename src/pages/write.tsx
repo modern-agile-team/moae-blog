@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { PostEditor, MarkdownPostHeader } from "@component/MarkdownRender";
@@ -7,12 +7,20 @@ import { Loader } from "@component/Common/Loader";
 import deviceAtom from "@recoil/deviceAtom";
 import theme from "@styles/theme";
 import { useCheckAuth } from "@hooks/index";
+import withPostWriting from "@recoil/postWriting/withPostWriting";
+import { useEffect } from "react";
 
 const Write = () => {
   const device = useRecoilValue(deviceAtom);
+  const [post, setPost] = useRecoilState(withPostWriting);
+
   const { isLoading } = useCheckAuth(() => {
     alert("로그인 이후에 이용할 수 있습니다.");
   });
+
+  useEffect(() => {
+    setPost({ ...post, context: "## 글을 작성해 보세요" });
+  }, []);
 
   return (
     <div>
