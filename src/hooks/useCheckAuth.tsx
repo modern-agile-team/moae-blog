@@ -12,6 +12,7 @@ const useCheckAuth = (onError?: () => void) => {
     onSuccess(data) {
       const { accessToken, refreshToken } = data.data;
       setToken({ accessToken, refreshToken });
+      setAxiosAuthHeader(refreshToken);
     },
     onError() {
       onError && onError();
@@ -21,14 +22,13 @@ const useCheckAuth = (onError?: () => void) => {
 
   const existenceApiResult = useQuery(API_KEYS.USER.CHECK, APIS.USER.checkAuth, {
     retry: false,
-    onError(err) {
+    onError() {
       const token = getToken();
       if (token?.refreshToken) {
         setAxiosAuthHeader(token.refreshToken);
         mutate();
       } else {
         onError && onError();
-        logout();
       }
     },
   });
