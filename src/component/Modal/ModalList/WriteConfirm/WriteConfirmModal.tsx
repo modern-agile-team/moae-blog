@@ -66,8 +66,8 @@ const WriteConfirmModal = (props: ModalProps) => {
               }
             }}
           >
-            {imageList.map((image) => (
-              <S.ThumbnailImage src={image} />
+            {imageList.map((image, i) => (
+              <S.ThumbnailImage src={image} key={i} />
             ))}
           </C.Carousel>
         ) : (
