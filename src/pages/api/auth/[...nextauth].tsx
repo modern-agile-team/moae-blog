@@ -1,7 +1,6 @@
 import { NextApiHandler } from "next";
-import NextAuth, { AuthOptions, Session, User } from "next-auth";
-import { AdapterUser } from "next-auth/adapters";
-import { encode, decode, JWT } from "next-auth/jwt";
+import NextAuth, { AuthOptions } from "next-auth";
+import { encode, decode } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
 
 const options: AuthOptions = {

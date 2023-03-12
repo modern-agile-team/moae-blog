@@ -28,7 +28,6 @@ const useCheckAuth = (onError?: () => void) => {
         mutate();
       } else {
         onError && onError();
-        logout();
       }
     },
   });
