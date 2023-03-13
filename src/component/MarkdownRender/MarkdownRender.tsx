@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import { useRecoilState } from "recoil";
-import S3 from "react-aws-s3-typescript";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Prism from "prismjs";
 import { Editor } from "@toast-ui/react-editor";
+
+import * as APIS from "@core/apis";
 
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
@@ -15,15 +16,18 @@ import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 
 import withPostWriting from "@recoil/postWriting/withPostWriting";
+import deviceAtom from "@recoil/deviceAtom";
+import { useMutation } from "react-query";
+import { API_KEYS } from "@core/constant";
 
 interface Props {
   theme?: "dark" | "light";
 }
 
 const MarkDownRender = ({ theme = "light" }: Props) => {
-  const region = "ap-northeast-2";
-  const bucket = "moae-blog-images";
+  const device = useRecoilValue(deviceAtom);
   const [post, setPost] = useRecoilState(withPostWriting);
+  const { mutateAsync: throwImageInS3 } = useMutation(API_KEYS.UPLOADS.IMAGE, APIS.UPLOADS.createImage);
 
   const ref = useRef<Editor>(null);
 
@@ -31,18 +35,17 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
     setPost({ ...post, context: ref.current?.getInstance().getMarkdown() || "" });
   };
 
-  const handleFileInput = async (blob: Blob | File) => {
-    const s3config = {
-      bucketName: bucket as string,
-      region: region as string,
-      accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID as string,
-      secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY as string,
-    };
+  const addImageInEditor = async (blob: Blob | File, callback: (url: string, text?: string) => void) => {
+    const originBlobName = URL.createObjectURL(blob).replace("blob:http://localhost:3000/", "");
+    const blobToFile = new File([blob], originBlobName, { type: blob.type });
 
-    const S3Client = new S3(s3config);
-    const result = await S3Client.uploadFile(blob as File);
-    return result;
+    const formData = new FormData();
+    formData.append("files", blobToFile, blobToFile.name);
+    const { data: imageInS3 } = await throwImageInS3(formData);
+
+    callback("https://d2vqgz9qa2lpq5.cloudfront.net/content/" + imageInS3.names[0]);
   };
+
   useEffect(() => {
     if (!ref.current) return;
     ref.current.getRootElement().className = "MoaeBlogEditor";
@@ -53,7 +56,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
       <Editor
         ref={ref}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]}
-        previewStyle="vertical"
+        previewStyle={device !== "mobile" ? "vertical" : "tab"}
         initialEditType="markdown"
         useCommandShortcut={true}
         usageStatistics={false}
@@ -62,12 +65,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
         onChange={onChange}
         theme={theme}
         language="ko-KR"
-        hooks={{
-          async addImageBlobHook(blob, callback) {
-            const imageData = await handleFileInput(blob);
-            callback(imageData.location);
-          },
-        }}
+        hooks={{ addImageBlobHook: addImageInEditor }}
       />
     </>
   );
