@@ -78,6 +78,8 @@ const Wrapper = styled.div`
 `;
 
 const InputContainer = styled.div`
+  width: calc(60vw - 120px);
+  min-width: 388px;
   display: flex;
   flex-direction: column;
   input {
