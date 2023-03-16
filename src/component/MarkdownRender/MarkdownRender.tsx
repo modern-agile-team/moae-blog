@@ -27,7 +27,7 @@ interface Props {
 const MarkDownRender = ({ theme = "light" }: Props) => {
   const device = useRecoilValue(deviceAtom);
   const [post, setPost] = useRecoilState(withPostWriting);
-  const { mutateAsync: throwImageInS3 } = useMutation(API_KEYS.UPLOADS.IMAGE, APIS.UPLOADS.createImage);
+  const { mutateAsync: uploadImage } = useMutation(API_KEYS.IMAGE.UPLOADS, APIS.IMAGE.uploadsImage);
 
   const ref = useRef<Editor>(null);
 
@@ -35,13 +35,13 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
     setPost({ ...post, context: ref.current?.getInstance().getMarkdown() || "" });
   };
 
-  const addImageInEditor = async (blob: Blob | File, callback: (url: string, text?: string) => void) => {
+  const addImageBlobHook = async (blob: Blob | File, callback: (url: string, text?: string) => void) => {
     const originBlobName = URL.createObjectURL(blob).replace("blob:http://localhost:3000/", "");
     const blobToFile = new File([blob], originBlobName, { type: blob.type });
 
     const formData = new FormData();
     formData.append("files", blobToFile, blobToFile.name);
-    const { data: imageInS3 } = await throwImageInS3(formData);
+    const { data: imageInS3 } = await uploadImage(formData);
 
     callback("https://d2vqgz9qa2lpq5.cloudfront.net/content/" + imageInS3.names[0]);
   };
@@ -65,7 +65,7 @@ const MarkDownRender = ({ theme = "light" }: Props) => {
         onChange={onChange}
         theme={theme}
         language="ko-KR"
-        hooks={{ addImageBlobHook: addImageInEditor }}
+        hooks={{ addImageBlobHook: addImageBlobHook }}
       />
     </>
   );
