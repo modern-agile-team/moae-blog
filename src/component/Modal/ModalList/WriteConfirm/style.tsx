@@ -6,7 +6,7 @@ import * as C from "@component/Common";
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 100%;
   gap: 20px;
 `;
 

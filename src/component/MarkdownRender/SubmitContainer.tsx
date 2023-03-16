@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import withPostWriting from "@recoil/postWriting/withPostWriting";
 import theme from "@styles/theme";
 import useModal from "@hooks/useModal";
 
@@ -31,7 +29,11 @@ const SubmitContainer = () => {
 export default SubmitContainer;
 
 const Wrapper = styled.div`
+  width: fit-content;
+  height: fit-content;
   button {
+    width: 100px;
+    height: 36px;
     padding: 6px 15px;
     border-radius: 6px;
     border: none;
@@ -47,7 +49,6 @@ const Wrapper = styled.div`
     }
   }
   #goback {
-    margin-left: 2rem;
     background-color: ${theme.COLORS.BG1};
     color: ${theme.COLORS.MAIN};
     &:hover {
@@ -55,7 +56,6 @@ const Wrapper = styled.div`
     }
   }
   @media (max-width: 568px) {
-    display: flex;
     margin: 1rem 0;
   }
 `;

@@ -21,6 +21,7 @@ export const Wrapper = styled.div`
 
 export const ModalLayout = styled.div`
   position: absolute;
+  width: 580px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -29,4 +30,7 @@ export const ModalLayout = styled.div`
   padding: 20px 40px;
   box-shadow: 3px 4px 5px 2px ${theme.COLORS.MAIN_BRIGHT};
   animation: ${toTop} forwards 0.5s;
+  @media only screen and (max-width: 568px) {
+    width: 100vw;
+  }
 `;
