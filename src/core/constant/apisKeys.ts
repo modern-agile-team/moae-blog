@@ -19,10 +19,15 @@ const COMMENT = {
   DELETE: "DELETE_COMMENT",
 };
 
+const IMAGE = {
+  UPLOADS: "CREATE_IMAGE",
+};
+
 const apisKeys = {
   USER: USER,
   BOARDS: BOARDS,
   COMMENT: COMMENT,
+  IMAGE: IMAGE,
 } as const;
 
 export default apisKeys;
