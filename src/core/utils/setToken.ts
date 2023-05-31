@@ -12,6 +12,7 @@ const setToken = ({ accessToken, refreshToken }: { accessToken?: string; refresh
   if (refreshToken) {
     setCookie(null, "refreshToken", refreshToken, {
       maxAge,
+      httpOnly: true,
     });
   }
 };

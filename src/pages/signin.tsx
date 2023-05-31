@@ -1,5 +1,5 @@
 import { signIn, useSession } from "next-auth/react";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useEffect } from "react";
@@ -21,7 +21,6 @@ const SignIn = () => {
       setAxiosAuthHeader(data.accessToken);
       router.push("/");
     },
-    onError(error: AxiosError, variables, context) {},
   });
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import { parseCookies } from "nookies";
 
 const getToken = () => {
-  const { accessToken, refreshToken } = parseCookies();
+  const { accessToken } = parseCookies();
 
-  return { accessToken, refreshToken };
+  return { accessToken };
 };
 
 export default getToken;
