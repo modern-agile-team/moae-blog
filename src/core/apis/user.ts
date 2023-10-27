@@ -1,5 +1,4 @@
 import * as T from "@core/types/index";
-import { AxiosResponse } from "axios";
 import instance from "./instance";
 
 const USER = {
@@ -10,12 +9,6 @@ const USER = {
   },
   async checkAuth() {
     const result = await instance.get(`${USER.path}/existence`);
-    return result;
-  },
-  async refresh() {
-    const result: AxiosResponse<{ accessToken: string; refreshToken: string }> = await instance.post(
-      `${USER.path}/refresh`
-    );
     return result;
   },
 };
